@@ -14,7 +14,8 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('AddOrder') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+        <form action="{{ route('AddOrder') }}" enctype="multipart/form-data" method="POST"
+            class="w-full flex flex-col gap-4 px-40 py-4">
             @csrf
             <div class="flex flex-col gap-1 w-full">
                 <label for="">Customer</label>
@@ -134,6 +135,11 @@
                     <option value="Selesai">Selesai</option>
                 </select>
                 @error('status')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+                <label for="image_order">Upload Gambar</label>
+                <input type="file" name="image_order" class="p-4 rounded-md">
+                @error('image_order')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>

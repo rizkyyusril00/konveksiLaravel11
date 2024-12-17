@@ -145,7 +145,11 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="flex items-center gap-2 w-[250px]">
                                     {{-- image --}}
-                                    <div class="w-20 h-12 rounded-md bg-slate-200"></div>
+                                    <div class="w-20 h-12 rounded-md bg-slate-200">
+                                        <img src="{{ asset('storage/' . $order->image_order) }}"
+                                            alt="{{ $order->image_customer }} {{ asset('storage/' . $order->image_order) }}"
+                                            class="w-full h-full object-cover">
+                                    </div>
                                     <div class="flex flex-col">
                                         <span class="font-semibold">
                                             {{ $order->customer }}

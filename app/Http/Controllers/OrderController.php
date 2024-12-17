@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -74,6 +75,7 @@ class OrderController extends Controller
             'jumlah_potong' => 'required|string',
             'harga_satuan' => 'required|string',
             'status' => 'required|string',
+            'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
         ]);
         // add pakaian
         try {
@@ -92,6 +94,15 @@ class OrderController extends Controller
             $order->jumlah_potong = $request->jumlah_potong;
             $order->harga_satuan = $request->harga_satuan;
             $order->status = $request->status;
+
+            // Proses upload gambar
+            if ($request->hasFile('image_order')) {
+                $file = $request->file('image_order');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('uploads/orders', $filename, 'public'); // Simpan di storage/public/uploads/orders
+                $order->image_order = $path; // Simpan path ke database
+            }
+
             $order->save();
             return redirect('/')->with('success', 'Order berhasil ditambahkan');
         } catch (\Exception $e) {

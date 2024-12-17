@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('jumlah_potong');
             $table->string('harga_satuan');
             $table->string('status');
+            $table->string('image_order')->nullable();
             $table->timestamps();
 
             // Tambahkan foreign key constraint

@@ -22,6 +22,7 @@ class Order extends Model
         'jumlah_potong',
         'harga_satuan',
         'status',
+        'image_order'
     ];
 
     // Relasi ke tabel karyawans

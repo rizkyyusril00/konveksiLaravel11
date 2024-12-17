@@ -35,3 +35,6 @@ Route::post('/add/order', [OrderController::class, 'AddOrder'])->name('AddOrder'
 Route::get('/updateOrder/{id}', [OrderController::class, 'loadEditForm']);
 Route::post('/updateOrder/user', [OrderController::class, 'EditOrder'])->name('EditOrder');
 Route::get('/deleteOrder/{id}', [OrderController::class, 'deleteOrder']);
+Route::any('{any}', function () {
+    abort(404, 'Halaman tidak ditemukan.');
+})->where('any', '.*storage.*');

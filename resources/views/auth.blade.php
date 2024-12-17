@@ -11,7 +11,7 @@
 
 <body class="bg-slate-200">
     <div class="flex items-center justify-center h-screen w-screen">
-        <div class="flex flex-col gap-6 items-center p-6 rounded-md bg-violet-400 border border-secondary">
+        <div class="flex flex-col gap-6 items-center p-6 rounded-md bg-violet-200 border border-secondary">
             <div class="flex items-center flex-col gap-3">
                 <h1>Log In</h1>
                 <span>Silahkan Login Untuk Akses Dashboard</span>
