@@ -13,8 +13,8 @@
 <body>
     <nav class="w-full fixed py-4 px-4 bg-primary border-b border-secondary flex justify-between z-40">
         {{-- logo --}}
-        <div class="flex items-center gap-8">
-            <h1 class="text-3xl">logo</h1>
+        <div class="w-24 h-14">
+            <img src="/img/logo.png" alt="" class="w-full h-full object-cover">
         </div>
         {{-- cta --}}
         <div class="flex items-center gap-6">
