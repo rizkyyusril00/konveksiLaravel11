@@ -1,6 +1,5 @@
 <x-layout>
     <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4">
-        <h1>Edit Order</h1>
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -14,7 +13,8 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('EditOrder') }}" method="POST" class="w-full flex flex-col gap-4 px-40">
+        <form action="{{ route('EditOrder') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+            <h1 class="text-center">Edit Order</h1>
             @csrf
             <input type="hidden" name="order_id" value="{{ $order->id }}" id="">
             <div class="flex flex-col gap-1 w-full">
@@ -84,23 +84,25 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Penjahit</label>
-                <select name="penjahit" id="" class="p-4 rounded-md">
-                    <option value="{{ $order->penjahit }}" disabled selected>{{ $order->penjahit }}</option>
+                <select name="penjahit_id" id="" class="p-4 rounded-md">
+                    <option value="{{ $order->penjahit->name }}" disabled selected>{{ $order->penjahit->name }}
+                    </option>
                     <option value="Asep">Asep</option>
                     <option value="Agus">Agus</option>
                     <option value="Ali">Ali</option>
                 </select>
-                @error('penjahit')
+                @error('penjahit_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Pemotong</label>
-                <select name="pemotong" id="" class="p-4 rounded-md">
-                    <option value="{{ $order->pemotong }}" disabled selected>{{ $order->pemotong }}</option>
+                <select name="pemotong_id" id="" class="p-4 rounded-md">
+                    <option value="{{ $order->pemotong->name }}" disabled selected>{{ $order->pemotong->name }}
+                    </option>
                     <option value="Asep">Asep</option>
                     <option value="Agus">Agus</option>
                     <option value="Ali">Ali</option>
                 </select>
-                @error('pemotong')
+                @error('pemotong_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Size</label>
@@ -137,7 +139,11 @@
                 @enderror
             </div>
             {{-- submit --}}
-            <button type="submit" class="btn btn-success w-[100px]">Edit</button>
+            <div class="flex items-center gap-3">
+                <a href="/"
+                    class="btn btn-primary border border-accent w-auto hover:bg-accent hover:text-primary"">Cancel</a>
+                <button type="submit" class="btn btn-success w-[100px]">Edit</button>
+            </div>
         </form>
     </div>
 </x-layout>

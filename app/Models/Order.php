@@ -23,6 +23,18 @@ class Order extends Model
         'harga_satuan',
         'status',
     ];
+
+    // Relasi ke tabel karyawans
+    public function penjahit()
+    {
+        return $this->belongsTo(Karyawan::class, 'penjahit_id');
+    }
+
+    public function pemotong()
+    {
+        return $this->belongsTo(Karyawan::class, 'pemotong_id');
+    }
+
     // Accessor untuk tanggal_order
     public function getTanggalOrderAttribute($value)
     {

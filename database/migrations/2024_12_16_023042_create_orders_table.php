@@ -21,13 +21,17 @@ return new class extends Migration
             $table->string('bahan_utama');
             $table->string('bahan_tambahan')->nullable();
             $table->string('jenis_kancing');
-            $table->string('penjahit'); //relasi dengan tabel karyawan mengambil jenih perkjaan 'Penjahit' dan ambil nama karyawannya
-            $table->string('pemotong'); //relasi dengan tabel karyawan mengambil jenih perkjaan 'Pemotong' dan ambil nama karyawannya
+            $table->unsignedBigInteger('penjahit_id'); // Foreign key ke tabel karyawans
+            $table->unsignedBigInteger('pemotong_id'); // Foreign key ke tabel karyawans
             $table->string('size');
             $table->string('jumlah_potong');
             $table->string('harga_satuan');
             $table->string('status');
             $table->timestamps();
+
+            // Tambahkan foreign key constraint
+            $table->foreign('penjahit_id')->references('id')->on('karyawans')->onDelete('cascade');
+            $table->foreign('pemotong_id')->references('id')->on('karyawans')->onDelete('cascade');
         });
     }
 

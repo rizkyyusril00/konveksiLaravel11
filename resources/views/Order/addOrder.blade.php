@@ -79,21 +79,29 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Penjahit</label>
-                <select name="penjahit" id="" class="p-4 rounded-md">
+                <select name="penjahit_id" class="p-4 rounded-md">
                     <option value="" disabled selected>Pilih Penjahit</option>
-                    <option value="Asep">Asep</option>
-                    <option value="Agus">Agus</option>
-                    <option value="Ali">Ali</option>
+                    @if (count($penjahits) > 0)
+                        @foreach ($penjahits as $penjahit)
+                            <option value="{{ $penjahit->id }}">{{ $penjahit->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Penjahit</option>
+                    @endif
                 </select>
-                @error('penjahit')
+                @error('penjahit_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Pemotong</label>
-                <select name="pemotong" id="" class="p-4 rounded-md">
+                <select name="pemotong_id" class="p-4 rounded-md">
                     <option value="" disabled selected>Pilih Pemotong</option>
-                    <option value="Asep">Asep</option>
-                    <option value="Agus">Agus</option>
-                    <option value="Ali">Ali</option>
+                    @if (count($pemotongs) > 0)
+                        @foreach ($pemotongs as $pemotong)
+                            <option value="{{ $pemotong->id }}">{{ $pemotong->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Pemotong</option>
+                    @endif
                 </select>
                 @error('pemotong')
                     <span class="text-red-400">{{ $message }}</span>

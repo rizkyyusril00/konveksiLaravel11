@@ -8,7 +8,16 @@ class Karyawan extends Model
 {
     protected $fillable = [
         'name',
-        'email',
         'pekerjaan',
     ];
+
+    public function ordersAsPenjahit()
+    {
+        return $this->hasMany(Order::class, 'penjahit_id');
+    }
+
+    public function ordersAsPemotong()
+    {
+        return $this->hasMany(Order::class, 'pemotong_id');
+    }
 }

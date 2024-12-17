@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -16,6 +17,7 @@ class OrderController extends Controller
         $filter = $request->query('filter');
         $orderBy = $request->query('orderBy', 'created_at'); // Default ke 'customer'
         $direction = $request->query('direction', 'desc'); // Default ke 'asc'
+
 
         // Query Pakaian with search and filter
         $query = Order::query();
@@ -49,7 +51,10 @@ class OrderController extends Controller
 
     public function loadAllOrderForm()
     {
-        return view('Order.addOrder');
+        // Ambil data penjahit dan pemotong
+        $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
+        $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
+        return view('Order.addOrder', compact('penjahits', 'pemotongs'));
     }
     public function AddOrder(Request $request)
     {
@@ -63,8 +68,8 @@ class OrderController extends Controller
             'bahan_utama' => 'required|string',
             'bahan_tambahan' => 'nullable|string',
             'jenis_kancing' => 'required|string',
-            'penjahit' => 'required|string',
-            'pemotong' => 'required|string',
+            'penjahit_id' => 'required|exists:karyawans,id',
+            'pemotong_id' => 'required|exists:karyawans,id',
             'size' => 'required|string',
             'jumlah_potong' => 'required|string',
             'harga_satuan' => 'required|string',
@@ -81,14 +86,14 @@ class OrderController extends Controller
             $order->bahan_utama = $request->bahan_utama;
             $order->bahan_tambahan = $request->bahan_tambahan ?: null;
             $order->jenis_kancing = $request->jenis_kancing;
-            $order->penjahit = $request->penjahit;
-            $order->pemotong = $request->pemotong;
+            $order->penjahit_id = $request->penjahit_id;
+            $order->pemotong_id = $request->pemotong_id;
             $order->size = $request->size;
             $order->jumlah_potong = $request->jumlah_potong;
             $order->harga_satuan = $request->harga_satuan;
             $order->status = $request->status;
             $order->save();
-            return redirect('/order')->with('success', 'Order berhasil ditambahkan');
+            return redirect('/')->with('success', 'Order berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect('/add/order')->with('error', $e->getMessage());
         }
@@ -106,8 +111,8 @@ class OrderController extends Controller
             'bahan_utama' => 'sometimes|required|string',
             'bahan_tambahan' => 'sometimes|nullable|string',
             'jenis_kancing' => 'sometimes|required|string',
-            'penjahit' => 'sometimes|required|string',
-            'pemotong' => 'sometimes|required|string',
+            'penjahit_id' => 'sometimes|required|exists:karyawans,id',
+            'pemotong_id' => 'sometimes|required|exists:karyawans,id',
             'size' => 'sometimes|required|string',
             'jumlah_potong' => 'sometimes|required|string',
             'harga_satuan' => 'sometimes|required|string',
@@ -127,8 +132,8 @@ class OrderController extends Controller
                 'bahan_utama',
                 'bahan_tambahan',
                 'jenis_kancing',
-                'penjahit',
-                'pemotong',
+                'penjahit_id',
+                'pemotong_id',
                 'size',
                 'jumlah_potong',
                 'harga_satuan',
@@ -139,7 +144,7 @@ class OrderController extends Controller
             $order->refresh();
 
             // Redirect dengan pesan sukses dan data terbaru
-            return redirect('/order')->with('success', "order dari {$order->customer} berhasil diperbarui!");
+            return redirect('/')->with('success', "order dari {$order->customer} berhasil diperbarui!");
         } catch (\Exception $e) {
             // Tangkap error lainnya
             return back()->with('fail', "Terjadi kesalahan: {$e->getMessage()}");
@@ -155,10 +160,11 @@ class OrderController extends Controller
     public function deleteOrder($id)
     {
         try {
-            Order::where('id', $id)->delete();
-            return redirect('/order')->with('success', 'Order Deleted Successfully');
-        } catch (\exception $e) {
-            return redirect('/order')->with('fail', $e->getMessage());
+            $order = Order::findOrFail($id);
+            $order->delete();
+            return redirect('/')->with('success', 'Order Deleted Successfully');
+        } catch (\Exception $e) {
+            return redirect('/')->with('fail', 'Failed to delete order: ' . $e->getMessage());
         }
     }
 }

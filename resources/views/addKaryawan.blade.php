@@ -36,7 +36,7 @@
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/"
+                <a href="/karyawan"
                     class="btn btn-primary border border-accent w-auto hover:bg-accent hover:text-primary"">Cancel</a>
                 <button type="submit" class="btn btn-success w-auto">Add</button>
             </div>

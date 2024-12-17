@@ -5,9 +5,14 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PakaianController;
 
+// auth
+Route::get('/auth', function () {
+    return view('auth');
+});
+
 
 // karyawan
-Route::get('/', [KaryawanController::class, 'loadAllKaryawan'])->name('home');
+Route::get('/karyawan', [KaryawanController::class, 'loadAllKaryawan'])->name('karyawan');
 Route::get('/add/karyawan', [KaryawanController::class, 'loadAllKaryawanForm']);
 Route::post('/add/karyawan', [KaryawanController::class, 'AddKaryawan'])->name('AddKaryawan');
 Route::get('/updateKaryawan/{id}', [KaryawanController::class, 'loadEditForm']);
@@ -24,7 +29,7 @@ Route::get('/deletePakaian/{id}', [PakaianController::class, 'deletePakaian']);
 
 
 //order
-Route::get('/order', [OrderController::class, 'loadAllOrder'])->name('order');
+Route::get('/', [OrderController::class, 'loadAllOrder'])->name('order');
 Route::get('/add/order', [OrderController::class, 'loadAllOrderForm']);
 Route::post('/add/order', [OrderController::class, 'AddOrder'])->name('AddOrder');
 Route::get('/updateOrder/{id}', [OrderController::class, 'loadEditForm']);

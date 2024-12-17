@@ -53,7 +53,7 @@ class KaryawanController extends Controller
             $karyawan->name = $request->name;
             $karyawan->pekerjaan = $request->pekerjaan;
             $karyawan->save();
-            return redirect('/')->with('success', 'Karyawan berhasil ditambahkan');
+            return redirect('/karyawan')->with('success', 'Karyawan berhasil ditambahkan');
         } catch (\Exception $e) {
             return redirect('/add/karyawan')->with('error', $e->getMessage());
         }
@@ -80,7 +80,7 @@ class KaryawanController extends Controller
             $karyawan->refresh();
 
             // Redirect dengan pesan sukses dan data terbaru
-            return redirect('/')->with('success', "Data pengguna {$karyawan->name} berhasil diperbarui!");
+            return redirect('/karyawan')->with('success', "Data pengguna {$karyawan->name} berhasil diperbarui!");
         } catch (\Illuminate\Database\QueryException $e) {
             // Tangkap error duplicate entry
             if ($e->errorInfo[1] == 1062) {
@@ -104,9 +104,9 @@ class KaryawanController extends Controller
     {
         try {
             Karyawan::where('id', $id)->delete();
-            return redirect('/')->with('success', 'User Deleted Successfully');
+            return redirect('/karyawan')->with('success', 'User Deleted Successfully');
         } catch (\exception $e) {
-            return redirect('/')->with('fail', $e->getMessage());
+            return redirect('/karyawan')->with('fail', $e->getMessage());
         }
     }
 }
