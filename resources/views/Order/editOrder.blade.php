@@ -117,9 +117,9 @@
                 <label for="">Size</label>
                 <select name="size" id="" class="p-4 rounded-md">
                     <option value="{{ $order->size }}" disabled selected>{{ $order->size }}</option>
-                    <option value="xxl">xxl</option>
-                    <option value="xl">xl</option>
-                    <option value="l">l</option>
+                    <option value="XXL">XXL</option>
+                    <option value="XL">XL</option>
+                    <option value="L">L</option>
                 </select>
                 @error('size')
                     <span class="text-red-400">{{ $message }}</span>

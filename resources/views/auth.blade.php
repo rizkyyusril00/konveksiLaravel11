@@ -31,7 +31,7 @@
                     <input type="password" name="password" id="password" placeholder="Masukan Password..."
                         class="input w-full" />
                 </div>
-                <button type="submit" class="btn btn-primary">Login </button>
+                <button type="submit" class="btn btn-primary">Login</button>
                 <span class="text-center">Don't have an account? <span>Sign Up</span></span>
             </form>
         </div>

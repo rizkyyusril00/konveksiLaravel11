@@ -162,16 +162,66 @@
                                 </td>
                                 <td>{{ ucwords($order->admin) }}</td>
                                 <td class="">
-                                    <a
-                                        class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-1 rounded-md bg-opacity-20">
-                                        <div
-                                            class="{{ $order->status === 'Antrian' ? 'bg-blue-600' : ($order->status === 'Selesai' ? 'bg-green-600' : 'bg-orange-600') }} w-1 h-1 mt-[2px] rounded-full">
-                                        </div>
-                                        <span
-                                            class="{{ $order->status === 'Antrian' ? 'text-blue-600' : ($order->status === 'Selesai' ? 'text-green-600' : 'text-orange-600') }} text-[14px]">
-                                            {{ $order->status }}
-                                        </span>
-                                    </a>
+                                    <div x-data="{ openStatus: false }" x-init="openStatus = localStorage.getItem('modal-openStatus') === 'true';
+                                    $watch('openStatus', value => localStorage.setItem('modal-openStatus', value))">
+                                        <!-- Button to open modal -->
+                                        <button @click="openStatus = true" class="">
+                                            <div
+                                                class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-1 rounded-md bg-opacity-20">
+                                                <div
+                                                    class="{{ $order->status === 'Antrian' ? 'bg-blue-600' : ($order->status === 'Selesai' ? 'bg-green-600' : 'bg-orange-600') }} w-1 h-1 mt-[2px] rounded-full">
+                                                </div>
+                                                <span
+                                                    class="{{ $order->status === 'Antrian' ? 'text-blue-600' : ($order->status === 'Selesai' ? 'text-green-600' : 'text-orange-600') }} text-[14px]">
+                                                    {{ $order->status }}
+                                                </span>
+                                            </div>
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <template x-if="openStatus">
+                                            <div x-transition:enter="transition transform ease-out duration-300"
+                                                x-transition:enter-start="opacity-0 scale-50"
+                                                x-transition:enter-end="opacity-100 scale-100"
+                                                x-transition:leave="transition transform ease-in duration-300"
+                                                x-transition:leave-start="opacity-100 scale-100"
+                                                x-transition:leave-end="opacity-0 scale-50"
+                                                class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50"
+                                                @click.self="openStatus = false">
+
+                                                <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
+                                                    <h3 class="text-lg font-bold">Ubah Status Dari Order Ini?</h3>
+                                                    <form @submit="setTimeout(() => { openStatus = false }, 100);"
+                                                        action="{{ route('EditOrder') }}" method="POST"
+                                                        class="flex flex-col gap-2 my-3">
+                                                        @csrf
+                                                        <input type="hidden" name="order_id"
+                                                            value="{{ $order->id }}">
+                                                        <label for="">Status</label>
+                                                        <select name="status" id="" class="p-4 rounded-md">
+                                                            <option value="{{ $order->status }}" disabled selected>
+                                                                {{ $order->status }}</option>
+                                                            <option value="Antrian">Antrian</option>
+                                                            <option value="Diproses">Diproses</option>
+                                                            <option value="Selesai">Selesai</option>
+                                                        </select>
+                                                        @error('status')
+                                                            <span class="text-red-400">{{ $message }}</span>
+                                                        @enderror
+
+                                                        <div class="flex items-center gap-2">
+                                                            <button @click="openStatus = false"
+                                                                class="btn bg-primary border border-accent w-auto hover:bg-accent hover:text-primary">
+                                                                Cancel
+                                                            </button>
+                                                            <button type="submit"
+                                                                class="btn btn-info text-white w-[100px] py-2">Edit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
                                 </td>
                                 <td>{{ $order->tanggal_order }}</td>
                                 <td>{{ $order->tanggal_selesai }}</td>
@@ -197,8 +247,8 @@
                                             </svg>
                                         </a>
 
-                                        <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
-                                        $watch('open', value => localStorage.setItem('modal-open', value))">
+                                        <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-openDelete') === 'true';
+                                        $watch('open', value => localStorage.setItem('modal-openDelete', value))">
                                             <!-- Button to open modal -->
                                             <button @click="open = true" class="">
                                                 <svg class="fill-secondary hover:fill-error transition-all duration-300 ease-in-out"
@@ -226,7 +276,8 @@
                                                         <p class="py-4">Apakah anda yakin akan hapus order dengan
                                                             nama
                                                             customer
-                                                            <span class="font-bold">{{ $order->customer }} </span>
+                                                            <span class="font-bold">{{ ucwords($order->customer) }}
+                                                            </span>
                                                             ?
                                                         </p>
                                                         <div class="flex items-center gap-2">

@@ -35,7 +35,7 @@
                 @enderror
                 <label for="">Tanggal Selesai</label>
                 <input type="date" name="tanggal_selesai" class="p-4 rounded-md" placeholder="Tanggal Selesai..."
-                    min="{{ 'tanggal_order' }}">
+                    min="{{ old('tanggal_order') }}">
                 @error('tanggal_selesai')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
@@ -84,7 +84,7 @@
                     <option value="" disabled selected>Pilih Penjahit</option>
                     @if (count($penjahits) > 0)
                         @foreach ($penjahits as $penjahit)
-                            <option value="{{ $penjahit->id }}">{{ $penjahit->name }}</option>
+                            <option value="{{ $penjahit->id }}">{{ ucwords($penjahit->name) }}</option>
                         @endforeach
                     @else
                         <option value="" disabled>Tidak Ada Penjahit</option>
@@ -98,7 +98,7 @@
                     <option value="" disabled selected>Pilih Pemotong</option>
                     @if (count($pemotongs) > 0)
                         @foreach ($pemotongs as $pemotong)
-                            <option value="{{ $pemotong->id }}">{{ $pemotong->name }}</option>
+                            <option value="{{ $pemotong->id }}">{{ ucwords($pemotong->name) }}</option>
                         @endforeach
                     @else
                         <option value="" disabled>Tidak Ada Pemotong</option>
@@ -110,9 +110,9 @@
                 <label for="">Size</label>
                 <select name="size" id="" class="p-4 rounded-md">
                     <option value="" disabled selected>Pilih Size</option>
-                    <option value="xxl">xxl</option>
-                    <option value="xl">xl</option>
-                    <option value="l">l</option>
+                    <option value="XXL">XXL</option>
+                    <option value="XL">XL</option>
+                    <option value="L">L</option>
                 </select>
                 @error('size')
                     <span class="text-red-400">{{ $message }}</span>

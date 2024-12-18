@@ -62,13 +62,13 @@
                 <!-- head -->
                 <thead class="bg-slate-200">
                     <tr class="text-[12px] text-secondary">
-                        <th class="w-[10%]">No</th>
-                        <th class="w-[20%]">Name</th>
-                        <th class="w-[20%]">Pekerjaan</th>
-                        <th class="w-[20%]">Upah/Potong</th>
-                        <th class="w-[20%]">Total Order</th>
-                        <th class="w-[20%]">Total Upah</th>
-                        <th class="w-[10%]">Action</th>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Pekerjaan</th>
+                        <th>Upah/Potong</th>
+                        <th>Total Order</th>
+                        <th>Total Upah</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

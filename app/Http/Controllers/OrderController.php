@@ -177,7 +177,15 @@ class OrderController extends Controller
     {
         try {
             $order = Order::findOrFail($id);
+
+            // Hapus file gambar dari storage jika ada
+            if ($order->image_order) {
+                Storage::disk('public')->delete($order->image_order);
+            }
+
+            // Hapus data order
             $order->delete();
+
             return redirect('/')->with('success', 'Order Deleted Successfully');
         } catch (\Exception $e) {
             return redirect('/')->with('fail', 'Failed to delete order: ' . $e->getMessage());
