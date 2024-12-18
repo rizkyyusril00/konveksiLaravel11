@@ -13,17 +13,17 @@
 <body>
     <nav class="w-full fixed py-4 px-4 bg-primary border-b border-secondary flex justify-between z-40">
         {{-- logo --}}
-        <div class="w-24 h-14">
+        <a href="/" class="w-24 h-14">
             <img src="/img/logo.png" alt="" class="w-full h-full object-cover">
-        </div>
+        </a>
         {{-- cta --}}
-        <div class="flex items-center gap-6">
+        {{-- <div class="flex items-center gap-6">
             <div class="btn bg-primary border border-accent w-[90px] hover:bg-accent hover:text-primary">
                 Action</div>
             <div class="btn bg-accent text-primary w-[90px] hover:bg-accent hover:text-primary hover:border-accent">
                 Action
             </div>
-        </div>
+        </div> --}}
     </nav>
     {{-- main --}}
     <div class="flex">

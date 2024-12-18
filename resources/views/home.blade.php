@@ -19,7 +19,7 @@
 
 
         <div class="flex items-center justify-between gap-4">
-            <form method="GET" action="/" class="flex gap-2">
+            <form method="GET" action="/karyawan" class="flex gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama..."
                         class="input input-bordered input-secondary pr-10 w-40 text-[14px]" />
@@ -41,7 +41,7 @@
                     @endforeach
                 </select>
                 <button type="submit" class="btn btn-outline btn-secondary text-[14px]">Search</button>
-                <a href="/" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
+                <a href="/karyawan" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
             <a href="{{ route('AddKaryawan') }}" class="btn btn-success w-fit flex items-center gap-2 group">

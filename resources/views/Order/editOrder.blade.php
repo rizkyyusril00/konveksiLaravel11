@@ -13,7 +13,8 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('EditOrder') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+        <form action="{{ route('EditOrder') }}" enctype="multipart/form-data" method="POST"
+            class="w-full flex flex-col gap-4 px-40 py-4">
             <h1 class="text-center">Edit Order</h1>
             @csrf
             <input type="hidden" name="order_id" value="{{ $order->id }}" id="">
@@ -87,9 +88,13 @@
                 <select name="penjahit_id" id="" class="p-4 rounded-md">
                     <option value="{{ $order->penjahit->name }}" disabled selected>{{ $order->penjahit->name }}
                     </option>
-                    <option value="Asep">Asep</option>
-                    <option value="Agus">Agus</option>
-                    <option value="Ali">Ali</option>
+                    @if (count($penjahits) > 0)
+                        @foreach ($penjahits as $penjahit)
+                            <option value="{{ $penjahit->id }}">{{ $penjahit->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Penjahit</option>
+                    @endif
                 </select>
                 @error('penjahit_id')
                     <span class="text-red-400">{{ $message }}</span>
@@ -98,9 +103,13 @@
                 <select name="pemotong_id" id="" class="p-4 rounded-md">
                     <option value="{{ $order->pemotong->name }}" disabled selected>{{ $order->pemotong->name }}
                     </option>
-                    <option value="Asep">Asep</option>
-                    <option value="Agus">Agus</option>
-                    <option value="Ali">Ali</option>
+                    @if (count($pemotongs) > 0)
+                        @foreach ($pemotongs as $pemotong)
+                            <option value="{{ $pemotong->id }}">{{ $pemotong->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Pemotong</option>
+                    @endif
                 </select>
                 @error('pemotong_id')
                     <span class="text-red-400">{{ $message }}</span>
@@ -135,6 +144,20 @@
                     <option value="Selesai">Selesai</option>
                 </select>
                 @error('status')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+                <label for="image_order">Upload Gambar</label>
+                <input type="file" name="image_order" class="p-4 rounded-md">
+                @if ($order->image_order)
+                    <div class="flex gap-2">
+                        <div class="w-20 h-20 rounded-md">
+                            <img src="{{ asset('storage/' . $order->image_order) }}" alt="Current Image"
+                                class="w-full h-full object-cover rounded-md">
+                        </div>
+                        <span>Gambar Sebelumnya</span>
+                    </div>
+                @endif
+                @error('image_order')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>

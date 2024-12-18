@@ -112,7 +112,7 @@ class OrderController extends Controller
 
     public function EditOrder(Request $request)
     {
-        // form validate
+        // Validasi form
         $request->validate([
             'customer' => 'sometimes|required|string',
             'admin' => 'sometimes|required|string',
@@ -128,44 +128,49 @@ class OrderController extends Controller
             'jumlah_potong' => 'sometimes|required|string',
             'harga_satuan' => 'sometimes|required|string',
             'status' => 'sometimes|required|string',
+            'image_order' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:1048',
         ]);
-        // ambil data
+
+        // Ambil data order berdasarkan ID
         $order = Order::findOrFail($request->order_id);
 
         try {
-            // edit data 
-            $order->update($request->only([
-                'customer',
-                'admin',
-                'tanggal_order',
-                'tanggal_selesai',
-                'jenis_pakaian',
-                'bahan_utama',
-                'bahan_tambahan',
-                'jenis_kancing',
-                'penjahit_id',
-                'pemotong_id',
-                'size',
-                'jumlah_potong',
-                'harga_satuan',
-                'status'
-            ]));
+            // Update atribut lainnya kecuali gambar
+            $order->update($request->except(['image_order']));
 
-            // Reload data order untuk mendapatkan data yang baru diupdate
-            $order->refresh();
+            // Proses file gambar jika ada file yang diunggah
+            if ($request->hasFile('image_order')) {
+                // Hapus gambar lama dari storage jika ada
+                if ($order->image_order) {
+                    Storage::disk('public')->delete($order->image_order);
+                }
 
-            // Redirect dengan pesan sukses dan data terbaru
-            return redirect('/')->with('success', "order dari {$order->customer} berhasil diperbarui!");
+                // Simpan gambar baru
+                $file = $request->file('image_order');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('uploads/orders', $filename, 'public');
+
+                // Update path gambar di database
+                $order->image_order = $path;
+                $order->save();
+            }
+
+            // Redirect dengan pesan sukses
+            return redirect('/')->with('success', "Order dari {$order->customer} berhasil diperbarui!");
         } catch (\Exception $e) {
             // Tangkap error lainnya
             return back()->with('fail', "Terjadi kesalahan: {$e->getMessage()}");
         }
     }
 
+
     public function loadEditForm($id)
     {
         $order = Order::find($id);
-        return view('Order.editOrder', compact('order'));
+        // Ambil data penjahit dan pemotong
+        $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
+        $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
+        return view('Order.editOrder', compact('order', 'penjahits', 'pemotongs'));
     }
 
     public function deleteOrder($id)
