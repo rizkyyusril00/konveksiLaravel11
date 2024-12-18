@@ -36,6 +36,45 @@ class Order extends Model
         return $this->belongsTo(Karyawan::class, 'pemotong_id');
     }
 
+    // Event model
+    protected static function booted()
+    {
+        // Ketika order dibuat
+        static::created(function ($order) {
+            $order->penjahit->updateTotalOrder();
+            $order->pemotong->updateTotalOrder();
+        });
+
+        // Ketika order dihapus
+        static::deleted(function ($order) {
+            $order->penjahit->updateTotalOrder();
+            $order->pemotong->updateTotalOrder();
+        });
+
+        // Ketika order diperbarui
+        static::updated(function ($order) {
+            // Ambil data lama sebelum diupdate
+            $originalPenjahitId = $order->getOriginal('penjahit_id');
+            $originalPemotongId = $order->getOriginal('pemotong_id');
+
+            // Jika `penjahit_id` berubah, update total order karyawan lama dan baru
+            if ($originalPenjahitId !== $order->penjahit_id) {
+                if ($originalPenjahitId) {
+                    Karyawan::find($originalPenjahitId)?->updateTotalOrder();
+                }
+                $order->penjahit?->updateTotalOrder();
+            }
+
+            // Jika `pemotong_id` berubah, update total order karyawan lama dan baru
+            if ($originalPemotongId !== $order->pemotong_id) {
+                if ($originalPemotongId) {
+                    Karyawan::find($originalPemotongId)?->updateTotalOrder();
+                }
+                $order->pemotong?->updateTotalOrder();
+            }
+        });
+    }
+
     // Accessor untuk tanggal_order
     public function getTanggalOrderAttribute($value)
     {

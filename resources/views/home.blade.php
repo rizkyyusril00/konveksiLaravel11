@@ -62,10 +62,13 @@
                 <!-- head -->
                 <thead class="bg-slate-200">
                     <tr class="text-[12px] text-secondary">
-                        <th class="w-[15%]">No</th>
-                        <th class="w-[35%]">Name</th>
-                        <th class="w-[35%]">Pekerjaan</th>
-                        <th class="w-[15%]">Action</th>
+                        <th class="w-[10%]">No</th>
+                        <th class="w-[20%]">Name</th>
+                        <th class="w-[20%]">Pekerjaan</th>
+                        <th class="w-[20%]">Upah/Potong</th>
+                        <th class="w-[20%]">Total Order</th>
+                        <th class="w-[20%]">Total Upah</th>
+                        <th class="w-[10%]">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,8 +76,11 @@
                         @foreach ($karyawans as $karyawan)
                             <tr class="text-[14px] text-secondary">
                                 <th>{{ $loop->iteration }}</th>
-                                <td>{{ $karyawan->name }}</td>
+                                <td>{{ ucwords($karyawan->name) }}</td>
                                 <td>{{ $karyawan->pekerjaan }}</td>
+                                <td>RP {{ number_format($karyawan->upah, 0, ',', '.') }}</td>
+                                <td>{{ $karyawan->total_order }}</td>
+                                <td>Rp {{ number_format($karyawan->upah * $karyawan->total_order, 0, ',', '.') }}</td>
                                 <td>
                                     <div class="w-fit flex gap-3">
                                         <a href="/updateKaryawan/{{ $karyawan->id }}" class="">

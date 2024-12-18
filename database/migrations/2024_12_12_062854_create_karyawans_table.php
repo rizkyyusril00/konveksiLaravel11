@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('pekerjaan');
+            $table->string('upah');
+            $table->integer('total_order')->default(0);
             $table->timestamps();
         });
     }
