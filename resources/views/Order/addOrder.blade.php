@@ -35,7 +35,7 @@
                 @enderror
                 <label for="">Tanggal Selesai</label>
                 <input type="date" name="tanggal_selesai" class="p-4 rounded-md" placeholder="Tanggal Selesai..."
-                    min="{{ old('tanggal_order') }}">
+                    min="{{ 'tanggal_order' }}">
                 @error('tanggal_selesai')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror

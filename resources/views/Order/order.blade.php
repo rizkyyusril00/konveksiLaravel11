@@ -147,12 +147,12 @@
                                     {{-- image --}}
                                     <div class="w-20 h-12 rounded-md bg-slate-200">
                                         <img src="{{ asset('storage/' . $order->image_order) }}"
-                                            alt="{{ $order->image_customer }} {{ asset('storage/' . $order->image_order) }}"
+                                            alt="{{ $order->customer }} {{ asset('storage/' . $order->image_order) }}"
                                             class="w-full h-full object-cover">
                                     </div>
                                     <div class="flex flex-col">
                                         <span class="font-semibold">
-                                            {{ $order->customer }}
+                                            {{ ucwords($order->customer) }}
                                         </span>
                                         <span>
                                             PO ID:
@@ -160,7 +160,7 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td>{{ $order->admin }}</td>
+                                <td>{{ ucwords($order->admin) }}</td>
                                 <td class="">
                                     <a
                                         class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-1 rounded-md bg-opacity-20">

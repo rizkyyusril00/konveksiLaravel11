@@ -19,7 +19,7 @@
             <input type="hidden" name="karyawan_id" value="{{ $karyawan->id }}" id="">
             <div class="flex flex-col gap-1 w-full">
                 <label for="">Name</label>
-                <input type="text" name="name" value="{{ $karyawan->name }}" class="p-4 rounded-md"
+                <input type="text" name="name" value="{{ ucwords($karyawan->name) }}" class="p-4 rounded-md"
                     placeholder="Add Name...">
                 @error('name')
                     <span class="text-red-400">{{ $message }}</span>

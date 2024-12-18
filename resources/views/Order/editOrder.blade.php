@@ -20,13 +20,13 @@
             <input type="hidden" name="order_id" value="{{ $order->id }}" id="">
             <div class="flex flex-col gap-1 w-full">
                 <label for="">Customer</label>
-                <input type="text" name="customer" value="{{ $order->customer }}" class="p-4 rounded-md"
+                <input type="text" name="customer" value="{{ ucwords($order->customer) }}" class="p-4 rounded-md"
                     placeholder="Add Customer...">
                 @error('customer')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Admin</label>
-                <input type="text" name="admin" value="{{ $order->admin }}" class="p-4 rounded-md"
+                <input type="text" name="admin" value="{{ ucwords($order->admin) }}" class="p-4 rounded-md"
                     placeholder="Add admin...">
                 @error('admin')
                     <span class="text-red-400">{{ $message }}</span>
