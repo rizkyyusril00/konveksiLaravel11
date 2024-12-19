@@ -233,7 +233,7 @@
                                 <td>{{ $order->pemotong->name }}</td>
                                 <td>{{ $order->size }}</td>
                                 <td>{{ $order->jumlah_potong }}</td>
-                                <td>{{ $order->harga_satuan }}</td>
+                                <td>RP {{ number_format($order->harga_satuan, 0, ',', '.') }}</td>
 
                                 <td class="">
                                     <div class="flex gap-3">
