@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PakaianController;
 use App\Http\Controllers\KaryawanController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\SupplierController;
 
 // auth
 // Route::get('/auth2', function () {
@@ -49,6 +50,15 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser']);
 });
 
+// supplier
+Route::middleware('auth:user,admin')->group(function () {
+    Route::get('/supplier', [SupplierController::class, 'loadAllSupplier'])->name('supplier');
+    Route::get('/add/supplier', [SupplierController::class, 'loadAllSupplierForm']);
+    Route::post('add/supplier', [SupplierController::class, 'AddSupplier'])->name('AddSupplier');
+    Route::get('/updateSupplier/{id}', [SupplierController::class, 'loadEditForm']);
+    Route::post('/updateSupplier/user', [SupplierController::class, 'EditSupplier'])->name('EditSupplier');
+    Route::get('/deleteSupplier/{id}', [SupplierController::class, 'deleteSupplier']);
+});
 
 // Order
 Route::middleware('auth:user,admin')->group(function () {

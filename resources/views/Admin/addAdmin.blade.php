@@ -37,6 +37,17 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="flex flex-col gap-1 w-full">
+                <label for="">Role</label>
+                <select name="role" id="" class="p-4 rounded-md">
+                    <option value="" disabled selected>Pilih Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+                @error('role')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+            </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
                 <a href="/karyawan"

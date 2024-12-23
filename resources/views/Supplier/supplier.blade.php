@@ -16,10 +16,8 @@
             </div>
         @endif
 
-
-
         <div class="flex items-center justify-between gap-4">
-            <form method="GET" action="/karyawan" class="flex gap-2">
+            <form method="GET" action="/supplier" class="flex gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama..."
                         class="input input-bordered input-secondary pr-10 w-40 text-[14px]" />
@@ -32,20 +30,12 @@
                         </svg>
                     </button>
                 </div>
-                <select name="filter" class="select select-bordered select-secondary w-[90px] text-[14px]">
-                    <option value="">Filter</option>
-                    @foreach ($filterOptions as $option)
-                        <option value="{{ $option }}" {{ request('filter') == $option ? 'selected' : '' }}>
-                            {{ $option }}
-                        </option>
-                    @endforeach
-                </select>
                 <button type="submit" class="btn btn-outline btn-secondary text-[14px]">Search</button>
-                <a href="/karyawan" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
+                <a href="/supplier" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="{{ route('AddKaryawan') }}" class="btn btn-success w-fit flex items-center gap-2 group">
-                <span class="text-[12px]">Add Karyawan</span>
+            <a href="/add/supplier" class="btn btn-success w-fit flex items-center gap-2 group">
+                <span class="text-[12px]">Add Supplier</span>
                 <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                     viewBox="0 0 256 256">
@@ -60,24 +50,36 @@
         <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <!-- head -->
-                <thead class="bg-slate-200">
+                <thead class="bg-slate-200 w-full">
                     <tr class="text-[12px] text-secondary">
-                        <th class="w-[15%]">No</th>
-                        <th class="w-[35%]">Name</th>
-                        <th class="w-[35%]">Pekerjaan</th>
-                        <th class="w-[25%]">Action</th>
+                        <th>No</th>
+                        <th>Supplier</th>
+                        <th class="min-w-[200px]">Alamat</th>
+                        <th>No. Hp</th>
+                        <th>Email</th>
+                        <th>Bahan Utama</th>
+                        <th>Bahan Tambahan</th>
+                        <th>Jenis Kancing</th>
+                        <th>Jenis Sleting</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (count($karyawans) > 0)
-                        @foreach ($karyawans as $karyawan)
+                    @if (count($suppliers) > 0)
+                        @foreach ($suppliers as $supplier)
                             <tr class="text-[14px] text-secondary">
                                 <th>{{ $loop->iteration }}</th>
-                                <td>{{ ucwords($karyawan->name) }}</td>
-                                <td>{{ $karyawan->pekerjaan }}</td>
+                                <td>{{ ucwords($supplier->name) }}</td>
+                                <td>{{ $supplier->alamat }}</td>
+                                <td>{{ $supplier->no_hp }}</td>
+                                <td>{{ $supplier->email }}</td>
+                                <td>{{ $supplier->bahan_utama }}</td>
+                                <td>{{ $supplier->bahan_tambahan ?? '-' }}</td>
+                                <td>{{ $supplier->jenis_kancing }}</td>
+                                <td>{{ $supplier->jenis_sleting }}</td>
                                 <td>
                                     <div class="w-fit flex gap-3">
-                                        <a href="/updateKaryawan/{{ $karyawan->id }}" class="">
+                                        <a href="/updateSupplier/{{ $supplier->id }}" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 fill="" viewBox="0 0 256 256">
@@ -112,10 +114,10 @@
                                                     @click.self="open = false">
 
                                                     <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
-                                                        <h3 class="text-lg font-bold">Delete Karyawan Ini?</h3>
-                                                        <p class="py-4">Apakah anda yakin akan hapus karyawan dengan
+                                                        <h3 class="text-lg font-bold">Delete Supplier Ini?</h3>
+                                                        <p class="py-4">Apakah anda yakin akan hapus Supplier dengan
                                                             nama
-                                                            <span class="font-bold">{{ $karyawan->name }} </span>
+                                                            <span class="font-bold">{{ $supplier->name }} </span>
                                                             ?
                                                         </p>
                                                         <div class="flex items-center gap-2">
@@ -124,7 +126,7 @@
                                                                 Cancel
                                                             </button>
                                                             <a @click="open = false"
-                                                                href="/deleteKaryawan/{{ $karyawan->id }}"
+                                                                href="/deleteSupplier/{{ $supplier->id }}"
                                                                 class="btn btn-error text-white w-auto py-2">
                                                                 Hapus
                                                             </a>
@@ -139,7 +141,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="4" class="text-center align-middle text-secondary font-bold">No data</td>
+                            <td colspan="9" class="text-center align-middle text-secondary font-bold">No data</td>
                         </tr>
                     @endif
                 </tbody>
@@ -147,7 +149,7 @@
         </div>
 
         {{-- pagination --}}
-        {{ $karyawans->appends(request()->query())->links() }}
+        {{ $suppliers->appends(request()->query())->links() }}
 
     </div>
 </x-layout>

@@ -33,6 +33,17 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="flex flex-col gap-1 w-full">
+                <label for="">Role</label>
+                <select name="role" id="" class="p-4 rounded-md">
+                    <option value="{{ $user->role }}" disabled selected>{{ $user->role }}</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+                @error('role')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+            </div>
             <div class="flex items-center gap-3">
                 <a href="/user"
                     class="btn btn-primary border border-accent w-auto hover:bg-accent hover:text-primary">Cancel</a>

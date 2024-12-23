@@ -43,6 +43,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'password' => 'required|min:4',
+            'role' => 'nullable|string',
         ]);
         // add user
         try {
@@ -50,6 +51,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            $user->role = $request->role ?: null;
             $user->save();
             return redirect('/user')->with('success', 'user berhasil ditambahkan');
         } catch (\Exception $e) {
@@ -63,6 +65,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'sometimes|required|string',
             'email' => 'sometimes|required|email',
+            'role' => 'sometimes|string',
         ]);
 
         // Ambil data user berdasarkan user_id
@@ -70,7 +73,7 @@ class UserController extends Controller
 
         try {
             // Edit data
-            $user->update($request->only(['name', 'email']));
+            $user->update($request->only(['name', 'email', 'role']));
 
             // Reload data user untuk mendapatkan data yang baru diupdate
             $user->refresh();
