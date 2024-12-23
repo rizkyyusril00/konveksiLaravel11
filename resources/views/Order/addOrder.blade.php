@@ -23,8 +23,13 @@
                 @error('customer')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
-                <label for="">Admin</label>
-                <input type="text" name="admin" class="p-4 rounded-md" placeholder="Nama Admin...">
+                @auth('admin')
+                    <input type="text" name="admin" class="p-4 rounded-md hidden" placeholder="Nama Admin..."
+                        value="{{ auth('admin')->user()->name }}">
+                @else('user')
+                    <input type="text" name="admin" class="p-4 rounded-md hidden" placeholder="Nama Admin..."
+                        value="{{ auth('user')->user()->name }}">
+                @endauth
                 @error('admin')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror

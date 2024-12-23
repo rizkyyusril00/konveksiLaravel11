@@ -54,6 +54,14 @@
             </a>
         </div>
 
+        <a href="{{ route('logout') }}" class="btn btn-error">Logout</a>
+        @auth('admin')
+            <span>{{ auth('admin')->user()->name }}</span>
+        @elseif('user')
+            <span>{{ auth('user')->user()->name }} xx</span>
+        @else
+            <span>anomali</span>
+        @endauth
 
         {{-- tabel --}}
         <div class="overflow-x-auto">

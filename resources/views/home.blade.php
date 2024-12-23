@@ -73,7 +73,7 @@
                         @foreach ($karyawans as $karyawan)
                             <tr class="text-[14px] text-secondary">
                                 <th>{{ $loop->iteration }}</th>
-                                <td>{{ $karyawan->name }}</td>
+                                <td>{{ ucwords($karyawan->name) }}</td>
                                 <td>{{ $karyawan->pekerjaan }}</td>
                                 <td>
                                     <div class="w-fit flex gap-3">
@@ -139,7 +139,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="10" class="text-center align-middle text-secondary font-bold">No data</td>
+                            <td colspan="4" class="text-center align-middle text-secondary font-bold">No data</td>
                         </tr>
                     @endif
                 </tbody>

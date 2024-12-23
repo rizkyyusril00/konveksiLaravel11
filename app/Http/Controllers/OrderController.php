@@ -62,7 +62,7 @@ class OrderController extends Controller
         // form validate
         $request->validate([
             'customer' => 'required|string',
-            'admin' => 'required|string',
+            'admin' => 'sometimes|string',
             'tanggal_order' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_order',
             'jenis_pakaian' => 'required|string',
@@ -177,6 +177,10 @@ class OrderController extends Controller
     {
         try {
             $order = Order::findOrFail($id);
+            // Hapus gambar dari storage jika ada
+            if ($order->image_order) {
+                Storage::disk('public')->delete($order->image_order);
+            }
             $order->delete();
             return redirect('/')->with('success', 'Order Deleted Successfully');
         } catch (\Exception $e) {
