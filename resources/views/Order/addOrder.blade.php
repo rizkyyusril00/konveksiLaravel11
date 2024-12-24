@@ -15,7 +15,7 @@
             </div>
         @endif
         <form action="{{ route('AddOrder') }}" enctype="multipart/form-data" method="POST"
-            class="w-full flex flex-col gap-4 px-40 py-4">
+            class="w-full flex flex-col gap-2 px-40 py-4">
             @csrf
             <div class="flex flex-col gap-1 w-full">
                 <label for="">Customer</label>
@@ -112,26 +112,53 @@
                 @error('pemotong')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
-                <label for="">Size</label>
-                <select name="size" id="" class="p-4 rounded-md">
-                    <option value="" disabled selected>Pilih Size</option>
-                    <option value="xxl">xxl</option>
-                    <option value="xl">xl</option>
-                    <option value="l">l</option>
-                </select>
-                @error('size')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-                <label for="">Jumlah Potong</label>
-                <input type="text" name="jumlah_potong" class="p-4 rounded-md" placeholder="Jumalah Potong...">
-                @error('jumlah_potong')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-                <label for="">Harga Satuan</label>
-                <input type="text" name="harga_satuan" class="p-4 rounded-md" placeholder="Harga Satuan...">
-                @error('harga_satuan')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
+                <div class="flex flex-col gap-1" x-data="{
+                    jumlah_potong: null,
+                    harga_satuan: null,
+                    get total_harga() {
+                        return this.jumlah_potong * this.harga_satuan;
+                    }
+                }">
+                    <div class="flex items-center gap-4">
+                        <div class="flex flex-col gap-1 w-1/3">
+                            <label for="size">Size</label>
+                            <select name="size" id="size" class="p-4 rounded-md">
+                                <option value="" disabled selected>Pilih Size</option>
+                                <option value="xxl">xxl</option>
+                                <option value="xl">xl</option>
+                                <option value="l">l</option>
+                            </select>
+                            @error('size')
+                                <span class="text-red-400">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col gap-1 w-2/3">
+                            <label for="jumlah_potong">Jumlah Potong</label>
+                            <input type="text" name="jumlah_potong" id="jumlah_potong" class="p-4 rounded-md"
+                                placeholder="Jumlah Potong..." x-model.number="jumlah_potong">
+                            @error('jumlah_potong')
+                                <span class="text-red-400">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 w-full">
+                        <label for="harga_satuan">Harga Satuan</label>
+                        <input type="text" name="harga_satuan" id="harga_satuan" class="p-4 rounded-md"
+                            placeholder="Harga Satuan..." x-model.number="harga_satuan">
+                        @error('harga_satuan')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="hidden w-full">
+                        <label for="total_harga" class="hidden">Total Harga</label>
+                        <input type="text" name="total_harga" id="total_harga" class="p-4 rounded-md hidden"
+                            placeholder="Total Harga..." x-bind:value="total_harga" readonly>
+                        @error('total_harga')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <label for="">Status</label>
                 <select name="status" id="" class="p-4 rounded-md">
                     <option value="" disabled selected>Pilih Status</option>

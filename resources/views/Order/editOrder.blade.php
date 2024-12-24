@@ -114,22 +114,31 @@
                 @error('pemotong_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
-                <label for="">Size</label>
-                <select name="size" id="" class="p-4 rounded-md">
-                    <option value="{{ $order->size }}" disabled selected>{{ $order->size }}</option>
-                    <option value="xxl">xxl</option>
-                    <option value="xl">xl</option>
-                    <option value="l">l</option>
-                </select>
-                @error('size')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-                <label for="">Jumlah Potong</label>
-                <input type="text" name="jumlah_potong" value="{{ $order->jumlah_potong }}"
-                    class="p-4 rounded-md" placeholder="Jumalah Potong...">
-                @error('jumlah_potong')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col gap-1 w-1/3">
+                        <label for="size">Size</label>
+                        <select name="size" id="size" class="p-4 rounded-md">
+                            <option value="{{ $order->size }}" disabled>{{ $order->size }}</option>
+                            <option value="{{ $order->size }}" class="hidden" selected>{{ $order->size }}</option>
+                            <option value="xxl">xxl</option>
+                            <option value="xl">xl</option>
+                            <option value="l">l</option>
+                        </select>
+                        @error('size')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col gap-1 w-2/3">
+                        <label for="jumlah_potong">Jumlah Potong</label>
+                        <input type="text" name="jumlah_potong" id="jumlah_potong"
+                            value="{{ $order->jumlah_potong }}" class="p-4 rounded-md"
+                            placeholder="Jumlah Potong...">
+                        @error('jumlah_potong')
+                            <span class="text-red-400">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <label for="">Harga Satuan</label>
                 <input type="text" name="harga_satuan" value="{{ $order->harga_satuan }}" class="p-4 rounded-md"
                     placeholder="Harga Satuan...">

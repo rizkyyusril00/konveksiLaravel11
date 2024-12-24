@@ -59,7 +59,7 @@ class OrderController extends Controller
     }
     public function AddOrder(Request $request)
     {
-        // form validate
+        // Validasi form
         $request->validate([
             'customer' => 'required|string',
             'admin' => 'sometimes|string',
@@ -72,12 +72,13 @@ class OrderController extends Controller
             'penjahit_id' => 'required|exists:karyawans,id',
             'pemotong_id' => 'required|exists:karyawans,id',
             'size' => 'required|string',
-            'jumlah_potong' => 'required|string',
+            'jumlah_potong' => 'required|integer',
             'harga_satuan' => 'required|string',
+            'total_harga' => 'required|string',
             'status' => 'required|string',
             'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
         ]);
-        // add pakaian
+
         try {
             $order = new Order();
             $order->customer = $request->customer;
@@ -90,9 +91,9 @@ class OrderController extends Controller
             $order->jenis_kancing = $request->jenis_kancing;
             $order->penjahit_id = $request->penjahit_id;
             $order->pemotong_id = $request->pemotong_id;
-            $order->size = $request->size;
-            $order->jumlah_potong = $request->jumlah_potong;
+            $order->quantity = $request->size . '(' . $request->jumlah_potong . ')'; // Gabungkan size dan jumlah potong
             $order->harga_satuan = $request->harga_satuan;
+            $order->total_harga = $request->total_harga;
             $order->status = $request->status;
 
             // Proses upload gambar
@@ -110,6 +111,7 @@ class OrderController extends Controller
         }
     }
 
+
     public function EditOrder(Request $request)
     {
         // Validasi form
@@ -124,19 +126,25 @@ class OrderController extends Controller
             'jenis_kancing' => 'sometimes|required|string',
             'penjahit_id' => 'sometimes|required|exists:karyawans,id',
             'pemotong_id' => 'sometimes|required|exists:karyawans,id',
-            'size' => 'sometimes|required|string',
-            'jumlah_potong' => 'sometimes|required|string',
+            'size' => 'sometimes|required|string',  // Pastikan size selalu ada jika dikirim
+            'jumlah_potong' => 'sometimes|required|integer',  // Pastikan jumlah_potong bertipe integer
             'harga_satuan' => 'sometimes|required|string',
             'status' => 'sometimes|required|string',
-            'image_order' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:1048',
+            'image_order' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:1048',  // Validasi untuk gambar
         ]);
 
         // Ambil data order berdasarkan ID
-        $order = Order::findOrFail($request->order_id);
+        $order = Order::findOrFail($request->order_id); // Pastikan order_id ada di request
 
         try {
-            // Update atribut lainnya kecuali gambar
-            $order->update($request->except(['image_order']));
+            // Cek apakah size dan jumlah_potong ada, jika ada maka gabungkan menjadi quantity
+            if ($request->has('size') && $request->has('jumlah_potong')) {
+                // Gabungkan size dan jumlah_potong dalam format size(jumlah_potong)
+                $order->quantity = $request->size . '(' . $request->jumlah_potong . ')';
+            }
+
+            // Update atribut lainnya kecuali image_order, size, dan jumlah_potong
+            $order->update($request->except(['image_order', 'size', 'jumlah_potong'])); // Update tanpa size dan jumlah_potong
 
             // Proses file gambar jika ada file yang diunggah
             if ($request->hasFile('image_order')) {
@@ -152,24 +160,36 @@ class OrderController extends Controller
 
                 // Update path gambar di database
                 $order->image_order = $path;
-                $order->save();
+                $order->save();  // Simpan kembali perubahan gambar
             }
 
             // Redirect dengan pesan sukses
             return redirect('/')->with('success', "Order dari {$order->customer} berhasil diperbarui!");
         } catch (\Exception $e) {
-            // Tangkap error lainnya
+            // Tangkap error lainnya dan kirimkan pesan kesalahan
             return back()->with('fail', "Terjadi kesalahan: {$e->getMessage()}");
         }
     }
 
-
     public function loadEditForm($id)
     {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
+
+        // Pisahkan quantity menjadi size dan jumlah_potong (tanpa spasi di tanda kurung)
+        if ($order->quantity) {
+            preg_match('/^(.*?)\((\d+)\)$/', $order->quantity, $matches);
+            $order->size = $matches[1] ?? null; // Size adalah grup pertama
+            $order->jumlah_potong = $matches[2] ?? null; // Jumlah potong adalah grup kedua
+        } else {
+            $order->size = null;
+            $order->jumlah_potong = null;
+        }
+
         // Ambil data penjahit dan pemotong
         $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
+        // dd($order->size, $order->jumlah_potong); // Cek data size dan jumlah_potong
+
         return view('Order.editOrder', compact('order', 'penjahits', 'pemotongs'));
     }
 

@@ -140,9 +140,9 @@
                         <th class="w-auto">Jenis Kancing</th>
                         <th class="w-auto">Penjahit</th>
                         <th class="w-auto">Pemotong</th>
-                        <th class="w-auto">Size</th>
-                        <th class="w-auto">Jumalah Potong</th>
+                        <th class="w-auto">Kuantitas</th>
                         <th class="w-auto">Harga Satuan</th>
+                        <th class="w-auto">Total</th>
                         <th class="w-auto">Action</th>
                     </tr>
                 </thead>
@@ -169,6 +169,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $order->admin }}</td>
+                                {{-- harus bisa update status --}}
                                 <td class="">
                                     <a
                                         class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-1 rounded-md bg-opacity-20">
@@ -189,9 +190,9 @@
                                 <td>{{ $order->jenis_kancing }}</td>
                                 <td>{{ $order->penjahit->name }}</td>
                                 <td>{{ $order->pemotong->name }}</td>
-                                <td>{{ $order->size }}</td>
-                                <td>{{ $order->jumlah_potong }}</td>
+                                <td>{{ $order->quantity }}</td>
                                 <td>{{ $order->harga_satuan }}</td>
+                                <td>{{ $order->total_harga }}</td>
 
                                 <td class="">
                                     <div class="flex gap-3">
@@ -204,7 +205,6 @@
                                                 </path>
                                             </svg>
                                         </a>
-
                                         <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
                                         $watch('open', value => localStorage.setItem('modal-open', value))">
                                             <!-- Button to open modal -->
@@ -253,7 +253,6 @@
                                             </template>
                                         </div>
                                     </div>
-
                                 </td>
                             </tr>
                         @endforeach
