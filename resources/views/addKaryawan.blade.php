@@ -34,6 +34,13 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="flex flex-col gap-1 w-full">
+                <label for="">Upah</label>
+                <input type="text" name="upah" class="p-4 rounded-md" placeholder="Add Upah...">
+                @error('upah')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+            </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
                 <a href="/karyawan"

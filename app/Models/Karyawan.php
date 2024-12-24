@@ -9,6 +9,7 @@ class Karyawan extends Model
     protected $fillable = [
         'name',
         'pekerjaan',
+        'upah',
     ];
 
     public function ordersAsPenjahit()
@@ -19,5 +20,18 @@ class Karyawan extends Model
     public function ordersAsPemotong()
     {
         return $this->hasMany(Order::class, 'pemotong_id');
+    }
+
+    // Method untuk menghitung total order
+    public function totalOrder()
+    {
+        return $this->ordersAsPenjahit()->count() + $this->ordersAsPemotong()->count();
+    }
+
+    // Update total order setelah ada perubahan
+    public function updateTotalOrder()
+    {
+        $this->total_order = $this->totalOrder();
+        $this->save();
     }
 }

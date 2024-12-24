@@ -27,7 +27,7 @@ class KaryawanController extends Controller
         }
 
         // Paginate the results and append query parameters
-        $karyawans = $query->paginate(2);
+        $karyawans = $query->paginate(10);
         $karyawans->appends(['search' => $search, 'filter' => $filter]);
 
         // Pass filter options to view (for dropdown)
@@ -46,12 +46,14 @@ class KaryawanController extends Controller
         $request->validate([
             'name' => 'required|string',
             'pekerjaan' => 'required|string',
+            'upah' => 'required|string',
         ]);
         // add user
         try {
             $karyawan = new Karyawan();
             $karyawan->name = $request->name;
             $karyawan->pekerjaan = $request->pekerjaan;
+            $karyawan->upah = $request->upah;
             $karyawan->save();
             return redirect('/karyawan')->with('success', 'Karyawan berhasil ditambahkan');
         } catch (\Exception $e) {
@@ -59,12 +61,14 @@ class KaryawanController extends Controller
         }
     }
 
+
     public function EditKaryawan(Request $request)
     {
         // form validate
         $request->validate([
             'name' => 'sometimes|required|string',
             'pekerjaan' => 'sometimes|required|string',
+            'upah' => 'sometimes|required|string',
         ]);
         // ambil data
         $karyawan = Karyawan::findOrFail($request->karyawan_id);
@@ -73,7 +77,8 @@ class KaryawanController extends Controller
             // edit data
             $karyawan->update($request->only([
                 'name',
-                'pekerjaan'
+                'pekerjaan',
+                'upah',
             ]));
 
             // Reload data karyawan untuk mendapatkan data yang baru diupdate

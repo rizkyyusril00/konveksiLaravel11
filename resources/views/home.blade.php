@@ -62,10 +62,17 @@
                 <!-- head -->
                 <thead class="bg-slate-200">
                     <tr class="text-[12px] text-secondary">
-                        <th class="w-[15%]">No</th>
+                        {{-- <th class="w-[15%]">No</th>
                         <th class="w-[35%]">Name</th>
                         <th class="w-[35%]">Pekerjaan</th>
-                        <th class="w-[25%]">Action</th>
+                        <th class="w-[25%]">Action</th> --}}
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Pekerjaan</th>
+                        <th>Upah/Potong</th>
+                        <th>Total Order</th>
+                        <th>Total Upah</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,6 +82,9 @@
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ ucwords($karyawan->name) }}</td>
                                 <td>{{ $karyawan->pekerjaan }}</td>
+                                <td>RP {{ number_format($karyawan->upah, 0, ',', '.') }}</td>
+                                <td>{{ $karyawan->total_order }}</td>
+                                <td>Rp {{ number_format($karyawan->upah * $karyawan->total_order, 0, ',', '.') }}</td>
                                 <td>
                                     <div class="w-fit flex gap-3">
                                         <a href="/updateKaryawan/{{ $karyawan->id }}" class="">

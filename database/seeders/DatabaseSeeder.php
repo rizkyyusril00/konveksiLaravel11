@@ -46,10 +46,12 @@ class DatabaseSeeder extends Seeder
         Karyawan::create([
             'name' => 'Anton',
             'pekerjaan' => 'Penjahit',
+            'upah' => '2000',
         ]);
         Karyawan::create([
             'name' => 'Yanto',
             'pekerjaan' => 'Pemotong',
+            'upah' => '3000',
         ]);
 
         // Menambahkan data supplier
