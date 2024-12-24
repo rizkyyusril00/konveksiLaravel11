@@ -72,9 +72,13 @@ class OrderController extends Controller
             'penjahit_id' => 'required|exists:karyawans,id',
             'pemotong_id' => 'required|exists:karyawans,id',
             'size' => 'required|string',
+            'size_2' => 'nullable|string',
             'jumlah_potong' => 'required|integer',
-            'harga_satuan' => 'required|string',
-            'total_harga' => 'required|string',
+            'jumlah_potong_2' => 'nullable|integer',
+            'harga_satuan' => 'required|integer',
+            'harga_satuan_2' => 'nullable|integer',
+            'total_harga' => 'required|integer',
+            'total_harga_2' => 'nullable|integer',
             'status' => 'required|string',
             'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
         ]);
@@ -92,8 +96,13 @@ class OrderController extends Controller
             $order->penjahit_id = $request->penjahit_id;
             $order->pemotong_id = $request->pemotong_id;
             $order->quantity = $request->size . '(' . $request->jumlah_potong . ')'; // Gabungkan size dan jumlah potong
+            $order->quantity_2 = ($request->size_2 && $request->jumlah_potong_2)
+                ? $request->size_2 . '(' . $request->jumlah_potong_2 . ')'
+                : null;
             $order->harga_satuan = $request->harga_satuan;
+            $order->harga_satuan_2 = $request->harga_satuan_2;
             $order->total_harga = $request->total_harga;
+            $order->total_harga_2 = $request->total_harga_2;
             $order->status = $request->status;
 
             // Proses upload gambar
@@ -104,6 +113,7 @@ class OrderController extends Controller
                 $order->image_order = $path; // Simpan path ke database
             }
 
+            // dd(request()->all());
             $order->save();
             return redirect('/')->with('success', 'Order berhasil ditambahkan');
         } catch (\Exception $e) {

@@ -50,12 +50,17 @@ class DatabaseSeeder extends Seeder
         ]);
         Karyawan::create([
             'name' => 'Yanto',
-            'pekerjaan' => 'Pemotong',
+            'pekerjaan' => 'Penjahit',
             'upah' => '3000',
         ]);
         Karyawan::create([
             'name' => 'Tylil',
-            'pekerjaan' => 'Penjahit',
+            'pekerjaan' => 'Pemotong',
+            'upah' => '3000',
+        ]);
+        Karyawan::create([
+            'name' => 'Ulil',
+            'pekerjaan' => 'Pemotong',
             'upah' => '3000',
         ]);
 

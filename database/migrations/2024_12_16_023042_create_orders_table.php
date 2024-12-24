@@ -24,8 +24,11 @@ return new class extends Migration
             $table->unsignedBigInteger('penjahit_id'); // Foreign key ke tabel karyawans
             $table->unsignedBigInteger('pemotong_id'); // Foreign key ke tabel karyawans
             $table->string('quantity'); // Gabungan size dan jumlah potong
+            $table->string('quantity_2')->nullable();
             $table->string('harga_satuan');
-            $table->string('total_harga');
+            $table->string('harga_satuan_2')->nullable();
+            $table->integer('total_harga');
+            $table->integer('total_harga_2')->nullable();
             $table->string('status');
             $table->string('image_order')->nullable();
             $table->timestamps();

@@ -19,9 +19,13 @@ class Order extends Model
         'penjahit_id',
         'pemotong_id',
         'size',
+        'size_2',
         'jumlah_potong',
+        'jumlah_potong_2',
         'harga_satuan',
+        'harga_satuan_2',
         'total_harga',
+        'total_harga_2',
         'status',
         'image_order'
     ];

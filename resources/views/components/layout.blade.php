@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="w-full fixed py-4 px-4 bg-primary border-b border-secondary flex justify-between z-40">
+    <nav class="w-full fixed py-4 px-4 bg-primary border-b border-accent flex justify-between z-40">
         {{-- logo --}}
         <a href="/" class="w-24 h-14">
             <img src="/img/logo.png" alt="" class="w-full h-full object-cover">
@@ -20,7 +20,7 @@
     {{-- main --}}
     <div class="flex">
         {{-- side nav --}}
-        <div class="w-[20%] pt-[100px] px-4 border-r border-secondary h-screen flex flex-col gap-6 fixed">
+        <div class="w-[20%] pt-[100px] px-4 border-r border-accent h-screen flex flex-col gap-6 fixed">
             {{-- top nav --}}
             <div class="flex flex-col flex-grow">
                 {{-- Order --}}

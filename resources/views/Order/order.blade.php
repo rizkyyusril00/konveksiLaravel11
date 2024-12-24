@@ -20,7 +20,7 @@
             <form method="GET" action="/" class="flex gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="" placeholder="Cari nama..."
-                        class="input input-bordered input-secondary pr-10 w-40 text-[14px]" />
+                        class="input input-bordered input-accent pr-10 w-40 text-[14px]" />
                     <button type="submit" class="absolute top-4 right-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                             viewBox="0 0 256 256">
@@ -70,7 +70,7 @@
                 <thead class="bg-slate-200">
                     <tr class="text-[12px] text-secondary">
                         <th class="w-auto">No</th>
-                        <th class="w-[250px]">
+                        <th class="w-[200px]">
                             <a class="flex items-center gap-[2px]"
                                 href="{{ route('order', array_merge(request()->query(), ['orderBy' => 'customer', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
                                 <span>Customer</span>
@@ -140,9 +140,8 @@
                         <th class="w-auto">Jenis Kancing</th>
                         <th class="w-auto">Penjahit</th>
                         <th class="w-auto">Pemotong</th>
-                        <th class="w-auto">Kuantitas</th>
-                        <th class="w-auto">Harga Satuan</th>
-                        <th class="w-auto">Total</th>
+                        <th class="min-w-[150px]">Kuantitas</th>
+                        <th class="min-w-[100px]">Total</th>
                         <th class="w-auto">Action</th>
                     </tr>
                 </thead>
@@ -190,12 +189,30 @@
                                 <td>{{ $order->jenis_kancing }}</td>
                                 <td>{{ $order->penjahit->name }}</td>
                                 <td>{{ $order->pemotong->name }}</td>
-                                <td>{{ $order->quantity }}</td>
-                                <td>{{ $order->harga_satuan }}</td>
-                                <td>{{ $order->total_harga }}</td>
+                                <td>
+                                    <ol class="list-disc">
+                                        <li>{{ $order->quantity }} /
+                                            RP {{ number_format($order->harga_satuan, 0, ',', '.') }}
+                                        </li>
+                                        @if ($order->quantity_2 && $order->harga_satuan_2)
+                                            <li>{{ $order->quantity_2 }} / RP {{ $order->harga_satuan_2 }}</li>
+                                        @endif
+                                    </ol>
+                                </td>
+                                <td>RP {{ number_format($order->total_harga + $order->total_harga_2, 0, ',', '.') }}
+                                </td>
 
                                 <td class="">
                                     <div class="flex gap-3">
+                                        <a href="" class="">
+                                            <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
+                                                xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                fill="" viewBox="0 0 256 256">
+                                                <path
+                                                    d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z">
+                                                </path>
+                                            </svg>
+                                        </a>
                                         <a href="/updateOrder/{{ $order->id }}" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"
