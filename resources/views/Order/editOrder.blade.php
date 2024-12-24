@@ -65,7 +65,7 @@
                 @enderror
                 <label for="">Bahan Tambahan</label>
                 <select name="bahan_tambahan" id="" class="p-4 rounded-md">
-                    <option value="{{ $order->bahan_tambahan }}" disabled selected>{{ $order->bahan_tambahan }}
+                    <option value="{{ $order->bahan_tambahan }}" disabled selected>{{ $order->bahan_tambahan ?? '-' }}
                     </option>
                     <option value="Asahi">Asahi</option>
                     <option value="Parasut">Parasut</option>
@@ -114,37 +114,57 @@
                 @error('pemotong_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
-                <div class="flex items-center gap-4">
-                    <div class="flex flex-col gap-1 w-1/3">
-                        <label for="size">Size</label>
-                        <select name="size" id="size" class="p-4 rounded-md">
-                            <option value="{{ $order->size }}" disabled>{{ $order->size }}</option>
-                            <option value="{{ $order->size }}" class="hidden" selected>{{ $order->size }}</option>
-                            <option value="xxl">xxl</option>
-                            <option value="xl">xl</option>
-                            <option value="l">l</option>
-                        </select>
-                        @error('size')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
+                <div x-data="{
+                    jumlah_potong: {{ $order->jumlah_potong ?? 0 }},
+                    harga_satuan: {{ $order->harga_satuan ?? 0 }},
+                    get total_harga() {
+                        return this.jumlah_potong * this.harga_satuan;
+                    }
+                }">
+                    <div class="flex items-center gap-4">
+                        <div class="flex flex-col gap-1 w-1/5">
+                            <label for="size">Size</label>
+                            <select name="size" id="size" class="p-4 rounded-md">
+                                <option value="{{ $order->size }}" selected>{{ ucfirst($order->size) }}</option>
+                                <option value="XXL">XXL</option>
+                                <option value="XL">XL</option>
+                                <option value="L">L</option>
+                            </select>
+                            @error('size')
+                                <span class="text-red-400">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col gap-1 w-2/5">
+                            <label for="jumlah_potong">Jumlah Potong</label>
+                            <input type="number" name="jumlah_potong" id="jumlah_potong" class="p-4 rounded-md"
+                                placeholder="Jumlah Potong..." x-model.number="jumlah_potong">
+                            @error('jumlah_potong')
+                                <span class="text-red-400">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col gap-2 w-2/5">
+                            <label for="harga_satuan">Harga Satuan</label>
+                            <input type="number" name="harga_satuan" id="harga_satuan" class="p-4 rounded-md"
+                                placeholder="Harga Satuan..." x-model.number="harga_satuan">
+                            @error('harga_satuan')
+                                <span class="text-red-400">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="flex flex-col gap-1 w-2/3">
-                        <label for="jumlah_potong">Jumlah Potong</label>
-                        <input type="text" name="jumlah_potong" id="jumlah_potong"
-                            value="{{ $order->jumlah_potong }}" class="p-4 rounded-md"
-                            placeholder="Jumlah Potong...">
-                        @error('jumlah_potong')
+
+
+
+                    <div class="hidden gap-2 w-full">
+                        <label for="total_harga">Total Harga</label>
+                        <input type="text" name="total_harga" id="" class="p-4 rounded-md" readonly
+                            x-bind:value="total_harga">
+                        @error('total_harga')
                             <span class="text-red-400">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                <label for="">Harga Satuan</label>
-                <input type="text" name="harga_satuan" value="{{ $order->harga_satuan }}" class="p-4 rounded-md"
-                    placeholder="Harga Satuan...">
-                @error('harga_satuan')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
+
                 <label for="">Status</label>
                 <select name="status" id="" class="p-4 rounded-md">
                     <option value="{{ $order->status }}" disabled selected>{{ $order->status }}</option>

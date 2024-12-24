@@ -128,7 +128,7 @@
                                                 </div>
                                             @else
                                                 <!-- Tampilkan pesan jika ID sama -->
-                                                <span class="text-error">Unable!</span>
+                                                <span class="text-error text-center text-[24px]">-</span>
                                             @endif
                                         @endauth
                                     </div>

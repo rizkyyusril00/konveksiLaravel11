@@ -21,6 +21,7 @@ class Order extends Model
         'size',
         'jumlah_potong',
         'harga_satuan',
+        'total_harga',
         'status',
         'image_order'
     ];

@@ -19,7 +19,8 @@
             @csrf
             <div class="flex flex-col gap-1 w-full">
                 <label for="">Customer</label>
-                <input type="text" name="customer" class="p-4 rounded-md" placeholder="Nama Customer...">
+                <input type="text" name="customer" value="{{ old('customer') }}" class="p-4 rounded-md"
+                    placeholder="Nama Customer...">
                 @error('customer')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
@@ -34,13 +35,14 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Tanggal Order</label>
-                <input type="date" name="tanggal_order" class="p-4 rounded-md" placeholder="Tanggal Order...">
+                <input type="date" name="tanggal_order" value="{{ old('tanggal_order') }}" class="p-4 rounded-md"
+                    placeholder="Tanggal Order...">
                 @error('tanggal_order')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <label for="">Tanggal Selesai</label>
-                <input type="date" name="tanggal_selesai" class="p-4 rounded-md" placeholder="Tanggal Selesai..."
-                    min="{{ old('tanggal_order') }}">
+                <input type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" class="p-4 rounded-md"
+                    placeholder="Tanggal Selesai..." min="{{ old('tanggal_order') }}">
                 @error('tanggal_selesai')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
@@ -120,19 +122,19 @@
                     }
                 }">
                     <div class="flex items-center gap-4">
-                        <div class="flex flex-col gap-1 w-1/3">
+                        <div class="flex flex-col gap-1 w-1/5">
                             <label for="size">Size</label>
                             <select name="size" id="size" class="p-4 rounded-md">
                                 <option value="" disabled selected>Pilih Size</option>
-                                <option value="xxl">xxl</option>
-                                <option value="xl">xl</option>
-                                <option value="l">l</option>
+                                <option value="XXL">XXL</option>
+                                <option value="XL">XL</option>
+                                <option value="L">L</option>
                             </select>
                             @error('size')
                                 <span class="text-red-400">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="flex flex-col gap-1 w-2/3">
+                        <div class="flex flex-col gap-1 w-2/5">
                             <label for="jumlah_potong">Jumlah Potong</label>
                             <input type="text" name="jumlah_potong" id="jumlah_potong" class="p-4 rounded-md"
                                 placeholder="Jumlah Potong..." x-model.number="jumlah_potong">
@@ -140,14 +142,14 @@
                                 <span class="text-red-400">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
-                    <div class="flex flex-col gap-2 w-full">
-                        <label for="harga_satuan">Harga Satuan</label>
-                        <input type="text" name="harga_satuan" id="harga_satuan" class="p-4 rounded-md"
-                            placeholder="Harga Satuan..." x-model.number="harga_satuan">
-                        @error('harga_satuan')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
+                        <div class="flex flex-col gap-2 w-2/5">
+                            <label for="harga_satuan">Harga Satuan</label>
+                            <input type="text" name="harga_satuan" id="harga_satuan" class="p-4 rounded-md"
+                                placeholder="Harga Satuan..." x-model.number="harga_satuan">
+                            @error('harga_satuan')
+                                <span class="text-red-400">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                     <div class="hidden w-full">
                         <label for="total_harga" class="hidden">Total Harga</label>
@@ -158,7 +160,6 @@
                         @enderror
                     </div>
                 </div>
-
                 <label for="">Status</label>
                 <select name="status" id="" class="p-4 rounded-md">
                     <option value="" disabled selected>Pilih Status</option>
