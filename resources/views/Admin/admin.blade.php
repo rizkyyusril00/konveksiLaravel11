@@ -15,6 +15,8 @@
             </div>
         @endif
 
+        <h1 class="text-[32px] text-secondary font-semibold">User</h1>
+
         <div class="flex items-center justify-between gap-2">
             <form method="GET" action="/user" class="flex gap-2">
                 <div class="relative">
@@ -33,9 +35,9 @@
                 <a href="/user" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="{{ route('AddUser') }}" class="btn btn-success w-fit flex items-center gap-2 group">
-                <span class="text-[12px]">Add User</span>
-                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out"
+            <a href="{{ route('AddUser') }}" class="btn btn-secondary w-fit flex items-center gap-2 group">
+                <span class="text-[12px] text-primary">Add User</span>
+                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                     viewBox="0 0 256 256">
                     <path
@@ -49,7 +51,7 @@
         <div class="overflow-x-auto">
             <table class="table table-zebra tablayfix">
                 <!-- head -->
-                <thead class="bg-slate-200">
+                <thead class="bg-accent">
                     <tr>
                         <th class="w-[10%]">No</th>
                         <th class="w-[25%]">Name</th>

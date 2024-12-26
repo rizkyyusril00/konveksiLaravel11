@@ -16,7 +16,7 @@
             </div>
         @endif
 
-
+        <h1 class="text-[32px] text-secondary font-semibold">Karyawan</h1>
 
         <div class="flex items-center justify-between gap-4">
             <form method="GET" action="/karyawan" class="flex gap-2">
@@ -44,9 +44,9 @@
                 <a href="/karyawan" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="{{ route('AddKaryawan') }}" class="btn btn-success w-fit flex items-center gap-2 group">
-                <span class="text-[12px]">Add Karyawan</span>
-                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out"
+            <a href="{{ route('AddKaryawan') }}" class="btn btn-secondary w-fit flex items-center gap-2 group">
+                <span class="text-[12px] text-primary">Add Karyawan</span>
+                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                     viewBox="0 0 256 256">
                     <path
@@ -60,12 +60,8 @@
         <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <!-- head -->
-                <thead class="bg-slate-200">
+                <thead class="bg-accent">
                     <tr class="text-[12px] text-secondary">
-                        {{-- <th class="w-[15%]">No</th>
-                        <th class="w-[35%]">Name</th>
-                        <th class="w-[35%]">Pekerjaan</th>
-                        <th class="w-[25%]">Action</th> --}}
                         <th>No</th>
                         <th>Name</th>
                         <th>Pekerjaan</th>

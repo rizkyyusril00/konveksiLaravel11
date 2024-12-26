@@ -16,6 +16,8 @@
             </div>
         @endif
 
+        <h1 class="text-[32px] text-secondary font-semibold">Supplier</h1>
+
         <div class="flex items-center justify-between gap-4">
             <form method="GET" action="/supplier" class="flex gap-2">
                 <div class="relative">
@@ -34,9 +36,9 @@
                 <a href="/supplier" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="/add/supplier" class="btn btn-success w-fit flex items-center gap-2 group">
-                <span class="text-[12px]">Add Supplier</span>
-                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out"
+            <a href="/add/supplier" class="btn btn-secondary w-fit flex items-center gap-2 group">
+                <span class="text-[12px] text-primary">Add Supplier</span>
+                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                     viewBox="0 0 256 256">
                     <path
@@ -50,7 +52,7 @@
         <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <!-- head -->
-                <thead class="bg-slate-200 w-full">
+                <thead class="bg-accent w-full">
                     <tr class="text-[12px] text-secondary">
                         <th>No</th>
                         <th>Supplier</th>

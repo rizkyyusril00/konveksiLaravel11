@@ -24,33 +24,35 @@
             </div>
         </div>
     @endif
-    <div class="flex items-center justify-center h-screen w-screen">
-        <div class="flex flex-col gap-6 items-center p-6 rounded-md bg-violet-200 border border-secondary">
+    <div class="flex items-center justify-center h-screen w-screen relative">
+        <figure class="w-full h-screen absolute top-0">
+            <img src="/img/login.jpg" alt="" class="w-full h-full">
+        </figure>
+        <div class="w-full h-screen absolute top-0 bg-[#222222] opacity-40 z-30"></div>
+        <div class="flex flex-col gap-6 items-center p-6 rounded-[15px] bg-[#ffffff] border border-[#222222] z-40">
             <div class="flex items-center flex-col gap-3">
-                <h1>Log In</h1>
-                <span>Silahkan Login Untuk Akses Dashboard</span>
+                <h1 class="text-[32px] text-[#222222] font-bold">Log In</h1>
+                <span class="text-[14px] text-[#222222]">Silahkan Login Untuk Akses Dashboard</span>
             </div>
             {{-- form login --}}
             <form action="{{ route('AuthVerify') }}" method="POST" class="w-full flex flex-col gap-4">
                 @csrf
                 <div class="flex flex-col gap-1">
-                    <label for="email">Email*</label>
+                    <label for="email" class="text-[#222222] text-[12px]">Email*</label>
                     <input type="text" name="email" id="email" placeholder="Masukan Email..."
-                        class="input w-full" />
+                        class="input input-secondary w-full" />
                     @error('email')
                         <span class="text-red-400">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="flex flex-col gap-1">
                     <div class="flex justify-between">
-                        <label for="password">Password*</label>
-                        <span>Forget Password?</span>
+                        <label for="password" class="text-[#222222] text-[12px]">Password*</label>
                     </div>
                     <input type="password" name="password" id="password" placeholder="Masukan Password..."
-                        class="input w-full" />
+                        class="input input-secondary w-full" />
                 </div>
-                <button type="submit" class="btn btn-primary">Login </button>
-                <span class="text-center">Don't have an account? <span>Sign Up</span></span>
+                <button type="submit" class="btn btn-secondary">Login </button>
             </form>
         </div>
     </div>

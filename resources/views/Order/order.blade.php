@@ -16,11 +16,13 @@
             </div>
         @endif
 
+        <h1 class="text-[32px] text-secondary font-semibold">Order</h1>
+
         <div class="flex items-center justify-between gap-2">
             <form method="GET" action="/" class="flex gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="" placeholder="Cari nama..."
-                        class="input input-bordered input-accent pr-10 w-40 text-[14px]" />
+                        class="input input-bordered input-secondary pr-10 w-40 text-[14px]" />
                     <button type="submit" class="absolute top-4 right-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                             viewBox="0 0 256 256">
@@ -42,9 +44,9 @@
                 <a href="/" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="{{ route('AddOrder') }}" class="btn btn-success w-fit flex items-center gap-2 group">
-                <span class="text-[12px]">Add Order</span>
-                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out"
+            <a href="{{ route('AddOrder') }}" class="btn btn-secondary w-fit flex items-center gap-2 group">
+                <span class="text-[12px] text-primary">Add Order</span>
+                <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                     viewBox="0 0 256 256">
                     <path
@@ -54,20 +56,11 @@
             </a>
         </div>
 
-        <a href="{{ route('logout') }}" class="btn btn-error">Logout</a>
-        @auth('admin')
-            <span>{{ auth('admin')->user()->name }}</span>
-        @elseif('user')
-            <span>{{ auth('user')->user()->name }} xx</span>
-        @else
-            <span>anomali</span>
-        @endauth
-
         {{-- tabel --}}
         <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <!-- head -->
-                <thead class="bg-slate-200">
+                <thead class="bg-accent">
                     <tr class="text-[12px] text-secondary">
                         <th class="w-auto">No</th>
                         <th class="w-[200px]">
