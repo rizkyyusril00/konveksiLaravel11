@@ -30,15 +30,15 @@
                     <div class="flex flex-col gap-1 w-[300px]">
                         <div class="flex justify-between items-center gap-3">
                             <span class="text-right w-1/2">Invoice</span>
-                            <span class="w-1/2 text-right">INV/109</span>
+                            <span class="w-1/2 text-right">INV/{{ $order->id }}</span>
                         </div>
                         <div class="flex justify-between items-center gap-3">
                             <span class="text-right w-1/2">Tanggal</span>
-                            <span class="w-1/2 text-right">14 Dec 2024</span>
+                            <span class="w-1/2 text-right">{{ $order->tanggal_order }}</span>
                         </div>
                         <div class="flex justify-between items-center gap-3">
                             <span class="text-right w-1/2">Jatuh Tempo</span>
-                            <span class="w-1/2 text-right">14 Dec 2024</span>
+                            <span class="w-1/2 text-right">{{ $order->tanggal_selesai }}</span>
                         </div>
                     </div>
 
@@ -64,26 +64,21 @@
                         <tr>
                             <th>1</th>
                             <td>
-                                <div class="flex items-center gap-2">
-                                    <figure class="w-14 h-14 flex items-center justify-center bg-red-100 rounded-md">
-                                        img
-                                    </figure>
-                                    <div class="flex flex-col gap-1">
-                                        <span>Antonio</span>
-                                        <span>PO ID: 190</span>
-                                    </div>
+                                <div class="flex flex-col gap-1">
+                                    <span>{{ ucwords($order->customer) }}</span>
+                                    <span>PO ID: {{ $order->id }}</span>
                                 </div>
                             </td>
-                            <td>Rudi</td>
-                            <td>Pino</td>
+                            <td>{{ $order->pemotong->name }}</td>
+                            <td>{{ $order->penjahit->name }}</td>
                             <td>
                                 <ol class="list-disc">
-                                    <li>Combed 20</li>
-                                    <li>Parasut</li>
-                                    <li>Wangki</li>
+                                    <li>{{ $order->bahan_utama }}</li>
+                                    <li>{{ $order->bahan_tambahan }}</li>
+                                    <li>{{ $order->jenis_kancing }}</li>
                                 </ol>
                             </td>
-                            <td>Kaos</td>
+                            <td>{{ $order->jenis_pakaian }}</td>
                             <td>2 Pcs</td>
                         </tr>
                     </tbody>
@@ -91,20 +86,26 @@
             </div>
             {{-- Tagihan --}}
             <div class="flex justify-between">
-                <div class="flex flex-col gap-3">
-                    <h2 class="">Tagihan Kepada :</h2>
-                    <div class="flex flex-col gap-1">
-                        <span class="">Antonio Sutanto</span>
-                        <span>Jl. Raya No. 1, Jakarta</span>
-                        <span>Telp: 0909020</span>
-                        <span>Email: GtN6o@example.com</span>
+                <div class="flex gap-4">
+                    <figure class="w-40 h-40 bg-red-300 rounded-[12px]">
+                        {{-- <img src="" alt="" classname=""> --}}
+                    </figure>
+                    <div class="flex flex-col gap-3">
+                        <h2 class="">Tagihan Kepada :</h2>
+                        <div class="flex flex-col gap-1">
+                            <span class="">{{ ucwords($order->customer) }}</span>
+                            <span>Jl. Raya No. 1, Jakarta</span>
+                            <span>Telp: 0909020</span>
+                            <span>Email: GtN6o@example.com</span>
+                        </div>
                     </div>
                 </div>
                 <div class="relative w-[250px]">
                     <div class="flex flex-col gap-1 w-[250px] absolute bottom-0">
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Subtotal: </span>
-                            <span class="w-1/2 text-right">Rp. 100.000</span>
+                            <span class="w-1/2 text-right">RP
+                                {{ number_format($order->total_harga + $order->total_harga_2, 0, ',', '.') }}</span>
                         </div>
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Diskon: </span>

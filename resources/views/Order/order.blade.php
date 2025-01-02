@@ -145,10 +145,10 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="flex items-center gap-2 w-[250px]">
                                     {{-- image --}}
-                                    <div class="w-20 h-12 rounded-md bg-slate-200">
+                                    <div class="w-20 h-12 rounded-[12px] bg-slate-200">
                                         <img src="{{ asset('storage/' . $order->image_order) }}"
                                             alt="{{ $order->image_customer }} {{ asset('storage/' . $order->image_order) }}"
-                                            class="w-full h-full object-cover">
+                                            class="w-full h-full object-cover rounded-[12px]">
                                     </div>
                                     <div class="flex flex-col">
                                         <span class="font-semibold">
@@ -251,7 +251,7 @@
 
                                 <td class="">
                                     <div class="flex gap-3">
-                                        <a href="/invoice" target="_blank" class="">
+                                        <a href="/invoice/{{ $order->id }}" target="_blank" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 fill="" viewBox="0 0 256 256">

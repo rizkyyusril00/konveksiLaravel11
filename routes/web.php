@@ -12,9 +12,11 @@ use App\Http\Controllers\SupplierController;
 // Route::get('/auth2', function () {
 //     return view('auth2');
 // });
-Route::get('/invoice', function () {
-    return view('Invoice.invoice');
-});
+// Route::get('/invoice', function () {
+//     return view('Invoice.invoice');
+// });
+Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
+
 
 // auth
 Route::get('/auth', [AuthController::class, 'index'])->name('login')->middleware('guest');

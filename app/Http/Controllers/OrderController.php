@@ -211,6 +211,28 @@ class OrderController extends Controller
         return view('Order.editOrder', compact('order', 'penjahits', 'pemotongs'));
     }
 
+    public function invoice($id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Pisahkan quantity menjadi size dan jumlah_potong (tanpa spasi di tanda kurung)
+        if ($order->quantity) {
+            preg_match('/^(.*?)\((\d+)\)$/', $order->quantity, $matches);
+            $order->size = $matches[1] ?? null; // Size adalah grup pertama
+            $order->jumlah_potong = $matches[2] ?? null; // Jumlah potong adalah grup kedua
+        } else {
+            $order->size = null;
+            $order->jumlah_potong = null;
+        }
+
+        // Ambil data penjahit dan pemotong
+        $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
+        $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
+        // dd($order->size, $order->jumlah_potong); // Cek data size dan jumlah_potong
+
+        return view('Invoice.invoice', compact('order', 'penjahits', 'pemotongs'));
+    }
+
     public function deleteOrder($id)
     {
         try {
