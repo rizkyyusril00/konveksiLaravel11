@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- font inter --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     @vite('resources/css/app.css')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>Auth</title>
 </head>
 
-<body class="bg-slate-200">
+<body class="bg-primary">
     @if (Session::has('error'))
         <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
             x-transition:enter="transition ease-out duration-300 transform"
@@ -28,7 +34,7 @@
         <figure class="w-full h-screen absolute top-0">
             <img src="/img/login.jpg" alt="" class="w-full h-full">
         </figure>
-        <div class="w-full h-screen absolute top-0 bg-[#222222] opacity-40 z-30"></div>
+        <div class="w-full h-screen absolute top-0 bg-[#222222] opacity-30 z-30"></div>
         <div class="flex flex-col gap-6 items-center p-6 rounded-[15px] bg-[#ffffff] border border-[#222222] z-40">
             <div class="flex items-center flex-col gap-3">
                 <h1 class="text-[32px] text-[#222222] font-bold">Log In</h1>

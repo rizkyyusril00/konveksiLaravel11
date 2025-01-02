@@ -5,27 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- font inter --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     @vite('resources/css/app.css')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <title>Document</title>
+    <title>Konveksi</title>
 </head>
 
 <body>
     <nav class="w-full fixed py-4 px-4 bg-primary border-b border-accent flex justify-between z-40">
         {{-- logo --}}
         <a href="/" class="w-24 h-14">
-            <img src="/img/logo.png" alt="" class="w-full h-full object-cover">
+            <img src="/img/logo.png" alt="logo_company" class="w-full h-full object-cover">
         </a>
     </nav>
     {{-- main --}}
     <div class="flex">
         {{-- side nav --}}
-        <div class="w-[20%] pt-[100px] px-4 border-r border-accent h-screen flex flex-col gap-6 fixed">
+        <div class="w-[20%] bg-primary pt-[100px] px-4 border-r border-accent h-screen flex flex-col gap-6 fixed">
             {{-- top nav --}}
             <div class="flex flex-col flex-grow">
                 {{-- Order --}}
                 <a href="/"
-                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 {{ request()->is('/') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
+                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('/') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
                         viewBox="0 0 256 256">
                         <path
@@ -36,7 +42,7 @@
                 </a>
                 {{-- karyawan --}}
                 <a href="/karyawan"
-                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 {{ request()->is('karyawan') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
+                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('karyawan') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
                         viewBox="0 0 256 256">
                         <path
@@ -48,7 +54,7 @@
                 {{-- user/admin --}}
                 @auth('admin')
                     <a href="/user"
-                        class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 {{ request()->is('user') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
+                        class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('user') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
                             viewBox="0 0 256 256">
                             <path
@@ -60,7 +66,7 @@
                 @endauth
                 {{-- supplier --}}
                 <a href="/supplier"
-                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 {{ request()->is('supplier') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
+                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('supplier') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
                         viewBox="0 0 256 256">
                         <path
@@ -77,7 +83,7 @@
                     {{-- profile --}}
                     <div class="flex items-center gap-2">
                         {{-- img --}}
-                        <figure class="w-8 h-8 rounded-full bg-slate-700">
+                        <figure class="w-8 h-8 rounded-full bg-secondary">
                             <img src="/img/profile.jpg" alt="user"
                                 class="w-full h-full object-center object-cover rounded-full">
                         </figure>
@@ -91,7 +97,7 @@
                             @endauth
                         </div>
                     </div>
-                    {{-- action --}}
+                    {{-- logout --}}
                     <a href="{{ route('logout') }}" class="group">
                         <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:fill-error" width="20"
                             height="20" fill="#000000" viewBox="0 0 256 256">
@@ -100,6 +106,50 @@
                             </path>
                         </svg>
                     </a>
+                    {{-- logout --}}
+                    {{-- <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
+                    $watch('open', value => localStorage.setItem('modal-open', value))">
+                        <!-- Button to open modal -->
+                        <button @click="open = true" class="">
+                            <svg class="fill-secondary hover:fill-error transition-all duration-300 ease-in-out"
+                                xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill=""
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
+                                </path>
+                            </svg>
+                        </button>
+
+                        <!-- Modal -->
+                        <template x-if="open">
+                            <div x-transition:enter="transition transform ease-out duration-300"
+                                x-transition:enter-start="opacity-0 scale-50"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition transform ease-in duration-300"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-50"
+                                class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-[1000]"
+                                @click.self="open = false">
+
+                                <div class="bg-blue-400 p-6 rounded-lg shadow-lg w-fit">
+                                    <h3 class="text-lg font-bold">Delete Order Ini?</h3>
+                                    <p class="py-4">Apakah anda yakin akan hapus order dengan
+                                        nama customer
+                                        ?
+                                    </p>
+                                    <div class="flex items-center gap-2">
+                                        <button @click="open = false" class="btn btn-secondary w-auto">
+                                            Cancel
+                                        </button>
+                                        <a @click="open = false" href="/deleteOrder/"
+                                            class="btn btn-error text-white w-auto py-2">
+                                            Hapus
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div> --}}
                 </div>
             </div>
         </div>

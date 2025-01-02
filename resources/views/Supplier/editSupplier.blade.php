@@ -1,6 +1,5 @@
 <x-layout>
-    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4">
-        <h1>Edit Supplier</h1>
+    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4 bg-primary">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -14,44 +13,50 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('EditSupplier') }}" method="POST" class="w-full flex flex-col gap-4 px-40 pb-10">
+        <form action="{{ route('EditSupplier') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+            <h1 class="text-[24px] text-start text-secondary font-semibold">Edit Supplier</h1>
             @csrf
             <input type="hidden" name="supplier_id" value="{{ $supplier->id }}" id="">
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Supplier Name</label>
-                <input type="text" name="name" value="{{ $supplier->name }}" class="p-4 rounded-md"
-                    placeholder="Add Supplier Name...">
+            {{-- name --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Nama Supplier</label>
+                <input type="text" name="name" value="{{ $supplier->name }}"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Supplier Name...">
                 @error('name')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">No HP</label>
-                <input type="text" name="no_hp" value="{{ $supplier->no_hp }}" class="p-4 rounded-md"
-                    placeholder="Add No HP...">
+            {{-- no hp --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">No HP</label>
+                <input type="text" name="no_hp" value="{{ $supplier->no_hp }}"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add No HP...">
                 @error('no_hp')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Alamat</label>
-                <input type="text" name="alamat" value="{{ $supplier->alamat }}" class="p-4 rounded-md"
-                    placeholder="Add Alamat...">
+            {{-- alamat --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Alamat</label>
+                <input type="text" name="alamat" value="{{ $supplier->alamat }}"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Alamat...">
                 @error('alamat')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Email</label>
-                <input type="email" name="email" value="{{ $supplier->email }}" class="p-4 rounded-md"
-                    placeholder="Add Email...">
+            {{-- email --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Email</label>
+                <input type="email" name="email" value="{{ $supplier->email }}"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Email...">
                 @error('email')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Bahan Utama</label>
-                <select name="bahan_utama" id="" class="p-4 rounded-md">
+            {{-- bahan utama --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Bahan Utama</label>
+                <select name="bahan_utama" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="{{ $supplier->bahan_utama }}" disabled selected>{{ $supplier->bahan_utama }}
                     </option>
                     <option value="Combed 20">Combed 20</option>
@@ -62,9 +67,10 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Bahan Tambahan</label>
-                <select name="bahan_tambahan" id="" class="p-4 rounded-md">
+            {{-- bahan tambahan --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Bahan Tambahan</label>
+                <select name="bahan_tambahan" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="{{ $supplier->bahan_tambahan }}" disabled selected>
                         {{ $supplier->bahan_tambahan ?? '-' }}
                     </option>
@@ -76,9 +82,10 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Jenis Kancing</label>
-                <select name="jenis_kancing" id="" class="p-4 rounded-md">
+            {{-- jenis kancing --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Jenis Kancing</label>
+                <select name="jenis_kancing" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="{{ $supplier->jenis_kancing }}" disabled selected>{{ $supplier->jenis_kancing }}
                     </option>
                     <option value="Wangki">Wangki</option>
@@ -89,9 +96,10 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Jenis Sleting</label>
-                <select name="jenis_sleting" id="" class="p-4 rounded-md">
+            {{-- jenis sleting --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Jenis Sleting</label>
+                <select name="jenis_sleting" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="{{ $supplier->jenis_sleting }}" disabled selected>{{ $supplier->jenis_sleting }}
                     </option>
                     <option value="Gigi Halus">Gigi Halus</option>
@@ -102,9 +110,8 @@
                 @enderror
             </div>
             <div class="flex items-center gap-3">
-                <a href="/supplier"
-                    class="btn btn-primary border border-accent w-auto hover:bg-accent hover:text-primary">Cancel</a>
-                <button type="submit" class="btn btn-success w-[100px]">Edit</button>
+                <a href="/supplier" class="btn btn-outline btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-secondary">Edit</button>
             </div>
         </form>
     </div>

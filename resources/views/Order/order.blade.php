@@ -62,7 +62,7 @@
                 <!-- head -->
                 <thead class="bg-accent">
                     <tr class="text-[12px] text-secondary">
-                        <th class="w-auto">No</th>
+                        <th class="w-auto rounded-tl-sm rounded-bl-sm">No</th>
                         <th class="w-[200px]">
                             <a class="flex items-center gap-[2px]"
                                 href="{{ route('order', array_merge(request()->query(), ['orderBy' => 'customer', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
@@ -133,9 +133,9 @@
                         <th class="w-auto">Jenis Kancing</th>
                         <th class="w-auto">Penjahit</th>
                         <th class="w-auto">Pemotong</th>
-                        <th class="min-w-[150px]">Kuantitas</th>
+                        <th class="min-w-[180px]">Kuantitas</th>
                         <th class="min-w-[100px]">Total</th>
-                        <th class="w-auto">Action</th>
+                        <th class="w-auto rounded-tr-sm rounded-br-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -152,7 +152,7 @@
                                     </div>
                                     <div class="flex flex-col">
                                         <span class="font-semibold">
-                                            {{ $order->customer }}
+                                            {{ ucwords($order->customer) }}
                                         </span>
                                         <span>
                                             PO ID:
@@ -163,16 +163,69 @@
                                 <td>{{ $order->admin }}</td>
                                 {{-- harus bisa update status --}}
                                 <td class="">
-                                    <a
-                                        class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-1 rounded-md bg-opacity-20">
-                                        <div
-                                            class="{{ $order->status === 'Antrian' ? 'bg-blue-600' : ($order->status === 'Selesai' ? 'bg-green-600' : 'bg-orange-600') }} w-1 h-1 mt-[2px] rounded-full">
-                                        </div>
-                                        <span
-                                            class="{{ $order->status === 'Antrian' ? 'text-blue-600' : ($order->status === 'Selesai' ? 'text-green-600' : 'text-orange-600') }} text-[14px]">
-                                            {{ $order->status }}
-                                        </span>
-                                    </a>
+                                    <div x-data="{ openStatus: false }" x-init="openStatus = localStorage.getItem('modal-openStatus') === 'true';
+                                    $watch('openStatus', value => localStorage.setItem('modal-openStatus', value))">
+                                        <!-- Button to open modal -->
+                                        <button @click="openStatus = true" class="">
+                                            <div
+                                                class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-1 rounded-md bg-opacity-20">
+                                                <div
+                                                    class="{{ $order->status === 'Antrian' ? 'bg-blue-600' : ($order->status === 'Selesai' ? 'bg-green-600' : 'bg-orange-600') }} w-1 h-1 mt-[2px] rounded-full">
+                                                </div>
+                                                <span
+                                                    class="{{ $order->status === 'Antrian' ? 'text-blue-600' : ($order->status === 'Selesai' ? 'text-green-600' : 'text-orange-600') }} text-[14px]">
+                                                    {{ $order->status }}
+                                                </span>
+                                            </div>
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <template x-if="openStatus">
+                                            <div x-transition:enter="transition transform ease-out duration-300"
+                                                x-transition:enter-start="opacity-0 scale-50"
+                                                x-transition:enter-end="opacity-100 scale-100"
+                                                x-transition:leave="transition transform ease-in duration-300"
+                                                x-transition:leave-start="opacity-100 scale-100"
+                                                x-transition:leave-end="opacity-0 scale-50"
+                                                class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50"
+                                                @click.self="openStatus = false">
+
+                                                <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
+                                                    <h3 class="text-lg font-bold text-secondary">Ubah Status Dari Order
+                                                        Ini?</h3>
+                                                    <form @submit="setTimeout(() => { openStatus = false }, 100);"
+                                                        action="{{ route('EditOrder') }}" method="POST"
+                                                        class="flex flex-col gap-2 my-3">
+                                                        @csrf
+                                                        <input type="hidden" name="order_id"
+                                                            value="{{ $order->id }}">
+                                                        <label for="status"
+                                                            class="text-secondary text-[16px]">Status</label>
+                                                        <select name="status" id="status"
+                                                            class="text-secondary text-[16px] p-4 rounded-md">
+                                                            <option value="{{ $order->status }}" disabled selected>
+                                                                {{ $order->status }}</option>
+                                                            <option value="Antrian">Antrian</option>
+                                                            <option value="Diproses">Diproses</option>
+                                                            <option value="Selesai">Selesai</option>
+                                                        </select>
+                                                        @error('status')
+                                                            <span class="text-red-400">{{ $message }}</span>
+                                                        @enderror
+
+                                                        <div class="flex items-center gap-2">
+                                                            <button @click="openStatus = false"
+                                                                class="btn btn-secondary w-auto">
+                                                                Cancel
+                                                            </button>
+                                                            <button type="submit"
+                                                                class="btn btn-info text-white w-[100px] py-2">Edit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
                                 </td>
                                 <td>{{ $order->tanggal_order }}</td>
                                 <td>{{ $order->tanggal_selesai }}</td>
@@ -188,7 +241,8 @@
                                             RP {{ number_format($order->harga_satuan, 0, ',', '.') }}
                                         </li>
                                         @if ($order->quantity_2 && $order->harga_satuan_2)
-                                            <li>{{ $order->quantity_2 }} / RP {{ $order->harga_satuan_2 }}</li>
+                                            <li>{{ $order->quantity_2 }} / RP
+                                                {{ number_format($order->harga_satuan_2, 0, ',', '.') }}</li>
                                         @endif
                                     </ol>
                                 </td>
@@ -197,7 +251,7 @@
 
                                 <td class="">
                                     <div class="flex gap-3">
-                                        <a href="" class="">
+                                        <a href="/invoice" target="_blank" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 fill="" viewBox="0 0 256 256">
@@ -242,14 +296,13 @@
                                                     <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
                                                         <h3 class="text-lg font-bold">Delete Order Ini?</h3>
                                                         <p class="py-4">Apakah anda yakin akan hapus order dengan
-                                                            nama
-                                                            customer
+                                                            nama customer
                                                             <span class="font-bold">{{ $order->customer }} </span>
                                                             ?
                                                         </p>
                                                         <div class="flex items-center gap-2">
                                                             <button @click="open = false"
-                                                                class="btn bg-primary border border-accent w-auto hover:bg-accent hover:text-primary">
+                                                                class="btn btn-secondary w-auto">
                                                                 Cancel
                                                             </button>
                                                             <a @click="open = false"

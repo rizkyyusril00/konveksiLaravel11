@@ -53,11 +53,11 @@
                 <!-- head -->
                 <thead class="bg-accent">
                     <tr>
-                        <th class="w-[10%]">No</th>
+                        <th class="w-[10%] rounded-tl-sm rounded-bl-sm">No</th>
                         <th class="w-[25%]">Name</th>
                         <th class="w-[25%]">Email</th>
                         <th class="w-[25%]">Role</th>
-                        <th class="w-[10%]">Action</th>
+                        <th class="w-[10%] rounded-tr-sm rounded-br-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,7 +115,7 @@
                                                                 </p>
                                                                 <div class="flex items-center gap-2">
                                                                     <button @click="open = false"
-                                                                        class="btn bg-primary border border-accent w-auto hover:bg-accent hover:text-primary">
+                                                                        class="btn btn-secondary w-auto">
                                                                         Cancel
                                                                     </button>
                                                                     <a @click="open = false"

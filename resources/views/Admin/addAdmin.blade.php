@@ -1,6 +1,5 @@
 <x-layout>
-    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4">
-        <h1>add user</h1>
+    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4 bg-primary">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -14,32 +13,40 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('AddUser') }}" method="POST" class="w-full flex flex-col gap-4 px-40">
+        <form action="{{ route('AddUser') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+            <h1 class="text-[24px] text-start text-secondary font-semibold">Add User</h1>
             @csrf
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Name</label>
-                <input type="text" name="name" class="p-4 rounded-md" placeholder="Add Name...">
+            {{-- nama --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Nama</label>
+                <input type="text" name="name" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Add Name...">
                 @error('name')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Email</label>
-                <input type="email" name="email" class="p-4 rounded-md" placeholder="Add Email...">
+            {{-- email --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Email</label>
+                <input type="email" name="email" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Add Email...">
                 @error('email')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Password</label>
-                <input type="password" name="password" class="p-4 rounded-md" placeholder="Add password...">
+            {{-- password --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Password</label>
+                <input type="password" name="password" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Add password...">
                 @error('password')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Role</label>
-                <select name="role" id="" class="p-4 rounded-md">
+            {{-- role --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Role</label>
+                <select name="role" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="" disabled selected>Pilih Role</option>
                     <option value="admin">Admin</option>
                     <option value="user">User</option>
@@ -50,9 +57,8 @@
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/karyawan"
-                    class="btn btn-primary border border-accent w-auto hover:bg-accent hover:text-primary"">Cancel</a>
-                <button type="submit" class="btn btn-success w-auto">Add</button>
+                <a href="/karyawan" class="btn btn-outline btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-secondary w-auto">Add</button>
             </div>
         </form>
     </div>

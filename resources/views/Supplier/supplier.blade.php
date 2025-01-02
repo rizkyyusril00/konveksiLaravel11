@@ -54,7 +54,7 @@
                 <!-- head -->
                 <thead class="bg-accent w-full">
                     <tr class="text-[12px] text-secondary">
-                        <th>No</th>
+                        <th class="rounded-tl-sm rounded-bl-sm">No</th>
                         <th>Supplier</th>
                         <th class="min-w-[200px]">Alamat</th>
                         <th>No. Hp</th>
@@ -63,7 +63,7 @@
                         <th>Bahan Tambahan</th>
                         <th>Jenis Kancing</th>
                         <th>Jenis Sleting</th>
-                        <th>Action</th>
+                        <th class="rounded-tr-sm rounded-br-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,7 +124,7 @@
                                                         </p>
                                                         <div class="flex items-center gap-2">
                                                             <button @click="open = false"
-                                                                class="btn bg-primary border border-accent w-auto hover:bg-accent hover:text-primary">
+                                                                class="btn btn-secondary w-auto">
                                                                 Cancel
                                                             </button>
                                                             <a @click="open = false"

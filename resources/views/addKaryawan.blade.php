@@ -1,6 +1,5 @@
 <x-layout>
-    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4">
-        <h1>add karyawan</h1>
+    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4 bg-primary">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -14,18 +13,22 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('AddKaryawan') }}" method="POST" class="w-full flex flex-col gap-4 px-40">
+        <form action="{{ route('AddKaryawan') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+            <h1 class="text-[24px] text-start text-secondary font-semibold">Add Karyawan</h1>
             @csrf
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Name</label>
-                <input type="text" name="name" class="p-4 rounded-md" placeholder="Add Name...">
+            {{-- name --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Nama</label>
+                <input type="text" name="name" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Nama Karyawan...">
                 @error('name')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Pekerjaan</label>
-                <select name="pekerjaan" id="" class="p-4 rounded-md">
+            {{-- pekerjaan --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Pekerjaan</label>
+                <select name="pekerjaan" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="" disabled selected>Pilih Pekerjaan</option>
                     <option value="Penjahit">Penjahit</option>
                     <option value="Pemotong">Pemotong</option>
@@ -34,18 +37,19 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="flex flex-col gap-1 w-full">
-                <label for="">Upah</label>
-                <input type="text" name="upah" class="p-4 rounded-md" placeholder="Add Upah...">
+            {{-- upah --}}
+            <div class="flex flex-col gap-2 w-full">
+                <label for="" class="text-secondary text-[16px]">Upah</label>
+                <input type="text" name="upah" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Upah Karyawan...">
                 @error('upah')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/karyawan"
-                    class="btn btn-primary border border-accent w-auto hover:bg-accent hover:text-primary"">Cancel</a>
-                <button type="submit" class="btn btn-success w-auto">Add</button>
+                <a href="/karyawan" class="btn btn-outline btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-secondary w-auto">Add</button>
             </div>
         </form>
     </div>
