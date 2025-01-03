@@ -134,7 +134,7 @@
                         <th class="w-auto">Penjahit</th>
                         <th class="w-auto">Pemotong</th>
                         <th class="min-w-[180px]">Kuantitas</th>
-                        <th class="min-w-[100px]">Total</th>
+                        <th class="min-w-[120px]">Total</th>
                         <th class="w-auto rounded-tr-sm rounded-br-sm">Action</th>
                     </tr>
                 </thead>

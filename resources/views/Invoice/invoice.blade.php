@@ -87,8 +87,9 @@
             {{-- Tagihan --}}
             <div class="flex justify-between">
                 <div class="flex gap-4">
-                    <figure class="w-40 h-40 bg-red-300 rounded-[12px]">
-                        {{-- <img src="" alt="" classname=""> --}}
+                    <figure class="w-40 h-40 rounded-[12px]">
+                        <img src="{{ asset('storage/' . $order->image_order) }}" alt=""
+                            classname="w-full h-full rounded-[12px] object-cover">
                     </figure>
                     <div class="flex flex-col gap-3">
                         <h2 class="">Tagihan Kepada :</h2>
