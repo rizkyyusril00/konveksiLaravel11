@@ -71,14 +71,15 @@ class OrderController extends Controller
             'jenis_kancing' => 'required|string',
             'penjahit_id' => 'required|exists:karyawans,id',
             'pemotong_id' => 'required|exists:karyawans,id',
-            'size' => 'required|string',
-            'size_2' => 'nullable|string',
-            'jumlah_potong' => 'required|integer',
-            'jumlah_potong_2' => 'nullable|integer',
-            'harga_satuan' => 'required|integer',
-            'harga_satuan_2' => 'nullable|integer',
-            'total_harga' => 'required|integer',
-            'total_harga_2' => 'nullable|integer',
+            // 'size' => 'required|string',
+            // 'size_2' => 'nullable|string',
+            // 'jumlah_potong' => 'required|integer',
+            // 'jumlah_potong_2' => 'nullable|integer',
+            // 'harga_satuan' => 'required|integer',
+            // 'harga_satuan_2' => 'nullable|integer',
+            // 'total_harga' => 'required|integer',
+            // 'total_harga_2' => 'nullable|integer',
+            'items' => 'required|array',
             'status' => 'required|string',
             'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
         ]);
@@ -95,14 +96,15 @@ class OrderController extends Controller
             $order->jenis_kancing = $request->jenis_kancing;
             $order->penjahit_id = $request->penjahit_id;
             $order->pemotong_id = $request->pemotong_id;
-            $order->quantity = $request->size . '(' . $request->jumlah_potong . ')'; // Gabungkan size dan jumlah potong
-            $order->quantity_2 = ($request->size_2 && $request->jumlah_potong_2)
-                ? $request->size_2 . '(' . $request->jumlah_potong_2 . ')'
-                : null;
-            $order->harga_satuan = $request->harga_satuan;
-            $order->harga_satuan_2 = $request->harga_satuan_2;
-            $order->total_harga = $request->total_harga;
-            $order->total_harga_2 = $request->total_harga_2;
+            // $order->quantity = $request->size . '(' . $request->jumlah_potong . ')'; // Gabungkan size dan jumlah potong
+            // $order->quantity_2 = ($request->size_2 && $request->jumlah_potong_2)
+            //     ? $request->size_2 . '(' . $request->jumlah_potong_2 . ')'
+            //     : null;
+            // $order->harga_satuan = $request->harga_satuan;
+            // $order->harga_satuan_2 = $request->harga_satuan_2;
+            // $order->total_harga = $request->total_harga;
+            // $order->total_harga_2 = $request->total_harga_2;
+            $order->items = $request->items;
             $order->status = $request->status;
 
             // Proses upload gambar
@@ -120,7 +122,6 @@ class OrderController extends Controller
             return redirect('/add/order')->with('error', $e->getMessage());
         }
     }
-
 
     public function EditOrder(Request $request)
     {

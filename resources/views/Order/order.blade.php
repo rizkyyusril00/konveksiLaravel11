@@ -57,7 +57,7 @@
         </div>
 
         {{-- tabel --}}
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto" x-data="{ isActive: false, showItems: false }">
             <table class="table table-zebra">
                 <!-- head -->
                 <thead class="bg-accent">
@@ -96,8 +96,8 @@
                         </th>
                         <th class="w-auto">Admin</th>
                         <th class="w-auto">Status</th>
-                        <th class="w-auto">Tanggal Order</th>
-                        <th class="w-auto">
+                        <th class="min-w-[150px]">Tanggal Order</th>
+                        <th class="min-w-[150px]">
                             <a class="flex items-center gap-[2px]"
                                 href="{{ route('order', array_merge(request()->query(), ['orderBy' => 'tanggal_selesai', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
                                 <span>Tanggal Selesai</span>
@@ -133,7 +133,9 @@
                         <th class="w-auto">Jenis Kancing</th>
                         <th class="w-auto">Penjahit</th>
                         <th class="w-auto">Pemotong</th>
-                        <th class="min-w-[180px]">Kuantitas</th>
+                        <th :class="isActive ? 'min-w-[180px]' : 'min-w-[80px] delay-150'"
+                            class="transition-all duration-300 ease-in-out">
+                            Items</th>
                         <th class="min-w-[120px]">Total</th>
                         <th class="w-auto rounded-tr-sm rounded-br-sm">Action</th>
                     </tr>
@@ -148,7 +150,7 @@
                                     <div class="w-20 h-12 rounded-[12px] bg-slate-200">
                                         <img src="{{ asset('storage/' . $order->image_order) }}"
                                             alt="{{ $order->image_customer }} {{ asset('storage/' . $order->image_order) }}"
-                                            class="w-full h-full object-cover rounded-[12px]">
+                                            class="w-full h-full object-cover rounded-[8px]">
                                     </div>
                                     <div class="flex flex-col">
                                         <span class="font-semibold">
@@ -236,17 +238,23 @@
                                 <td>{{ $order->penjahit->name }}</td>
                                 <td>{{ $order->pemotong->name }}</td>
                                 <td>
-                                    <ol class="list-disc">
-                                        <li>{{ $order->quantity }} /
-                                            RP {{ number_format($order->harga_satuan, 0, ',', '.') }}
-                                        </li>
-                                        @if ($order->quantity_2 && $order->harga_satuan_2)
-                                            <li>{{ $order->quantity_2 }} / RP
-                                                {{ number_format($order->harga_satuan_2, 0, ',', '.') }}</li>
-                                        @endif
+                                    <!-- Toggle to show items list -->
+                                    <span :class="!showItems ? 'cursor-pointer' : 'hidden'" class=""
+                                        @click="showItems = !showItems; isActive = !isActive">
+                                        {{ count($order->items) }} pcs
+                                    </span>
+                                    <ol @click="showItems = !showItems; isActive = !isActive" x-show="showItems"
+                                        x-transition:enter.delay.100ms x-transition:leave.delay.0ms
+                                        class="list-disc cursor-pointer">
+                                        @foreach ($order->items as $item)
+                                            <li>{{ $item['size'] }} ({{ $item['quantity'] }}) / Rp.
+                                                {{ $item['harga_satuan'] }}</li>
+                                        @endforeach
                                     </ol>
                                 </td>
-                                <td>RP {{ number_format($order->total_harga + $order->total_harga_2, 0, ',', '.') }}
+
+                                <td>RP
+                                    {{ number_format($order->items[0]['total_harga'] + $order->items[1]['total_harga'] + $order->items[2]['total_harga'], 0, ',', '.') }}
                                 </td>
 
                                 <td class="">

@@ -144,178 +144,65 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            {{-- qty --}}
+            {{-- items --}}
             <div class="flex flex-col w-full gap-2" x-data="{
-                clickCount: 0,
-                showQty2: false,
-                showQty3: false,
-                handleClick() {
-                    if (this.clickCount === 0) {
-                        this.showQty2 = true;
-                        this.clickCount = 1;
-                    } else if (this.clickCount === 1) {
-                        this.showQty3 = true;
-                        this.clickCount = 2;
+                items: [
+                    { size: '', quantity: null, harga_satuan: null }
+                ],
+                toggleItem() {
+                    if (this.items.length < 3) {
+                        this.items.push({ size: '', quantity: null, harga_satuan: null });
                     } else {
-                        // Reset semua
-                        this.showQty2 = false;
-                        this.showQty3 = false;
-                        this.clickCount = 0;
+                        this.items = [{ size: '', quantity: null, harga_satuan: null }];
                     }
                 }
             }">
-                {{-- qty1 --}}
-                <div class="flex flex-col gap-2" id="qty1" x-data="{
-                    jumlah_potong: null,
-                    harga_satuan: null,
-                    get total_harga() {
-                        return this.jumlah_potong * this.harga_satuan;
-                    }
-                }">
-                    <div class="flex items-center gap-4">
-                        <div class="flex flex-col gap-1 w-1/5">
-                            <label for="size" class="text-secondary text-[16px]">Size</label>
-                            <select name="size" id="size" class="text-secondary text-[16px] p-4 rounded-md">
-                                <option value="" disabled selected>Pilih Size</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XL">XL</option>
-                                <option value="L">L</option>
-                            </select>
-                            @error('size')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
+                <!-- Items -->
+                <template x-for="(item, index) in items" :key="index">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex items-center gap-4">
+                            <!-- Size -->
+                            <div class="flex flex-col gap-1 w-1/5">
+                                <label :for="'size' + index" class="text-secondary text-[16px]">Size</label>
+                                <select :name="`items[${index}][size]`" :id="'size' + index"
+                                    class="text-secondary text-[16px] p-4 rounded-md" x-model="item.size">
+                                    <option value="" disabled selected>Pilih Size</option>
+                                    <option value="XXL">XXL</option>
+                                    <option value="XL">XL</option>
+                                    <option value="L">L</option>
+                                </select>
+                            </div>
+                            <!-- Quantity -->
+                            <div class="flex flex-col gap-1 w-2/5">
+                                <label :for="'quantity' + index" class="text-secondary text-[16px]">Quantity</label>
+                                <input type="number" :name="`items[${index}][quantity]`" :id="'quantity' + index"
+                                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Quantity..."
+                                    x-model.number="item.quantity">
+                            </div>
+                            <!-- Harga Satuan -->
+                            <div class="flex flex-col gap-1 w-2/5">
+                                <label :for="'harga_satuan' + index" class="text-secondary text-[16px]">Harga
+                                    Satuan</label>
+                                <input type="number" :name="`items[${index}][harga_satuan]`"
+                                    :id="'harga_satuan' + index" class="text-secondary text-[16px] p-4 rounded-md"
+                                    placeholder="Harga Satuan..." x-model.number="item.harga_satuan">
+                            </div>
                         </div>
-                        <div class="flex flex-col gap-1 w-2/5">
-                            <label for="jumlah_potong" class="text-secondary text-[16px]">Jumlah Potong</label>
-                            <input type="number" name="jumlah_potong" id="jumlah_potong"
-                                class="text-secondary text-[16px] p-4 rounded-md" placeholder="Jumlah Potong..."
-                                x-model.number="jumlah_potong">
-                            @error('jumlah_potong')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="flex flex-col gap-2 w-2/5">
-                            <label for="harga_satuan" class="text-secondary text-[16px]">Harga Satuan</label>
-                            <input type="number" name="harga_satuan" id="harga_satuan"
-                                class="text-secondary text-[16px] p-4 rounded-md" placeholder="Harga Satuan..."
-                                x-model.number="harga_satuan">
-                            @error('harga_satuan')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class=" w-full hidden">
-                        <label for="total_harga" class="text-[#222222] text-[16px]">Total Harga</label>
-                        <input type="number" name="total_harga" id="total_harga" class="p-4 rounded-md "
-                            placeholder="Total Harga..." x-bind:value="total_harga" readonly>
-                        @error('total_harga')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <!-- qty2 -->
-                <div x-show="showQty2" class="flex flex-col gap-2" id="qty2" x-data="{
-                    jumlah_potong_2: null,
-                    harga_satuan_2: null,
-                    get total_harga_2() {
-                        return this.jumlah_potong_2 * this.harga_satuan_2;
-                    }
-                }">
-                    <div class="flex items-center gap-4">
-                        <div class="flex flex-col gap-1 w-1/5">
-                            <label for="size_2" class="text-secondary text-[16px]">Size</label>
-                            <select name="size_2" id="size_2" class="text-secondary text-[16px] p-4 rounded-md">
-                                <option value="" disabled selected>Pilih Size</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XL">XL</option>
-                                <option value="L">L</option>
-                            </select>
-                            @error('size_2')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="flex flex-col gap-1 w-2/5">
-                            <label for="jumlah_potong_2" class="text-secondary text-[16px]">Jumlah Potong</label>
-                            <input type="number" name="jumlah_potong_2" id="jumlah_potong_2"
-                                class="text-secondary text-[16px] p-4 rounded-md" placeholder="Jumlah Potong..."
-                                x-model.number="jumlah_potong_2">
-                            @error('jumlah_potong_2')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="flex flex-col gap-2 w-2/5">
-                            <label for="harga_satuan_2" class="text-secondary text-[16px]">Harga Satuan</label>
-                            <input type="number" name="harga_satuan_2" id="harga_satuan_2"
-                                class="text-secondary text-[16px] p-4 rounded-md" placeholder="Harga Satuan..."
-                                x-model.number="harga_satuan_2">
-                            @error('harga_satuan_2')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
+                        <!-- Total Harga -->
+                        <div class="w-full">
+                            <label :for="'total_harga' + index" class="text-[#222222] text-[16px]">Total Harga</label>
+                            <input type="number" :name="`items[${index}][total_harga]`" :id="'total_harga' + index"
+                                class="p-4 rounded-md" placeholder="Total Harga..."
+                                :value="item.quantity * item.harga_satuan || 0" readonly>
                         </div>
                     </div>
-                    <div class=" w-full hidden">
-                        <label for="total_harga_2" class="">Total Harga</label>
-                        <input type="number" name="total_harga_2" id="total_harga_2" class="p-4 rounded-md "
-                            placeholder="Total Harga..." x-bind:value="total_harga_2" readonly>
-                        @error('total_harga_2')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <!-- qty3 -->
-                <div x-show="showQty3" class="flex flex-col gap-2" id="qty3" x-data="{
-                    jumlah_potong_3: null,
-                    harga_satuan_3: null,
-                    get total_harga_3() {
-                        return this.jumlah_potong_3 * this.harga_satuan_3;
-                    }
-                }">
-                    <div class="flex items-center gap-4">
-                        <div class="flex flex-col gap-1 w-1/5">
-                            <label for="size_3" class="text-secondary text-[16px]">Size</label>
-                            <select name="size_3" id="size_3" class="text-secondary text-[16px] p-4 rounded-md">
-                                <option value="" disabled selected>Pilih Size</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XL">XL</option>
-                                <option value="L">L</option>
-                            </select>
-                            @error('size_3')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="flex flex-col gap-1 w-2/5">
-                            <label for="jumlah_potong_3" class="text-secondary text-[16px]">Jumlah Potong</label>
-                            <input type="number" name="jumlah_potong_3" id="jumlah_potong_3"
-                                class="text-secondary text-[16px] p-4 rounded-md" placeholder="Jumlah Potong..."
-                                x-model.number="jumlah_potong_3">
-                            @error('jumlah_potong_3')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="flex flex-col gap-2 w-2/5">
-                            <label for="harga_satuan_3" class="text-secondary text-[16px]">Harga Satuan</label>
-                            <input type="number" name="harga_satuan_3" id="harga_satuan_3"
-                                class="text-secondary text-[16px] p-4 rounded-md" placeholder="Harga Satuan..."
-                                x-model.number="harga_satuan_3">
-                            @error('harga_satuan_3')
-                                <span class="text-red-400">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class=" w-full hidden">
-                        <label for="total_harga_3" class="">Total Harga</label>
-                        <input type="number" name="total_harga_3" id="total_harga_3" class="p-4 rounded-md "
-                            placeholder="Total Harga..." x-bind:value="total_harga_3" readonly>
-                        @error('total_harga_3')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <!-- add qty button -->
-                <div class="cursor-pointer w-fit group flex items-center gap-1" @click="handleClick">
-                    <span x-show="clickCount < 2" class="text-info text-[14px]">Tambah Quantity</span>
-                    <span x-show="clickCount >= 2" class="text-error text-[14px]">Reset</span>
-                    <svg x-show="clickCount < 2"
+                </template>
+
+                <!-- Add/Reset Button -->
+                <div class="cursor-pointer w-fit group flex items-center gap-1" @click="toggleItem">
+                    <span x-show="items.length < 3" class="text-info text-[14px]">Tambah Quantity</span>
+                    <span x-show="items.length >= 3" class="text-error text-[14px]">Reset</span>
+                    <svg x-show="items.length < 3"
                         class="fill-info group-hover:rotate-180 transition-all duration-300 ease-in-out"
                         xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#000000"
                         viewBox="0 0 256 256">
@@ -323,12 +210,13 @@
                             d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
                         </path>
                     </svg>
-                    <svg x-show="clickCount >= 2" class="fill-error" xmlns="http://www.w3.org/2000/svg"
+                    <svg x-show="items.length >= 3" class="fill-error" xmlns="http://www.w3.org/2000/svg"
                         width="14" height="14" fill="#000000" viewBox="0 0 256 256">
                         <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"></path>
                     </svg>
                 </div>
             </div>
+
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Status</label>
@@ -356,6 +244,7 @@
                 <a href="/order" class="btn btn-outline btn-secondary">Cancel</a>
                 <button type="submit" class="btn btn-secondary w-auto">Add</button>
             </div>
+
         </form>
     </div>
 </x-layout>

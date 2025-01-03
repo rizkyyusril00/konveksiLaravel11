@@ -12,6 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
     @vite('resources/css/app.css')
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>Invoice</title>
 </head>
 
@@ -79,7 +80,9 @@
                                 </ol>
                             </td>
                             <td>{{ $order->jenis_pakaian }}</td>
-                            <td>2 Pcs</td>
+                            <td>
+                                {{ count($order->items) }} pcs
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,30 +98,37 @@
                         <h2 class="">Tagihan Kepada :</h2>
                         <div class="flex flex-col gap-1">
                             <span class="">{{ ucwords($order->customer) }}</span>
-                            <span>Jl. Raya No. 1, Jakarta</span>
-                            <span>Telp: 0909020</span>
-                            <span>Email: GtN6o@example.com</span>
                         </div>
                     </div>
                 </div>
                 <div class="relative w-[250px]">
-                    <div class="flex flex-col gap-1 w-[250px] absolute bottom-0">
+                    <div class="flex flex-col gap-1 w-[250px] absolute bottom-0" x-data="{
+                        subtotal: {{ $order->items[0]['total_harga'] + $order->items[1]['total_harga'] + $order->items[2]['total_harga'] }},
+                        diskon: 1000,
+                        pajak: 10000,
+                        getTotal() {
+                            return this.subtotal - this.diskon + this.pajak;
+                        }
+                    }">
+                        {{-- total --}}
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Subtotal: </span>
-                            <span class="w-1/2 text-right">RP
-                                {{ number_format($order->total_harga + $order->total_harga_2, 0, ',', '.') }}</span>
+                            <span class="w-1/2 text-right" x-text="'RP ' + subtotal.toLocaleString('id-ID')"></span>
                         </div>
+                        {{-- diskon --}}
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Diskon: </span>
-                            <span class="w-1/2 text-right">Rp. 50.000</span>
+                            <span class="w-1/2 text-right" x-text="'Rp. ' + diskon.toLocaleString('id-ID')"></span>
                         </div>
+                        {{-- pajak --}}
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Pajak: </span>
-                            <span class="w-1/2 text-right">Rp. 10.000</span>
+                            <span class="w-1/2 text-right" x-text="'Rp. ' + pajak.toLocaleString('id-ID')"></span>
                         </div>
+                        {{-- total --}}
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Total: </span>
-                            <span class="w-1/2 text-right">Rp. 500.000</span>
+                            <span class="w-1/2 text-right" x-text="'Rp. ' + getTotal().toLocaleString('id-ID')"></span>
                         </div>
                     </div>
                     <div class="flex flex-col gap-1 w-[300px] invisible bg-yellow-400">

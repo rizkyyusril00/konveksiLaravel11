@@ -102,4 +102,9 @@ class Order extends Model
     {
         return Carbon::parse($this->attributes['tanggal_selesai'])->format('Y-m-d');
     }
+
+    // json qty
+    protected $casts = [
+        'items' => 'array', // Cast 'items' as an array
+    ];
 }
