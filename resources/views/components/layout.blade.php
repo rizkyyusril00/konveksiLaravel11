@@ -17,18 +17,21 @@
 </head>
 
 <body>
-    <nav class="w-full fixed py-4 px-4 bg-primary border-b border-accent flex justify-between z-40">
-        {{-- logo --}}
+    {{-- <nav class="w-full fixed py-4 px-4 bg-primary border-b border-accent flex justify-between z-40">
         <a href="/" class="w-24 h-14">
             <img src="/img/logo.png" alt="logo_company" class="w-full h-full object-cover">
         </a>
-    </nav>
+    </nav> --}}
     {{-- main --}}
     <div class="flex">
         {{-- side nav --}}
-        <div class="w-[20%] bg-primary pt-[100px] px-4 border-r border-accent h-screen flex flex-col gap-6 fixed">
+        <div class="w-[20%] bg-primary pt-4 px-4 border-r border-accent h-screen flex flex-col gap-6 fixed">
             {{-- top nav --}}
             <div class="flex flex-col flex-grow">
+                {{-- logo --}}
+                <a href="/" class="w-24 h-14">
+                    <img src="/img/logo.png" alt="logo_company" class="w-full h-full object-cover">
+                </a>
                 {{-- Order --}}
                 <a href="/"
                     class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('/') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
@@ -94,7 +97,7 @@
                         <path d="M32,120a60,60,0,0,1,96,0h0a60,60,0,0,1,96,0" fill="none" stroke="currentColor"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
                     </svg>
-                    <span>User</span>
+                    <span>Customer</span>
                 </a>
             </div>
             {{-- bottom nav --}}

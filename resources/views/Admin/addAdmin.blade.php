@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-[100px] px-4 bg-primary">
+    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-4 px-4 bg-primary">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
