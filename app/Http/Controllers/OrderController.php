@@ -137,10 +137,7 @@ class OrderController extends Controller
             'jenis_kancing' => 'sometimes|required|string',
             'penjahit_id' => 'sometimes|required|exists:karyawans,id',
             'pemotong_id' => 'sometimes|required|exists:karyawans,id',
-            'size' => 'sometimes|required|string',  // Pastikan size selalu ada jika dikirim
-            'jumlah_potong' => 'sometimes|required|integer',  // Pastikan jumlah_potong bertipe integer
-            'harga_satuan' => 'sometimes|required|string',
-            'total_harga' => 'sometimes|required|string',
+            'items' => 'sometimes|required|array',
             'status' => 'sometimes|required|string',
             'image_order' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:1048',  // Validasi untuk gambar
         ]);
@@ -149,20 +146,8 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id); // Pastikan order_id ada di request
 
         try {
-            // Hitung total_harga berdasarkan jumlah_potong dan harga_satuan
-            // if ($request->has('jumlah_potong') && $request->has('harga_satuan')) {
-            //     $total_harga = $request->jumlah_potong * $request->harga_satuan;
-            //     $request->merge(['total_harga' => $total_harga]); // Menambahkan total_harga ke request
-            // }
-
-            // Cek apakah size dan jumlah_potong ada, jika ada maka gabungkan menjadi quantity
-            if ($request->has('size') && $request->has('jumlah_potong')) {
-                // Gabungkan size dan jumlah_potong dalam format size(jumlah_potong)
-                $order->quantity = $request->size . '(' . $request->jumlah_potong . ')';
-            }
-
             // Update atribut lainnya kecuali image_order, size, dan jumlah_potong
-            $order->update($request->except(['image_order', 'size', 'jumlah_potong'])); // Update tanpa size dan jumlah_potong
+            $order->update($request->except(['image_order', 'size'])); // Update tanpa size dan jumlah_potong
 
             // Proses file gambar jika ada file yang diunggah
             if ($request->hasFile('image_order')) {

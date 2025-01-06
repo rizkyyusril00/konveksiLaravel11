@@ -147,54 +147,63 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div x-data="{
-                jumlah_potong: {{ $order->jumlah_potong ?? 0 }},
-                harga_satuan: {{ $order->harga_satuan ?? 0 }},
-                get total_harga() {
-                    return this.jumlah_potong * this.harga_satuan;
-                }
-            }">
-                <div class="flex items-center gap-4">
-                    <div class="flex flex-col gap-1 w-1/5">
-                        <label for="size" class="text-secondary text-[16px]">Size</label>
-                        <select name="size" id="size" class="text-secondary text-[16px] p-4 rounded-md">
-                            <option value="{{ $order->size }}" selected>{{ ucfirst($order->size) }}</option>
-                            <option value="XXL">XXL</option>
-                            <option value="XL">XL</option>
-                            <option value="L">L</option>
-                        </select>
-                        @error('size')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col gap-1 w-2/5">
-                        <label for="jumlah_potong" class="text-secondary text-[16px]">Jumlah Potong</label>
-                        <input type="number" name="jumlah_potong" id="jumlah_potong"
-                            class="text-secondary text-[16px] p-4 rounded-md" placeholder="Jumlah Potong..."
-                            x-model.number="jumlah_potong">
-                        @error('jumlah_potong')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col gap-2 w-2/5">
-                        <label for="harga_satuan" class="text-secondary text-[16px]">Harga Satuan</label>
-                        <input type="number" name="harga_satuan" id="harga_satuan"
-                            class="text-secondary text-[16px] p-4 rounded-md" placeholder="Harga Satuan..."
-                            x-model.number="harga_satuan">
-                        @error('harga_satuan')
-                            <span class="text-red-400">{{ $message }}</span>
-                        @enderror
+            {{-- item --}}
+            @foreach ($order->items as $index => $item)
+                <div class="flex flex-col gap-2">
+                    <div x-data="{
+                        jumlah_potong: {{ $order->items[$index]['quantity'] ?? $index }},
+                        harga_satuan: {{ $order->items[$index]['harga_satuan'] ?? 0 }},
+                        get total_harga() {
+                            return this.jumlah_potong * this.harga_satuan;
+                        }
+                    }" class="flex flex-col gap-2">
+                        <div class="flex items-center gap-4">
+                            {{-- size --}}
+                            <div class="flex flex-col gap-1 w-1/5">
+                                <label for="size" class="text-secondary text-[16px]">Size</label>
+                                <select name="items[{{ $index }}][size]" id="size"
+                                    class="text-secondary text-[16px] p-4 rounded-md">
+                                    <option value="{{ $item['size'] }}" selected>{{ $item['size'] }}</option>
+                                    <option value="XXL">XXL</option>
+                                    <option value="XL">XL</option>
+                                    <option value="L">L</option>
+                                </select>
+                                @error('size')
+                                    <span class="text-red-400">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            {{-- quantity --}}
+                            <div class="flex flex-col gap-1 w-2/5">
+                                <label for="jumlah_potong" class="text-secondary text-[16px]">Quantity</label>
+                                <input type="number" name="items[{{ $index }}][quantity]" id="jumlah_potong"
+                                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Jumlah Potong..."
+                                    x-model.number="jumlah_potong">
+                                @error('jumlah_potong')
+                                    <span class="text-red-400">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            {{-- harga satuan --}}
+                            <div class="flex flex-col gap-2 w-2/5">
+                                <label for="harga_satuan" class="text-secondary text-[16px]">Harga Satuan</label>
+                                <input type="number" name="items[{{ $index }}][harga_satuan]"
+                                    id="harga_satuan" class="text-secondary text-[16px] p-4 rounded-md"
+                                    placeholder="Harga Satuan..." x-model.number="harga_satuan">
+                                @error('harga_satuan')
+                                    <span class="text-red-400">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class=" gap-2 w-full">
+                            <label for="total_harga">Total Harga</label>
+                            <input type="text" name="items[{{ $index }}][total_harga]" id=""
+                                class="p-4 rounded-md" readonly x-bind:value="total_harga">
+                            @error('total_harga')
+                                <span class="text-red-400">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
-                <div class="hidden gap-2 w-full">
-                    <label for="total_harga">Total Harga</label>
-                    <input type="text" name="total_harga" id="" class="p-4 rounded-md" readonly
-                        x-bind:value="total_harga">
-                    @error('total_harga')
-                        <span class="text-red-400">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
+            @endforeach
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Status</label>
@@ -213,13 +222,22 @@
                 <label for="image_order">Upload Gambar</label>
                 <input type="file" name="image_order"
                     class="file-input file-input-bordered file-input-secondary file-input-md w-full max-w-xs">
-                @if ($order->image_order)
+                @if ($order->image_order == null)
                     <div class="flex gap-2">
-                        <div class="w-20 h-20 rounded-md">
+                        <figure class="w-24 h-24 rounded-md">
+                            <div class="w-full h-full bg-slate-200 flex items-center justify-center">
+                                <span class="text-center text-secondary">No Img</span>
+                            </div>
+                        </figure>
+                        <span class="text-center text-secondary">Tidak ada gambar Sebelumnya</span>
+                    </div>
+                @else
+                    <div class="flex gap-2">
+                        <figure class="w-24 h-24 rounded-md">
                             <img src="{{ asset('storage/' . $order->image_order) }}" alt="Current Image"
                                 class="w-full h-full object-cover rounded-md">
-                        </div>
-                        <span>Gambar Sebelumnya</span>
+                        </figure>
+                        <span class="text-center text-secondary">Gambar Sebelumnya</span>
                     </div>
                 @endif
                 @error('image_order')

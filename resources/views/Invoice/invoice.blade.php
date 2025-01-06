@@ -91,8 +91,14 @@
             <div class="flex justify-between">
                 <div class="flex gap-4">
                     <figure class="w-40 h-40 rounded-[12px]">
-                        <img src="{{ asset('storage/' . $order->image_order) }}" alt=""
-                            classname="w-full h-full rounded-[12px] object-cover">
+                        @if ($order->image_order == null)
+                            <div class="flex items-center justify-center w-full h-full bg-slate-200">
+                                <span class="text-center text-secondary">No img</span>
+                            </div>
+                        @else
+                            <img src="{{ asset('storage/' . $order->image_order) }}" alt=""
+                                classname="w-full h-full rounded-[12px] object-cover">
+                        @endif
                     </figure>
                     <div class="flex flex-col gap-3">
                         <h2 class="">Tagihan Kepada :</h2>
@@ -103,14 +109,18 @@
                 </div>
                 <div class="relative w-[250px]">
                     <div class="flex flex-col gap-1 w-[250px] absolute bottom-0" x-data="{
-                        subtotal: {{ $order->items[0]['total_harga'] + $order->items[1]['total_harga'] + $order->items[2]['total_harga'] }},
+                        subtotal: @php $totalHarga = 0;
+                            foreach ($order->items as $item) {
+                                $totalHarga += $item['total_harga'] ?? 0;
+                            } @endphp
+                        {{ $totalHarga }},
                         diskon: 1000,
                         pajak: 10000,
                         getTotal() {
                             return this.subtotal - this.diskon + this.pajak;
                         }
                     }">
-                        {{-- total --}}
+                        {{-- subtotal --}}
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Subtotal: </span>
                             <span class="w-1/2 text-right" x-text="'RP ' + subtotal.toLocaleString('id-ID')"></span>

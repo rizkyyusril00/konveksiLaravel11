@@ -147,11 +147,16 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="flex items-center gap-2 w-[250px]">
                                     {{-- image --}}
-                                    <div class="w-20 h-12 rounded-[12px] bg-slate-200">
-                                        <img src="{{ asset('storage/' . $order->image_order) }}"
-                                            alt="{{ $order->image_customer }} {{ asset('storage/' . $order->image_order) }}"
-                                            class="w-full h-full object-cover rounded-[8px]">
-                                    </div>
+                                    <figure
+                                        class="w-20 h-12 rounded-[12px] flex items-center justify-center bg-slate-200">
+                                        @if ($order->image_order == null)
+                                            <span class="text-center text-secondary">No img</span>
+                                        @else
+                                            <img src="{{ asset('storage/' . $order->image_order) }}"
+                                                alt="{{ $order->image_customer }} {{ asset('storage/' . $order->image_order) }}"
+                                                class="w-full h-full object-cover rounded-[8px]">
+                                        @endif
+                                    </figure>
                                     <div class="flex flex-col">
                                         <span class="font-semibold">
                                             {{ ucwords($order->customer) }}
@@ -168,17 +173,27 @@
                                     <div x-data="{ openStatus: false }" x-init="openStatus = localStorage.getItem('modal-openStatus') === 'true';
                                     $watch('openStatus', value => localStorage.setItem('modal-openStatus', value))">
                                         <!-- Button to open modal -->
-                                        <button @click="openStatus = true" class="">
+                                        <button @click="openStatus = true" class="flex items-center gap-1 group mr-1">
                                             <div
-                                                class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-1 rounded-md bg-opacity-20">
-                                                <div
+                                                class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-[6px] rounded-md bg-opacity-20">
+                                                <span
                                                     class="{{ $order->status === 'Antrian' ? 'bg-blue-600' : ($order->status === 'Selesai' ? 'bg-green-600' : 'bg-orange-600') }} w-1 h-1 mt-[2px] rounded-full">
-                                                </div>
+                                                </span>
                                                 <span
                                                     class="{{ $order->status === 'Antrian' ? 'text-blue-600' : ($order->status === 'Selesai' ? 'text-green-600' : 'text-orange-600') }} text-[14px]">
                                                     {{ $order->status }}
                                                 </span>
                                             </div>
+                                            <span
+                                                class="-ml-10 opacity-0 group-hover:ml-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                                                <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
+                                                    xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    fill="" viewBox="0 0 256 256">
+                                                    <path
+                                                        d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM136,75.31,152.69,92,68,176.69,51.31,160ZM48,208V179.31L76.69,208Zm48-3.31L79.32,188,164,103.31,180.69,120Zm96-96L147.32,64l24-24L216,84.69Z">
+                                                    </path>
+                                                </svg>
+                                            </span>
                                         </button>
 
                                         <!-- Modal -->
@@ -218,10 +233,10 @@
                                                         <div class="flex items-center gap-2">
                                                             <button @click="openStatus = false"
                                                                 class="btn btn-secondary w-auto">
-                                                                Cancel
+                                                                Batal
                                                             </button>
                                                             <button type="submit"
-                                                                class="btn btn-info text-white w-[100px] py-2">Edit</button>
+                                                                class="btn btn-info text-white w-[100px] py-2">Simpan</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -252,9 +267,14 @@
                                         @endforeach
                                     </ol>
                                 </td>
-
                                 <td>RP
-                                    {{ number_format($order->items[0]['total_harga'] + $order->items[1]['total_harga'] + $order->items[2]['total_harga'], 0, ',', '.') }}
+                                    @php
+                                        $totalHarga = 0;
+                                        foreach ($order->items as $item) {
+                                            $totalHarga += $item['total_harga'] ?? 0;
+                                        }
+                                    @endphp
+                                    {{ number_format($totalHarga, 0, ',', '.') }}
                                 </td>
 
                                 <td class="">
