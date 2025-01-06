@@ -29,8 +29,8 @@
             {{-- top nav --}}
             <div class="flex flex-col flex-grow">
                 {{-- logo --}}
-                <a href="/" class="w-24 h-14">
-                    <img src="/img/logo.png" alt="logo_company" class="w-full h-full object-cover">
+                <a href="/" class="w-14 h-14 mb-2">
+                    <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full ">
                 </a>
                 {{-- Order --}}
                 <a href="/"

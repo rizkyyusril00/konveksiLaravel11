@@ -22,8 +22,8 @@
             {{-- header --}}
             <div class="flex items-center justify-between">
                 {{-- logo company --}}
-                <figure class="w-28 h-16">
-                    <img src="/img/logo.png" alt="logo_company" class="w-full h-full object-cover">
+                <figure class="w-24 h-24">
+                    <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full">
                 </figure>
                 {{-- invoice --}}
                 <div class="flex flex-col gap-2">

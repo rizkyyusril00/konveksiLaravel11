@@ -57,7 +57,7 @@
         </div>
 
         {{-- tabel --}}
-        <div class="overflow-x-auto" x-data="{ isActive: false, showItems: false }">
+        <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <!-- head -->
                 <thead class="bg-accent">
@@ -133,8 +133,7 @@
                         <th class="w-auto">Jenis Kancing</th>
                         <th class="w-auto">Penjahit</th>
                         <th class="w-auto">Pemotong</th>
-                        <th :class="isActive ? 'min-w-[180px]' : 'min-w-[80px] delay-150'"
-                            class="transition-all duration-300 ease-in-out">
+                        <th class="min-w-[180px]">
                             Items</th>
                         <th class="min-w-[120px]">Total</th>
                         <th class="w-auto rounded-tr-sm rounded-br-sm">Action</th>
@@ -254,13 +253,7 @@
                                 <td>{{ $order->pemotong->name }}</td>
                                 <td>
                                     <!-- Toggle to show items list -->
-                                    <span :class="!showItems ? 'cursor-pointer' : 'hidden'" class=""
-                                        @click="showItems = !showItems; isActive = !isActive">
-                                        {{ count($order->items) }} pcs
-                                    </span>
-                                    <ol @click="showItems = !showItems; isActive = !isActive" x-show="showItems"
-                                        x-transition:enter.delay.100ms x-transition:leave.delay.0ms
-                                        class="list-disc cursor-pointer">
+                                    <ol class="list-disc item h-auto max-h-16 overflow-y-scroll">
                                         @foreach ($order->items as $item)
                                             <li>{{ $item['size'] }} ({{ $item['quantity'] }}) / Rp.
                                                 {{ $item['harga_satuan'] }}</li>
