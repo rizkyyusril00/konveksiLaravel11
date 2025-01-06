@@ -29,7 +29,7 @@
             {{-- top nav --}}
             <div class="flex flex-col flex-grow">
                 {{-- logo --}}
-                <a href="/" class="w-14 h-14 mb-2">
+                <a href="/" class="w-14 h-14 mb-4">
                     <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full ">
                 </a>
                 {{-- Order --}}

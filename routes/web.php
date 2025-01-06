@@ -16,6 +16,7 @@ use App\Http\Controllers\SupplierController;
 //     return view('Invoice.invoice');
 // });
 Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
+Route::get('/po/{id}', [OrderController::class, 'po']);
 
 
 // auth
