@@ -20,6 +20,7 @@ class Order extends Model
         'pemotong_id',
         'items',
         'status',
+        'note',
         'image_order'
     ];
 

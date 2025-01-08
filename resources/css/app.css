@@ -12,3 +12,7 @@ body {
 .modal {
     background-color: transparent !important;
 } */
+tr:nth-child(even) {
+    --tw-bg-opacity: 1;
+    background-color: var(--fallback-a, oklch(var(--a) / var(--tw-bg-opacity, 1))) !important;
+}

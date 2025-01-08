@@ -230,6 +230,15 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
+            {{-- note --}}
+            <div class="flex flex-col w-full gap-2">
+                <label for="" class="text-secondary text-[16px]">Catatan</label>
+                <textarea name="note" class="textarea textarea-bordered text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Masukan catatan anda..."></textarea>
+                @error('note')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+            </div>
             {{-- upload gambar --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="image_order" class="text-[#222222] text-[16px]">Upload Gambar</label>

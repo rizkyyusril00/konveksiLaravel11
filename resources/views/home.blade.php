@@ -22,8 +22,8 @@
             <form method="GET" action="/karyawan" class="flex gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama..."
-                        class="input input-bordered input-secondary pr-10 w-40 text-[14px]" />
-                    <button type="submit" class="absolute top-4 right-4">
+                        class="input input-bordered input-secondary pr-10 w-40 h-10 min-h-10 text-[14px]" />
+                    <button type="submit" class="absolute top-3 right-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                             viewBox="0 0 256 256">
                             <path
@@ -32,7 +32,8 @@
                         </svg>
                     </button>
                 </div>
-                <select name="filter" class="select select-bordered select-secondary w-[90px] text-[14px]">
+                <select name="filter"
+                    class="select select-bordered select-secondary w-[90px] h-10 min-h-10 text-[14px]">
                     <option value="">Filter</option>
                     @foreach ($filterOptions as $option)
                         <option value="{{ $option }}" {{ request('filter') == $option ? 'selected' : '' }}>
@@ -40,11 +41,12 @@
                         </option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn btn-outline btn-secondary text-[14px]">Search</button>
-                <a href="/karyawan" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
+                <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Search</button>
+                <a href="/karyawan" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="{{ route('AddKaryawan') }}" class="btn btn-secondary w-fit flex items-center gap-2 group">
+            <a href="{{ route('AddKaryawan') }}"
+                class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
                 <span class="text-[12px] text-primary">Add Karyawan</span>
                 <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
@@ -62,19 +64,19 @@
                 <!-- head -->
                 <thead class="bg-accent">
                     <tr class="text-[12px] text-secondary">
-                        <th class="rounded-tl-sm rounded-bl-sm">No</th>
+                        <th class="rounded-tl-lg rounded-bl-sm">No</th>
                         <th>Name</th>
                         <th>Pekerjaan</th>
                         <th>Upah/Potong</th>
                         <th>Total Order</th>
                         <th>Total Upah</th>
-                        <th class="rounded-tr-sm rounded-br-sm">Action</th>
+                        <th class="rounded-tr-lg rounded-br-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (count($karyawans) > 0)
                         @foreach ($karyawans as $karyawan)
-                            <tr class="text-[14px] text-secondary">
+                            <tr class="text-[14px] text-secondary even:bg-accent">
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ ucwords($karyawan->name) }}</td>
                                 <td>{{ $karyawan->pekerjaan }}</td>

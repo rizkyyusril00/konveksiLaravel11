@@ -23,14 +23,9 @@ return new class extends Migration
             $table->string('jenis_kancing');
             $table->unsignedBigInteger('penjahit_id'); // Foreign key ke tabel karyawans
             $table->unsignedBigInteger('pemotong_id'); // Foreign key ke tabel karyawans
-            // $table->string('quantity'); // Gabungan size dan jumlah potong
-            // $table->string('quantity_2')->nullable();
-            // $table->string('harga_satuan');
-            // $table->string('harga_satuan_2')->nullable();
-            // $table->integer('total_harga');
-            // $table->integer('total_harga_2')->nullable();
             $table->json('items')->nullable();
             $table->string('status');
+            $table->string('note')->nullable();
             $table->string('image_order')->nullable();
             $table->timestamps();
 

@@ -38,7 +38,17 @@
                 {{-- worksheet --}}
                 <div class="flex items-center gap-2">
                     {{-- print --}}
-                    <button class="btn btn-secondary print:hidden" onclick="window.print()">Cetak</button>
+                    <button onclick="window.print()"
+                        class="flex items-center justify-center bg-secondary w-8 h-8 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18"
+                            height="18" fill="#ffffff" viewBox="0 0 256 256">
+                            <path
+                                d="M214.67,72H200V40a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8V72H41.33C27.36,72,16,82.77,16,96v80a8,8,0,0,0,8,8H56v32a8,8,0,0,0,8,8H192a8,8,0,0,0,8-8V184h32a8,8,0,0,0,8-8V96C240,82.77,228.64,72,214.67,72ZM72,48H184V72H72ZM184,208H72V160H184Zm40-40H200V152a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8v16H32V96c0-4.41,4.19-8,9.33-8H214.67c5.14,0,9.33,3.59,9.33,8Zm-24-52a12,12,0,1,1-12-12A12,12,0,0,1,200,116Z">
+                            </path>
+                        </svg>
+                    </button>
+
                     {{-- no order --}}
                     <div class="flex flex-col p-2 w-36 border-2 border-secondary">
                         <span class="text-secondary">No. Order :</span>
@@ -53,7 +63,7 @@
 
             </div>
             {{-- img order --}}
-            <figure class="w-[250px] h-56 rounded-[12px] flex items-center justify-center bg-red-200">
+            <figure class="w-[360px] h-56 rounded-[12px] flex items-center justify-center bg-red-200">
                 @if ($order->image_order == null)
                     <span class="text-center text-secondary">No img</span>
                 @else
@@ -67,49 +77,52 @@
                 {{-- box 1 --}}
                 <div class="flex w-2/3">
                     {{-- kiri --}}
-                    <div class="flex flex-col w-1/3 border-y border-l border-black">
-                        <div class="flex flex-col p-1">
-                            <span>Ukuran :</span>
+                    <div class="flex flex-col w-1/3 border-y border-l border-secondary">
+                        <div class="flex flex-col pt-1 pl-1 pr-14">
+                            <span class="text-[14px] text-secondary">Ukuran :</span>
                             <ul>
                                 @foreach ($order->items as $item)
                                     <li class="flex justify-between">
-                                        <span>{{ $item['size'] }}</span>
-                                        <span class="pr-24">{{ $item['quantity'] }}</span>
+                                        <span class="text-[12px] text-secondary">{{ $item['size'] }}</span>
+                                        <span class="text-[12px] text-secondary">{{ $item['quantity'] }}</span>
                                     </li>
                                 @endforeach
-                                <li class="pt-4 flex justify-between text-[#e62737]">
-                                    <span class="">TOTAL</span>
-                                    <span class="pr-16">{{ $totalQuantity }} Pcs</span>
+                                <li class="pt-2 flex justify-between font-bold text-[#e62737]">
+                                    <span class="text-[14px]">TOTAL</span>
+                                    <span class="text-[14px]">{{ $totalQuantity }} Pcs</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     {{-- kiri --}}
-                    <div class="flex flex-col w-2/3 border border-black">
+                    <div class="flex flex-col w-2/3 border border-secondary">
                         <div class="flex flex-col p-1">
-                            <span class="mb-1">Note :</span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque molestias temporibus vitae
-                                assumenda. Quisquam deleniti cumque dicta quos tempore. Id cumque quibusdam dignissimos
-                                minima incidunt, in rem nemo, expedita voluptate recusandae molestias numquam maxime ut,
-                                modi nisi fuga rerum hic.</p>
+                            <span class="text-[14px] text-secondary mb-1">Note :</span>
+                            <p class="text-[14px] text-secondary">{{ $order->note }}</p>
                         </div>
                     </div>
                 </div>
                 {{-- box 2 --}}
                 <div class="w-1/3 absolute pl-2 top-0 right-0">
-                    <table class="table-auto border-collapse border border-black w-full">
+                    <table class="table-auto border-collapse border border-secondary w-full">
                         <tbody>
                             <tr>
-                                <td class="border border-black p-1 text-center">Raw Material</td>
-                                <td class="border border-black p-1 text-center">{{ $order->bahan_utama }}</td>
+                                <td class="border border-secondary p-1 text-center text-[14px] text-secondary">Raw
+                                    Material</td>
+                                <td class="border border-secondary p-1 text-center text-[14px] text-secondary">
+                                    {{ $order->bahan_utama }}</td>
                             </tr>
                             <tr>
-                                <td class="border border-black p-1 text-center">Cutting</td>
-                                <td class="border border-black p-1 text-center">{{ $order->pemotong->name }}</td>
+                                <td class="border border-secondary p-1 text-center text-[14px] text-secondary">Cutting
+                                </td>
+                                <td class="border border-secondary p-1 text-center text-[14px] text-secondary">
+                                    {{ $order->pemotong->name }}</td>
                             </tr>
                             <tr>
-                                <td class="border border-black p-1 text-center">Sewing</td>
-                                <td class="border border-black p-1 text-center">{{ $order->penjahit->name }}</td>
+                                <td class="border border-secondary p-1 text-center text-[14px] text-secondary">Sewing
+                                </td>
+                                <td class="border border-secondary p-1 text-center text-[14px] text-secondary">
+                                    {{ $order->penjahit->name }}</td>
                             </tr>
                         </tbody>
                     </table>

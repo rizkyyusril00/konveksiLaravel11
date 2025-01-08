@@ -22,8 +22,8 @@
             <form method="GET" action="/" class="flex gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="" placeholder="Cari nama..."
-                        class="input input-bordered input-secondary pr-10 w-40 text-[14px]" />
-                    <button type="submit" class="absolute top-4 right-4">
+                        class="input input-bordered input-secondary pr-10 w-40 h-10 min-h-10 text-[14px]" />
+                    <button type="submit" class="absolute top-3 right-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                             viewBox="0 0 256 256">
                             <path
@@ -32,7 +32,8 @@
                         </svg>
                     </button>
                 </div>
-                <select name="filter" class="select select-bordered select-secondary w-[90px] text-[14px]">
+                <select name="filter"
+                    class="select h-10 min-h-10 select-bordered select-secondary w-[90px] text-[14px]">
                     <option value="" selected disabled>Filter</option>
                     @foreach ($filterOptions as $option)
                         <option value="{{ $option }}" {{ request('filter') == $option ? 'selected' : '' }}>
@@ -40,11 +41,12 @@
                         </option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn btn-outline btn-secondary text-[14px]">Search</button>
-                <a href="/" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
+                <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Search</button>
+                <a href="/" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="{{ route('AddOrder') }}" class="btn btn-secondary w-fit flex items-center gap-2 group">
+            <a href="{{ route('AddOrder') }}"
+                class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
                 <span class="text-[12px] text-primary">Add Order</span>
                 <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
@@ -62,7 +64,7 @@
                 <!-- head -->
                 <thead class="bg-accent">
                     <tr class="text-[12px] text-secondary">
-                        <th class="w-auto rounded-tl-sm rounded-bl-sm">No</th>
+                        <th class="w-auto rounded-tl-lg rounded-bl-sm">No</th>
                         <th class="w-[200px]">
                             <a class="flex items-center gap-[2px]"
                                 href="{{ route('order', array_merge(request()->query(), ['orderBy' => 'customer', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
@@ -136,7 +138,7 @@
                         <th class="min-w-[180px]">
                             Items</th>
                         <th class="min-w-[120px]">Total</th>
-                        <th class="w-auto rounded-tr-sm rounded-br-sm">Action</th>
+                        <th class="w-auto rounded-tr-lg rounded-br-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -272,7 +274,7 @@
 
                                 <td class="">
                                     <div class="flex gap-3">
-                                        <a href="/invoice/{{ $order->id }}" target="_blank" class="">
+                                        {{-- <a href="/invoice/{{ $order->id }}" target="_blank" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 fill="" viewBox="0 0 256 256">
@@ -280,7 +282,32 @@
                                                     d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z">
                                                 </path>
                                             </svg>
-                                        </a>
+                                        </a> --}}
+                                        <div class="relative" x-data="{ open: false }">
+                                            <svg @click="open = !open"
+                                                class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
+                                                xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                fill="" viewBox="0 0 256 256">
+                                                <path
+                                                    d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z">
+                                                </path>
+                                            </svg>
+
+                                            {{-- box pop up --}}
+                                            <div x-show="open" @click.outside="open = false" x-transition
+                                                class="absolute -top-16 -right-5 w-fit py-2 px-5 bg-white border border-gray-300 rounded shadow-lg z-10">
+                                                <ol class="list-disc">
+                                                    <li>
+                                                        <a class="text-secondary hover:text-info" target="_blank"
+                                                            href="/invoice/{{ $order->id }}">Invoice</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="text-secondary hover:text-info" target="_blank"
+                                                            href="/po/{{ $order->id }}">PO</a>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
                                         <a href="/updateOrder/{{ $order->id }}" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"

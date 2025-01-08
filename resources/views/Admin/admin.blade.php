@@ -21,8 +21,8 @@
             <form method="GET" action="/user" class="flex gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="" placeholder="Cari nama..."
-                        class="input input-bordered input-secondary pr-10 w-40 text-[14px]" />
-                    <button type="submit" class="absolute top-4 right-4">
+                        class="input input-bordered input-secondary pr-10 h-10 min-h-10 w-40 text-[14px]" />
+                    <button type="submit" class="absolute top-3 right-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                             viewBox="0 0 256 256">
                             <path
@@ -31,11 +31,12 @@
                         </svg>
                     </button>
                 </div>
-                <button type="submit" class="btn btn-outline btn-secondary text-[14px]">Cari</button>
-                <a href="/user" class="btn btn-outline btn-secondary text-[14px]">Clear</a>
+                <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Cari</button>
+                <a href="/user" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Clear</a>
             </form>
             {{-- btn add --}}
-            <a href="{{ route('AddUser') }}" class="btn btn-secondary w-fit flex items-center gap-2 group">
+            <a href="{{ route('AddUser') }}"
+                class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
                 <span class="text-[12px] text-primary">Add User</span>
                 <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
@@ -53,11 +54,11 @@
                 <!-- head -->
                 <thead class="bg-accent">
                     <tr>
-                        <th class="w-[10%] rounded-tl-sm rounded-bl-sm">No</th>
+                        <th class="w-[10%] rounded-tl-lg rounded-bl-sm">No</th>
                         <th class="w-[25%]">Name</th>
                         <th class="w-[25%]">Email</th>
                         <th class="w-[25%]">Role</th>
-                        <th class="w-[10%] rounded-tr-sm rounded-br-sm">Action</th>
+                        <th class="w-[10%] rounded-tr-lg rounded-br-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody>

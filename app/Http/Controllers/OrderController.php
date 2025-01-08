@@ -71,16 +71,9 @@ class OrderController extends Controller
             'jenis_kancing' => 'required|string',
             'penjahit_id' => 'required|exists:karyawans,id',
             'pemotong_id' => 'required|exists:karyawans,id',
-            // 'size' => 'required|string',
-            // 'size_2' => 'nullable|string',
-            // 'jumlah_potong' => 'required|integer',
-            // 'jumlah_potong_2' => 'nullable|integer',
-            // 'harga_satuan' => 'required|integer',
-            // 'harga_satuan_2' => 'nullable|integer',
-            // 'total_harga' => 'required|integer',
-            // 'total_harga_2' => 'nullable|integer',
             'items' => 'required|array',
             'status' => 'required|string',
+            'note' => 'nullable|string|max:225',
             'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
         ]);
 
@@ -96,16 +89,9 @@ class OrderController extends Controller
             $order->jenis_kancing = $request->jenis_kancing;
             $order->penjahit_id = $request->penjahit_id;
             $order->pemotong_id = $request->pemotong_id;
-            // $order->quantity = $request->size . '(' . $request->jumlah_potong . ')'; // Gabungkan size dan jumlah potong
-            // $order->quantity_2 = ($request->size_2 && $request->jumlah_potong_2)
-            //     ? $request->size_2 . '(' . $request->jumlah_potong_2 . ')'
-            //     : null;
-            // $order->harga_satuan = $request->harga_satuan;
-            // $order->harga_satuan_2 = $request->harga_satuan_2;
-            // $order->total_harga = $request->total_harga;
-            // $order->total_harga_2 = $request->total_harga_2;
             $order->items = $request->items;
             $order->status = $request->status;
+            $order->note = $request->note ?: null;
 
             // Proses upload gambar
             if ($request->hasFile('image_order')) {
@@ -139,6 +125,7 @@ class OrderController extends Controller
             'pemotong_id' => 'sometimes|required|exists:karyawans,id',
             'items' => 'sometimes|required|array',
             'status' => 'sometimes|required|string',
+            'note' => 'sometimes|nullable|string|max:225',
             'image_order' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:1048',  // Validasi untuk gambar
         ]);
 
@@ -179,16 +166,6 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        // Pisahkan quantity menjadi size dan jumlah_potong (tanpa spasi di tanda kurung)
-        if ($order->quantity) {
-            preg_match('/^(.*?)\((\d+)\)$/', $order->quantity, $matches);
-            $order->size = $matches[1] ?? null; // Size adalah grup pertama
-            $order->jumlah_potong = $matches[2] ?? null; // Jumlah potong adalah grup kedua
-        } else {
-            $order->size = null;
-            $order->jumlah_potong = null;
-        }
-
         // Ambil data penjahit dan pemotong
         $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
@@ -216,6 +193,7 @@ class OrderController extends Controller
         $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
 
+        // menghitung jumlah qty
         $totalQuantity = collect($order->items)->sum('quantity');
         // dd($order->size, $order->jumlah_potong); // Cek data size dan jumlah_potong
 

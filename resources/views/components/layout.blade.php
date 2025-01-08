@@ -80,7 +80,7 @@
                 </a>
                 {{-- supplier --}}
                 <a href="/customer"
-                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('supplier') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
+                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('customer') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
                         viewBox="0 0 256 256">
                         <rect width="256" height="256" fill="none" />
