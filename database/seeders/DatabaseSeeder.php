@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\Karyawan;
 use App\Models\Supplier;
 use App\Models\User;
@@ -74,6 +75,18 @@ class DatabaseSeeder extends Seeder
             'bahan_tambahan' => 'Parasut',
             'jenis_kancing' => 'Wangki',
             'jenis_sleting' => 'Gigi Halus',
+        ]);
+
+        // Menambahkan data customer
+        Customer::create([
+            'name' => 'Arul',
+            'no_hp' => '080000567890',
+            'email' => 'arul10@example.com',
+        ]);
+        Customer::create([
+            'name' => 'Mupti',
+            'no_hp' => '081234567000',
+            'email' => 'Mupti@example.com',
         ]);
     }
 }

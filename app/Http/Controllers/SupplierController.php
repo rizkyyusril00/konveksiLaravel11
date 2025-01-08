@@ -118,7 +118,7 @@ class SupplierController extends Controller
     {
         try {
             Supplier::where('id', $id)->delete();
-            return redirect('/supplier')->with('success', 'Jenis Pakain Deleted Successfully');
+            return redirect('/supplier')->with('success', 'Supplier Deleted Successfully');
         } catch (\exception $e) {
             return redirect('/supplier')->with('fail', $e->getMessage());
         }

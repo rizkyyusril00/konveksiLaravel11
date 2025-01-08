@@ -271,7 +271,6 @@
                                     @endphp
                                     {{ number_format($totalHarga, 0, ',', '.') }}
                                 </td>
-
                                 <td class="">
                                     <div class="flex gap-3">
                                         {{-- <a href="/invoice/{{ $order->id }}" target="_blank" class="">
@@ -369,7 +368,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="3" class="text-center align-middle text-secondary font-bold">No data</td>
+                            <td colspan="15" class="text-center align-middle text-secondary font-bold">No data</td>
                         </tr>
                     @endif
                 </tbody>

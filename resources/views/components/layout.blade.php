@@ -43,6 +43,38 @@
                     </svg>
                     <span>Order</span>
                 </a>
+                {{-- supplier --}}
+                <a href="/supplier"
+                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('supplier') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
+                        viewBox="0 0 256 256">
+                        <path
+                            d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z">
+                        </path>
+                    </svg>
+                    <span>Suplier</span>
+                </a>
+                {{-- customer --}}
+                <a href="/customer"
+                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('customer') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
+                        viewBox="0 0 256 256">
+                        <rect width="256" height="256" fill="none" />
+                        <circle cx="80" cy="168" r="32" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                        <circle cx="80" cy="64" r="32" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                        <circle cx="176" cy="168" r="32" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                        <path d="M32,224a60,60,0,0,1,96,0,60,60,0,0,1,96,0" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                        <circle cx="176" cy="64" r="32" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                        <path d="M32,120a60,60,0,0,1,96,0h0a60,60,0,0,1,96,0" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                    </svg>
+                    <span>Customer</span>
+                </a>
                 {{-- karyawan --}}
                 <a href="/karyawan"
                     class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('karyawan') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
@@ -67,38 +99,6 @@
                         <span>User</span>
                     </a>
                 @endauth
-                {{-- supplier --}}
-                <a href="/supplier"
-                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('supplier') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
-                        viewBox="0 0 256 256">
-                        <path
-                            d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z">
-                        </path>
-                    </svg>
-                    <span>Suplier</span>
-                </a>
-                {{-- supplier --}}
-                <a href="/customer"
-                    class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('customer') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
-                        viewBox="0 0 256 256">
-                        <rect width="256" height="256" fill="none" />
-                        <circle cx="80" cy="168" r="32" fill="none" stroke="currentColor"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                        <circle cx="80" cy="64" r="32" fill="none" stroke="currentColor"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                        <circle cx="176" cy="168" r="32" fill="none" stroke="currentColor"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                        <path d="M32,224a60,60,0,0,1,96,0,60,60,0,0,1,96,0" fill="none" stroke="currentColor"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                        <circle cx="176" cy="64" r="32" fill="none" stroke="currentColor"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                        <path d="M32,120a60,60,0,0,1,96,0h0a60,60,0,0,1,96,0" fill="none" stroke="currentColor"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                    </svg>
-                    <span>Customer</span>
-                </a>
             </div>
             {{-- bottom nav --}}
             <div class="flex flex-col gap-6 mb-6">

@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PakaianController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SupplierController;
 
@@ -64,6 +66,16 @@ Route::middleware('auth:user,admin')->group(function () {
     Route::get('/updateSupplier/{id}', [SupplierController::class, 'loadEditForm']);
     Route::post('/updateSupplier/user', [SupplierController::class, 'EditSupplier'])->name('EditSupplier');
     Route::get('/deleteSupplier/{id}', [SupplierController::class, 'deleteSupplier']);
+});
+
+// customer
+Route::middleware('auth:user,admin')->group(function () {
+    Route::get('/customer', [CustomerController::class, 'loadAllCustomer'])->name('customer');
+    Route::get('/add/customer', [CustomerController::class, 'loadAllCustomerForm']);
+    Route::post('add/customer', [CustomerController::class, 'AddCustomer'])->name('AddCustomer');
+    Route::get('/updateCustomer/{id}', [CustomerController::class, 'loadEditForm']);
+    Route::post('/updateCustomer/user', [CustomerController::class, 'EditCustomer'])->name('EditCustomer');
+    Route::get('/deleteCustomer/{id}', [CustomerController::class, 'deleteCustomer']);
 });
 
 // Order

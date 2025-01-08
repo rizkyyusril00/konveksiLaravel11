@@ -105,7 +105,7 @@
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/karyawan" class="btn btn-outline btn-secondary">Cancel</a>
+                <a href="/supplier" class="btn btn-outline btn-secondary">Cancel</a>
                 <button type="submit" class="btn btn-secondary w-auto">Add</button>
             </div>
         </form>
