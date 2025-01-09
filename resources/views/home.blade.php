@@ -41,7 +41,7 @@
                         </option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Search</button>
+                <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Cari</button>
                 <a href="/karyawan" class="flex items-center justify-center bg-secondary w-8 h-8 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18" height="18"
@@ -55,7 +55,7 @@
             {{-- btn add --}}
             <a href="{{ route('AddKaryawan') }}"
                 class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
-                <span class="text-[12px] text-primary">Add Karyawan</span>
+                <span class="text-[12px] text-primary">Tambah Karyawan</span>
                 <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                     viewBox="0 0 256 256">
@@ -128,7 +128,7 @@
                                                     @click.self="open = false">
 
                                                     <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
-                                                        <h3 class="text-lg font-bold">Delete Karyawan Ini?</h3>
+                                                        <h3 class="text-lg font-bold">Hapus Karyawan Ini?</h3>
                                                         <p class="py-4">Apakah anda yakin akan hapus karyawan dengan
                                                             nama
                                                             <span class="font-bold">{{ $karyawan->name }} </span>
@@ -137,7 +137,7 @@
                                                         <div class="flex items-center gap-2">
                                                             <button @click="open = false"
                                                                 class="btn btn-secondary w-auto">
-                                                                Cancel
+                                                                Tidak
                                                             </button>
                                                             <a @click="open = false"
                                                                 href="/deleteKaryawan/{{ $karyawan->id }}"

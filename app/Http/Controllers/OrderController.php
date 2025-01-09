@@ -68,6 +68,25 @@ class OrderController extends Controller
     }
     public function AddOrder(Request $request)
     {
+
+        $message = [
+            'customer_id.required' => 'Customer Tidak Boleh Kosong',
+            'admin.required' => 'Admin Tidak Boleh Kosong',
+            'tanggal_order.required' => 'Tanggal Order Tidak Boleh Kosong',
+            'tanggal_selesai.required' => 'Tanggal Selesai Tidak Boleh Kosong',
+            'jenis_pakaian.required' => 'Jenis Pakaian Tidak Boleh Kosong',
+            'bahan_utama.required' => 'Bahan Utama Tidak Boleh Kosong',
+            'bahan_tambahan.required' => 'Bahan Tambahan Tidak Boleh Kosong',
+            'jenis_kancing.required' => 'Jenis Kancing Tidak Boleh Kosong',
+            'penjahit_id.required' => 'Penjahit Tidak Boleh Kosong',
+            'pemotong_id.required' => 'Pemotong Tidak Boleh Kosong',
+            'items.required' => 'Item Tidak Boleh Kosong',
+            'status.required' => 'Status Tidak Boleh Kosong',
+            'note.max' => 'Catatan Yang Ditulis Terlalu Banyak',
+            'image_order.image' => 'Format Gambar Harus JPEG, PNG, atau JPG',
+            'image_order.max' => 'Ukuran Gambar Terlalu Besar Max 1 MB',
+        ];
+
         // Validasi form
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
@@ -84,7 +103,7 @@ class OrderController extends Controller
             'status' => 'required|string',
             'note' => 'nullable|string|max:225',
             'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
-        ]);
+        ], $message);
 
         try {
             $order = new Order();

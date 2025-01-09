@@ -35,6 +35,17 @@ class SupplierController extends Controller
 
     public function AddSupplier(Request $request)
     {
+
+        $message = [
+            'name.required' => 'Nama supplier harus diisi',
+            'no_hp.required' => 'Nomor HP supplier harus diisi',
+            'alamat.required' => 'Alamat supplier harus diisi',
+            'email.required' => 'Email supplier harus diisi',
+            'bahan_utama.required' => 'Bahan utama supplier harus diisi',
+            'jenis_kancing.required' => 'Jenis kancing supplier harus diisi',
+            'jenis_sleting.required' => 'Jenis sleting supplier harus diisi',
+        ];
+
         // form validate
         $request->validate([
             'name' => 'required|string',
@@ -45,7 +56,7 @@ class SupplierController extends Controller
             'bahan_tambahan' => 'nullable|string',
             'jenis_kancing' => 'required|string',
             'jenis_sleting' => 'required|string',
-        ]);
+        ], $message);
         // add supplier
         try {
             $supplier = new Supplier();

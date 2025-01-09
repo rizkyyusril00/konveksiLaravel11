@@ -110,7 +110,7 @@
                 @enderror
             </div>
             <div class="flex items-center gap-3">
-                <a href="/supplier" class="btn btn-outline btn-secondary">Cancel</a>
+                <a href="/supplier" class="btn btn-outline btn-secondary">Kembali</a>
                 <button type="submit" class="btn btn-secondary">Edit</button>
             </div>
         </form>

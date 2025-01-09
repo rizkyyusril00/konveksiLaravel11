@@ -42,12 +42,19 @@ class KaryawanController extends Controller
     }
     public function AddKaryawan(Request $request)
     {
+
+        $message = [
+            'name.required' => 'Nama karyawan harus diisi.',
+            'pekerjaan.required' => 'Pekerjaan karyawan harus diisi.',
+            'upah.required' => 'Upah karyawan harus diisi.',
+        ];
+
         // form validate
         $request->validate([
             'name' => 'required|string',
             'pekerjaan' => 'required|string',
             'upah' => 'required|string',
-        ]);
+        ], $message);
         // add user
         try {
             $karyawan = new Karyawan();

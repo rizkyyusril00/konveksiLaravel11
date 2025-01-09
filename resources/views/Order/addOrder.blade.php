@@ -318,17 +318,14 @@
 
                     <!-- Validasi Error -->
                     @error('image_order')
-                        <span class="text-red-400 text-sm">{{ $message }}</span>
+                        <span class="text-red-400">{{ $message }}</span>
                     @enderror
                 </div>
-                @error('image_order')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/order" class="btn btn-outline btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-secondary w-auto">Add</button>
+                <a href="/order" class="btn btn-outline btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-secondary w-auto">Tambah</button>
             </div>
         </form>
     </div>

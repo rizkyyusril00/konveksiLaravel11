@@ -14,7 +14,7 @@
             </div>
         @endif
         <form action="{{ route('AddUser') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
-            <h1 class="text-[24px] text-start text-secondary font-semibold">Add User</h1>
+            <h1 class="text-[24px] text-start text-secondary font-semibold">Tambah User</h1>
             @csrf
             {{-- nama --}}
             <div class="flex flex-col gap-2 w-full">
@@ -57,8 +57,8 @@
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/karyawan" class="btn btn-outline btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-secondary w-auto">Add</button>
+                <a href="/karyawan" class="btn btn-outline btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-secondary w-auto">Tambah</button>
             </div>
         </form>
     </div>

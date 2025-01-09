@@ -45,7 +45,7 @@
             {{-- btn add --}}
             <a href="{{ route('AddUser') }}"
                 class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
-                <span class="text-[12px] text-primary">Add User</span>
+                <span class="text-[12px] text-primary">Tambah User</span>
                 <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                     viewBox="0 0 256 256">
@@ -76,7 +76,13 @@
                                 <td class="w-auto">{{ $loop->iteration }}</td>
                                 <td class="w-auto">{{ ucwords($user->name) }}</td>
                                 <td class="w-auto">{{ $user->email }}</td>
-                                <td class="w-auto">{{ $user->role }}</td>
+                                <td class="w-auto">
+                                    @if ($user->role == 'admin')
+                                        <span>Super Admin</span>
+                                    @elseif ($user->role == 'user')
+                                        <span>Admin</span>
+                                    @endif
+                                </td>
                                 <td class="w-[5%]">
                                     <div class="flex gap-3">
                                         @auth
@@ -116,7 +122,7 @@
                                                             @click.self="open = false">
 
                                                             <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
-                                                                <h3 class="text-lg font-bold">Delete User Ini?</h3>
+                                                                <h3 class="text-lg font-bold">Hapus User Ini?</h3>
                                                                 <p class="py-4">Apakah anda yakin akan hapus user dengan
                                                                     nama
                                                                     <span class="font-bold">{{ $user->name }} </span>

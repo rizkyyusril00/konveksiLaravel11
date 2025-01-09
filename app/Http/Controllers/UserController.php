@@ -38,13 +38,21 @@ class UserController extends Controller
     }
     public function AddUser(Request $request)
     {
+
+        $message = [
+            'name.required' => 'Nama harus diisi',
+            'email.required' => 'Email harus diisi',
+            'password.required' => 'Password harus diisi',
+            'role.required' => 'Role harus diisi',
+        ];
+
         // form validate
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
             'password' => 'required|min:4',
-            'role' => 'nullable|string',
-        ]);
+            'role' => 'required|string',
+        ], $message);
         // add user
         try {
             $user = new User();

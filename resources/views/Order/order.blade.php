@@ -21,7 +21,7 @@
         <div class="flex items-center justify-between gap-2">
             <form method="GET" action="/" class="flex items-center gap-2">
                 <div class="relative">
-                    <input type="text" name="search" value="" placeholder="Cari nama..."
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama..."
                         class="input input-bordered input-secondary pr-10 w-40 h-10 min-h-10 text-[14px]" />
                     <button type="submit" class="absolute top-3 right-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
@@ -32,6 +32,7 @@
                         </svg>
                     </button>
                 </div>
+
                 <select name="filter"
                     class="select h-10 min-h-10 select-bordered select-secondary w-[90px] text-[14px]">
                     <option value="" selected disabled>Filter</option>
@@ -41,7 +42,7 @@
                         </option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Search</button>
+                <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Cari</button>
                 <a href="/" class="flex items-center justify-center bg-secondary w-8 h-8 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18" height="18"
@@ -263,7 +264,8 @@
                                 <td>{{ $order->pemotong->name }}</td>
                                 <td>
                                     <!-- Toggle to show items list -->
-                                    <ol class="list-disc item h-auto max-h-16 overflow-y-scroll">
+                                    <ol
+                                        class="list-disc item h-auto max-h-16 {{ count($order->items) >= 3 ? 'overflow-y-scroll' : '' }}">
                                         @foreach ($order->items as $item)
                                             <li>{{ $item['size'] ?? 'Size Tidak Diketahui' }}
                                                 ({{ $item['quantity'] ?? 'Quantity tidak diketahui' }})
@@ -271,6 +273,7 @@
                                                 {{ $item['harga_satuan'] ?? 'Harga Satuan Tidak Diketahui' }}</li>
                                         @endforeach
                                     </ol>
+
                                 </td>
                                 <td>RP
                                     @php
@@ -283,15 +286,6 @@
                                 </td>
                                 <td class="">
                                     <div class="flex gap-3">
-                                        {{-- <a href="/invoice/{{ $order->id }}" target="_blank" class="">
-                                            <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
-                                                xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                fill="" viewBox="0 0 256 256">
-                                                <path
-                                                    d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z">
-                                                </path>
-                                            </svg>
-                                        </a> --}}
                                         <div class="relative" x-data="{ open: false }">
                                             <svg @click="open = !open"
                                                 class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
@@ -351,16 +345,17 @@
                                                     @click.self="open = false">
 
                                                     <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
-                                                        <h3 class="text-lg font-bold">Delete Order Ini?</h3>
+                                                        <h3 class="text-lg font-bold">Hapus Order Ini?</h3>
                                                         <p class="py-4">Apakah anda yakin akan hapus order dengan
                                                             nama customer
-                                                            <span class="font-bold">{{ $order->customer }} </span>
+                                                            <span class="font-bold">{{ $order->customer->name }}
+                                                            </span>
                                                             ?
                                                         </p>
                                                         <div class="flex items-center gap-2">
                                                             <button @click="open = false"
                                                                 class="btn btn-secondary w-auto">
-                                                                Cancel
+                                                                Tidak
                                                             </button>
                                                             <a @click="open = false"
                                                                 href="/deleteOrder/{{ $order->id }}"

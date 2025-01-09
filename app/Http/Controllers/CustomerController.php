@@ -37,6 +37,14 @@ class CustomerController extends Controller
 
     public function AddCustomer(Request $request)
     {
+
+        $message = [
+            'name.required' => 'Nama harus diisi',
+            'no_hp.required' => 'Nomor HP harus diisi',
+            'email.required' => 'Email harus diisi',
+            'email.unique' => 'Email sudah terdaftar',
+        ];
+
         // Form validation with unique email
         $request->validate([
             'name' => 'required|string',

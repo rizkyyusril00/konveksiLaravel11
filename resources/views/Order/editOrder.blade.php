@@ -273,7 +273,7 @@
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/" class="btn btn-outline btn-secondary">Cancel</a>
+                <a href="/" class="btn btn-outline btn-secondary">Kembali</a>
                 <button type="submit" class="btn btn-secondary">Edit</button>
             </div>
         </form>
