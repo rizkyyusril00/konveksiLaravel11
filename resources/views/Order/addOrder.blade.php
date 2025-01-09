@@ -34,9 +34,8 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
                 <a href="{{ route('AddCustomer') }}" class="flex items-center gap-1 group">
-                    <span class="text-info text-[14px]">Add User</span>
-                    <svg x-show="items.length < 3"
-                        class="fill-info group-hover:rotate-180 transition-all duration-300 ease-in-out"
+                    <span class="text-info text-[14px]">Tambah User</span>
+                    <svg class="fill-info group-hover:rotate-180 transition-all duration-300 ease-in-out"
                         xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#000000"
                         viewBox="0 0 256 256">
                         <path
@@ -195,7 +194,7 @@
                         <option value="" disabled>Tidak Ada Pemotong</option>
                     @endif
                 </select>
-                @error('pemotong')
+                @error('pemotong_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
@@ -244,7 +243,7 @@
                             </div>
                         </div>
                         <!-- Total Harga -->
-                        <div class="w-full">
+                        <div class="w-full hidden">
                             <label :for="'total_harga' + index" class="text-[#222222] text-[16px]">Total Harga</label>
                             <input type="number" :name="`items[${index}][total_harga]`" :id="'total_harga' + index"
                                 class="p-4 rounded-md" placeholder="Total Harga..."
@@ -271,7 +270,6 @@
                     </svg>
                 </div>
             </div>
-
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Status</label>
@@ -296,9 +294,33 @@
             </div>
             {{-- upload gambar --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="image_order" class="text-[#222222] text-[16px]">Upload Gambar</label>
+                {{-- <label for="image_order" class="text-[#222222] text-[16px]">Upload Gambar</label>
                 <input type="file" name="image_order"
-                    class="file-input file-input-bordered file-input-secondary file-input-md w-full max-w-xs">
+                    class="file-input file-input-bordered file-input-secondary file-input-md w-full max-w-xs"> --}}
+                <div x-data="{ fileName: 'Belum ada file yang dipilih' }" class="flex flex-col w-full gap-2">
+                    <!-- Label -->
+                    <label for="image_order" class="text-[#222222] text-[16px]">Upload Gambar</label>
+                    <!-- Custom Input File -->
+                    <div class="relative w-fit">
+                        <input type="file" id="image_order" name="image_order"
+                            class="absolute opacity-0  file-input file-input-bordered file-input-secondary file-input-md w-full max-w-xs"
+                            @change="fileName = $event.target.files[0] ? $event.target.files[0].name : 'Belum ada file yang dipilih'">
+                        <div class="flex items-center border border-secondary rounded-md overflow-hidden">
+                            <button type="button"
+                                class="-ml-[1px] cursor-pointer px-4 py-3 bg-secondary text-white rounded-l-md text-sm">
+                                Pilih File
+                            </button>
+                            <span
+                                class="cursor-default flex-1 px-4 py-2 text-sm text-secondary bg-primary rounded-r-md"
+                                x-text="fileName"></span>
+                        </div>
+                    </div>
+
+                    <!-- Validasi Error -->
+                    @error('image_order')
+                        <span class="text-red-400 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
                 @error('image_order')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
@@ -308,7 +330,6 @@
                 <a href="/order" class="btn btn-outline btn-secondary">Cancel</a>
                 <button type="submit" class="btn btn-secondary w-auto">Add</button>
             </div>
-
         </form>
     </div>
 </x-layout>

@@ -67,7 +67,7 @@
         </div>
 
         {{-- tabel --}}
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto mb-14">
             <table class="table table-zebra">
                 <!-- head -->
                 <thead class="bg-accent">
@@ -265,8 +265,10 @@
                                     <!-- Toggle to show items list -->
                                     <ol class="list-disc item h-auto max-h-16 overflow-y-scroll">
                                         @foreach ($order->items as $item)
-                                            <li>{{ $item['size'] }} ({{ $item['quantity'] }}) / Rp.
-                                                {{ $item['harga_satuan'] }}</li>
+                                            <li>{{ $item['size'] ?? 'Size Tidak Diketahui' }}
+                                                ({{ $item['quantity'] ?? 'Quantity tidak diketahui' }})
+                                                / Rp.
+                                                {{ $item['harga_satuan'] ?? 'Harga Satuan Tidak Diketahui' }}</li>
                                         @endforeach
                                     </ol>
                                 </td>

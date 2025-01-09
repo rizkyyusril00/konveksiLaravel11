@@ -180,7 +180,8 @@
                                 <label for="size" class="text-secondary text-[16px]">Size</label>
                                 <select name="items[{{ $index }}][size]" id="size"
                                     class="text-secondary text-[16px] p-4 rounded-md">
-                                    <option value="{{ $item['size'] }}" selected>{{ $item['size'] }}</option>
+                                    <option value="{{ $item['size'] ?? '-' }}" selected>{{ $item['size'] ?? '-' }}
+                                    </option>
                                     <option value="XXL">XXL</option>
                                     <option value="XL">XL</option>
                                     <option value="L">L</option>
@@ -210,7 +211,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class=" gap-2 w-full">
+                        <div class=" gap-2 w-full hidden">
                             <label for="total_harga">Total Harga</label>
                             <input type="text" name="items[{{ $index }}][total_harga]" id=""
                                 class="p-4 rounded-md" readonly x-bind:value="total_harga">
