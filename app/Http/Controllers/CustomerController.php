@@ -14,19 +14,21 @@ class CustomerController extends Controller
         // Get search and filter parameters
         $search = $request->query('search');
 
-        // Query Pakaian with search and filter
+        // Query Customer with search and filter
         $query = Customer::query();
 
+        // Apply search filter
         if ($search) {
             $query->where('name', 'LIKE', "%{$search}%");
         }
 
+        // Get customers with order count and paginate the results
+        $customers = $query->withCount('orders')->paginate(10);
 
-        // Paginate the results and append query parameters
-        $customers = $query->paginate(10);
-
+        // Return view with customers data and search query
         return view('Customer.customer', compact('customers', 'search'));
     }
+
 
     public function loadAllCustomerForm()
     {

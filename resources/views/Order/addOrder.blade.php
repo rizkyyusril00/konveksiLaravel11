@@ -20,11 +20,30 @@
             {{-- customer --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Customer</label>
-                <input type="text" name="customer" value="{{ old('customer') }}"
-                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Nama Customer...">
-                @error('customer')
+                <select name="customer_id" class="text-secondary text-[16px] p-4 rounded-md">
+                    <option value="" disabled selected>Pilih Customer</option>
+                    @if (count($customers) > 0)
+                        @foreach ($customers as $customer)
+                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Customer</option>
+                    @endif
+                </select>
+                @error('customer_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
+                <a href="{{ route('AddCustomer') }}" class="flex items-center gap-1 group">
+                    <span class="text-info text-[14px]">Add User</span>
+                    <svg x-show="items.length < 3"
+                        class="fill-info group-hover:rotate-180 transition-all duration-300 ease-in-out"
+                        xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#000000"
+                        viewBox="0 0 256 256">
+                        <path
+                            d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
+                        </path>
+                    </svg>
+                </a>
             </div>
             {{-- admin --}}
             <div class="hidden">
@@ -76,10 +95,37 @@
                 <label for="" class="text-secondary text-[16px]">Bahan Utama</label>
                 <select name="bahan_utama" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="" disabled selected>Pilih Bahan Utama</option>
-                    <option value="Combed 20">Combed 20</option>
-                    <option value="Combed 24s">Combed 24s</option>
-                    <option value="Combed 30s">Combed 30s</option>
+                    @php
+                        $bahanUtama = [
+                            'Combed 20',
+                            'Combed 24s',
+                            'Combed 30s',
+                            'Heavy cotton',
+                            'Lacoste 20s',
+                            'Lacoste 24s',
+                            'Diadora',
+                            'Adidas',
+                            'American drill',
+                            'Pasada',
+                            'Ribstock',
+                            'Canvas',
+                            'Parasut',
+                            'Fleece Cotton',
+                            'Fleece PE',
+                            'Fleece CVC',
+                            'Baby Terry',
+                            'Milano',
+                            'Brazil',
+                            'Waffle',
+                            'Embose',
+                        ];
+                    @endphp
+
+                    @foreach ($bahanUtama as $bahan)
+                        <option value="{{ $bahan }}">{{ $bahan }}</option>
+                    @endforeach
                 </select>
+
                 @error('bahan_utama')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
@@ -89,10 +135,15 @@
                 <label for="" class="text-secondary text-[16px]">Bahan Tambahan</label>
                 <select name="bahan_tambahan" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="" disabled selected>Pilih Bahan Tambahan</option>
-                    <option value="Asahi">Asahi</option>
-                    <option value="Parasut">Parasut</option>
-                    <option value="Jaring">Jaring</option>
+                    @php
+                        $bahanTambahan = ['Asahi', 'Parasut', 'Jaring', 'Polar', 'Dakron', 'Despo'];
+                    @endphp
+
+                    @foreach ($bahanTambahan as $bahan)
+                        <option value="{{ $bahan }}">{{ $bahan }}</option>
+                    @endforeach
                 </select>
+
                 @error('bahan_tambahan')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
@@ -102,9 +153,13 @@
                 <label for="" class="text-secondary text-[16px]">Jenis Kancing</label>
                 <select name="jenis_kancing" id="" class="text-secondary text-[16px] p-4 rounded-md">
                     <option value="" disabled selected>Pilih jenis Kancing</option>
-                    <option value="Wangki">Wangki</option>
-                    <option value="PDH">PDH</option>
-                    <option value="Jas">Jas</option>
+                    @php
+                        $jenisKancing = ['Wangki', 'PDH', 'Jas'];
+                    @endphp
+
+                    @foreach ($jenisKancing as $kancing)
+                        <option value="{{ $kancing }}">{{ $kancing }}</option>
+                    @endforeach
                 </select>
                 @error('jenis_kancing')
                     <span class="text-red-400">{{ $message }}</span>

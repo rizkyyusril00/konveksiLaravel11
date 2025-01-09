@@ -27,7 +27,19 @@
                 </figure>
                 {{-- invoice --}}
                 <div class="flex flex-col gap-2">
-                    <h1 class="text-[24px] text-right text-secondary font-semibold">INVOICE</h1>
+                    <div class="flex items-center justify-end gap-2">
+                        <button onclick="window.print()"
+                            class="flex items-center justify-center bg-secondary w-8 h-8 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18"
+                                height="18" fill="#ffffff" viewBox="0 0 256 256">
+                                <path
+                                    d="M214.67,72H200V40a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8V72H41.33C27.36,72,16,82.77,16,96v80a8,8,0,0,0,8,8H56v32a8,8,0,0,0,8,8H192a8,8,0,0,0,8-8V184h32a8,8,0,0,0,8-8V96C240,82.77,228.64,72,214.67,72ZM72,48H184V72H72ZM184,208H72V160H184Zm40-40H200V152a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8v16H32V96c0-4.41,4.19-8,9.33-8H214.67c5.14,0,9.33,3.59,9.33,8Zm-24-52a12,12,0,1,1-12-12A12,12,0,0,1,200,116Z">
+                                </path>
+                            </svg>
+                        </button>
+                        <h1 class="text-[24px] text-right text-secondary font-semibold">INVOICE</h1>
+                    </div>
                     <div class="flex flex-col gap-1 w-[300px]">
                         <div class="flex justify-between items-center gap-3">
                             <span class="text-right w-1/2">Invoice</span>
@@ -66,7 +78,7 @@
                             <th>1</th>
                             <td>
                                 <div class="flex flex-col gap-1">
-                                    <span>{{ ucwords($order->customer) }}</span>
+                                    <span>{{ ucwords($order->customer->name) }}</span>
                                     <span>PO ID: {{ $order->id }}</span>
                                 </div>
                             </td>
@@ -103,7 +115,9 @@
                     <div class="flex flex-col gap-3">
                         <h2 class="">Tagihan Kepada :</h2>
                         <div class="flex flex-col gap-1">
-                            <span class="">{{ ucwords($order->customer) }}</span>
+                            <span class="">{{ ucwords($order->customer->name) }}</span>
+                            <span class="">{{ ucwords($order->customer->no_hp) }}</span>
+                            <span class="">{{ ucwords($order->customer->email) }}</span>
                         </div>
                     </div>
                 </div>

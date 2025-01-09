@@ -19,7 +19,7 @@
         <h1 class="text-[32px] text-secondary font-semibold">Customer</h1>
 
         <div class="flex items-center justify-between gap-4">
-            <form method="GET" action="/customer" class="flex gap-2">
+            <form method="GET" action="/customer" class="flex items-center gap-2">
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama..."
                         class="input input-bordered input-secondary pr-10 w-40 h-10 min-h-10 text-[14px]" />
@@ -33,7 +33,15 @@
                     </button>
                 </div>
                 <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Search</button>
-                <a href="/customer" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Clear</a>
+                <a href="/customer" class="flex items-center justify-center bg-secondary w-8 h-8 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18" height="18"
+                        fill="#ffffff" viewBox="0 0 256 256">
+                        <path
+                            d="M235.5,216.81c-22.56-11-35.5-34.58-35.5-64.8V134.73a15.94,15.94,0,0,0-10.09-14.87L165,110a8,8,0,0,1-4.48-10.34l21.32-53a28,28,0,0,0-16.1-37,28.14,28.14,0,0,0-35.82,16,.61.61,0,0,0,0,.12L108.9,79a8,8,0,0,1-10.37,4.49L73.11,73.14A15.89,15.89,0,0,0,55.74,76.8C34.68,98.45,24,123.75,24,152a111.45,111.45,0,0,0,31.18,77.53A8,8,0,0,0,61,232H232a8,8,0,0,0,3.5-15.19ZM67.14,88l25.41,10.3a24,24,0,0,0,31.23-13.45l21-53c2.56-6.11,9.47-9.27,15.43-7a12,12,0,0,1,6.88,15.92L145.69,93.76a24,24,0,0,0,13.43,31.14L184,134.73V152c0,.33,0,.66,0,1L55.77,101.71A108.84,108.84,0,0,1,67.14,88Zm48,128a87.53,87.53,0,0,1-24.34-42,8,8,0,0,0-15.49,4,105.16,105.16,0,0,0,18.36,38H64.44A95.54,95.54,0,0,1,40,152a85.9,85.9,0,0,1,7.73-36.29l137.8,55.12c3,18,10.56,33.48,21.89,45.16Z">
+                        </path>
+                    </svg>
+                </a>
             </form>
             {{-- btn add --}}
             <a href="/add/customer" class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
@@ -54,11 +62,11 @@
                 <!-- head -->
                 <thead class="bg-accent w-full">
                     <tr class="text-[12px] text-secondary">
-                        <th class="rounded-tl-lg rounded-bl-sm">No</th>
-                        <th>Nama</th>
-                        <th>No. Hp</th>
-                        <th>Email</th>
-                        <th class="rounded-tr-lg rounded-br-sm">Action</th>
+                        <th class="w-[10%] rounded-tl-lg rounded-bl-sm">No</th>
+                        <th class="w-[26%] ">Nama</th>
+                        <th class="w-[26%] ">No. Hp</th>
+                        <th class="w-[26%] ">Email</th>
+                        <th class="w-[10%] rounded-tr-lg rounded-br-sm">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,12 +79,13 @@
                                 <td>{{ $customer->email }}</td>
                                 <td>
                                     <div class="w-fit flex gap-3">
-                                        {{-- <div class="relative">
+                                        <div class="relative">
                                             <div
                                                 class="absolute -top-2 -right-2 rounded-full w-4 h-4 bg-secondary text-primary text-[8px] flex items-center justify-center">
-                                                <span>90</span>
+                                                <span>{{ $customer->orders_count }}
+                                                </span>
                                             </div>
-                                            <a href="/updateCustomer/{{ $customer->id }}" class="">
+                                            <a href="/?search={{ $customer->name }}" class="">
                                                 <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                     xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                     fill="" viewBox="0 0 256 256">
@@ -85,16 +94,7 @@
                                                     </path>
                                                 </svg>
                                             </a>
-                                        </div> --}}
-                                        <a href="/updateCustomer/{{ $customer->id }}" class="">
-                                            <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
-                                                xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                fill="" viewBox="0 0 256 256">
-                                                <path
-                                                    d="M104,216a16,16,0,1,1-16-16A16,16,0,0,1,104,216Zm88-16a16,16,0,1,0,16,16A16,16,0,0,0,192,200ZM239.71,74.14l-25.64,92.28A24.06,24.06,0,0,1,191,184H92.16A24.06,24.06,0,0,1,69,166.42L33.92,40H16a8,8,0,0,1,0-16H40a8,8,0,0,1,7.71,5.86L57.19,64H232a8,8,0,0,1,7.71,10.14ZM221.47,80H61.64l22.81,82.14A8,8,0,0,0,92.16,168H191a8,8,0,0,0,7.71-5.86Z">
-                                                </path>
-                                            </svg>
-                                        </a>
+                                        </div>
                                         <a href="/updateCustomer/{{ $customer->id }}" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"

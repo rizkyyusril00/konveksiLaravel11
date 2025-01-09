@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('customer');
+            // $table->string('customer');
+            $table->unsignedBigInteger('customer_id');
             $table->string('admin');
             $table->date('tanggal_order');
             $table->date('tanggal_selesai');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Tambahkan foreign key constraint
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('penjahit_id')->references('id')->on('karyawans')->onDelete('cascade');
             $table->foreign('pemotong_id')->references('id')->on('karyawans')->onDelete('cascade');
         });

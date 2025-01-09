@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Customer;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,12 +25,18 @@ class OrderController extends Controller
         $query = Order::query();
 
         if ($search) {
-            $query->where('customer', 'LIKE', "%{$search}%");
+            // Cari berdasarkan nama customer melalui relasi
+            $query->whereHas('customer', function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%");
+            });
         }
+
         if ($filter) {
             $query->where('status', $filter);
         }
+
         $filterOptions = Order::select('status')->distinct()->pluck('status');
+
 
 
         // Custom sorting for 'tanggal_selesai' to prioritize closest to today
@@ -55,14 +62,16 @@ class OrderController extends Controller
         // Ambil data penjahit dan pemotong
         $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
-        return view('Order.addOrder', compact('penjahits', 'pemotongs'));
+        // ambil data customer
+        $customers = Customer::all();
+        return view('Order.addOrder', compact('penjahits', 'pemotongs', 'customers'));
     }
     public function AddOrder(Request $request)
     {
         // Validasi form
         $request->validate([
-            'customer' => 'required|string',
-            'admin' => 'sometimes|string',
+            'customer_id' => 'required|exists:customers,id',
+            'admin' => 'required|string',
             'tanggal_order' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_order',
             'jenis_pakaian' => 'required|string',
@@ -79,7 +88,7 @@ class OrderController extends Controller
 
         try {
             $order = new Order();
-            $order->customer = $request->customer;
+            $order->customer_id = $request->customer_id;
             $order->admin = $request->admin;
             $order->tanggal_order = $request->tanggal_order;
             $order->tanggal_selesai = $request->tanggal_selesai;
@@ -113,7 +122,7 @@ class OrderController extends Controller
     {
         // Validasi form
         $request->validate([
-            'customer' => 'sometimes|required|string',
+            'customer_id' => 'sometimes|required|exists:customers,id',
             'admin' => 'sometimes|required|string',
             'tanggal_order' => 'sometimes|required|date',
             'tanggal_selesai' => 'sometimes|required|date|after_or_equal:tanggal_order',
@@ -155,7 +164,7 @@ class OrderController extends Controller
 
             // dd(request()->all());
             // Redirect dengan pesan sukses
-            return redirect('/')->with('success', "Order dari {$order->customer} berhasil diperbarui!");
+            return redirect('/')->with('success', "Order dari {$order->customer->name} berhasil diperbarui!");
         } catch (\Exception $e) {
             // Tangkap error lainnya dan kirimkan pesan kesalahan
             return back()->with('fail', "Terjadi kesalahan: {$e->getMessage()}");
@@ -169,9 +178,12 @@ class OrderController extends Controller
         // Ambil data penjahit dan pemotong
         $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
+
+        // ambil data customer
+        $customers = Customer::all();
         // dd($order->size, $order->jumlah_potong); // Cek data size dan jumlah_potong
 
-        return view('Order.editOrder', compact('order', 'penjahits', 'pemotongs'));
+        return view('Order.editOrder', compact('order', 'penjahits', 'pemotongs', 'customers'));
     }
 
     public function invoice($id)
@@ -181,9 +193,12 @@ class OrderController extends Controller
         // Ambil data penjahit dan pemotong
         $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
+
+        // ambil data customer
+        $customers = Customer::all();
         // dd($order->size, $order->jumlah_potong); // Cek data size dan jumlah_potong
 
-        return view('Invoice.invoice', compact('order', 'penjahits', 'pemotongs'));
+        return view('Invoice.invoice', compact('order', 'penjahits', 'pemotongs', 'customers'));
     }
     public function po($id)
     {
@@ -193,11 +208,14 @@ class OrderController extends Controller
         $penjahits = Karyawan::where('pekerjaan', 'Penjahit')->get();
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
 
+        // ambil data customer
+        $customers = Customer::all();
+
         // menghitung jumlah qty
         $totalQuantity = collect($order->items)->sum('quantity');
         // dd($order->size, $order->jumlah_potong); // Cek data size dan jumlah_potong
 
-        return view('Invoice.po', compact('order', 'penjahits', 'pemotongs', 'totalQuantity'));
+        return view('Invoice.po', compact('order', 'penjahits', 'pemotongs',  'customers', 'totalQuantity'));
     }
 
     public function deleteOrder($id)

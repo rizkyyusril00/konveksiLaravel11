@@ -19,11 +19,28 @@
             @csrf
             <input type="hidden" name="order_id" value="{{ $order->id }}" id="">
             {{-- customer --}}
-            <div class="flex flex-col w-full gap-2">
+            {{-- <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Customer</label>
                 <input type="text" name="customer" value="{{ ucwords($order->customer) }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Customer...">
                 @error('customer')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+            </div> --}}
+            <div class="flex flex-col w-full gap-2">
+                <label for="" class="text-secondary text-[16px]">Customer</label>
+                <select name="customer_id" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                    <option value="{{ $order->customer->name }}" disabled selected>{{ $order->customer->name }}
+                    </option>
+                    @if (count($customers) > 0)
+                        @foreach ($customers as $customer)
+                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Customer</option>
+                    @endif
+                </select>
+                @error('customer_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
