@@ -101,6 +101,8 @@ class OrderController extends Controller
             'pemotong_id' => 'required|exists:karyawans,id',
             'items' => 'required|array',
             'status' => 'required|string',
+            'diskon' => 'nullable|numeric',
+            'pajak' => 'nullable|numeric',
             'note' => 'nullable|string|max:225',
             'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
         ], $message);
@@ -119,6 +121,8 @@ class OrderController extends Controller
             $order->pemotong_id = $request->pemotong_id;
             $order->items = $request->items;
             $order->status = $request->status;
+            $order->diskon = $request->diskon ?: null;
+            $order->pajak = $request->pajak ?: null;
             $order->note = $request->note ?: null;
 
             // Proses upload gambar
@@ -154,6 +158,8 @@ class OrderController extends Controller
             'items' => 'sometimes|required|array',
             'status' => 'sometimes|required|string',
             'note' => 'sometimes|nullable|string|max:225',
+            'diskon' => 'sometimes|nullable|numeric',
+            'pajak' => 'sometimes|nullable|numeric',
             'image_order' => 'sometimes|nullable|image|mimes:jpeg,png,jpg|max:1048',  // Validasi untuk gambar
         ]);
 

@@ -19,17 +19,9 @@
             @csrf
             <input type="hidden" name="order_id" value="{{ $order->id }}" id="">
             {{-- customer --}}
-            {{-- <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Customer</label>
-                <input type="text" name="customer" value="{{ ucwords($order->customer) }}"
-                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Customer...">
-                @error('customer')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-            </div> --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Customer</label>
-                <select name="customer_id" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="customer_id" id="" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->customer->name }}" disabled selected>{{ $order->customer->name }}
                     </option>
                     @if (count($customers) > 0)
@@ -75,7 +67,8 @@
             {{-- jenis pakaian --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Jenis Pakaian</label>
-                <select name="jenis_pakaian" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="jenis_pakaian" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->jenis_pakaian }}" disabled selected>{{ $order->jenis_pakaian }}
                     </option>
                     <option value="Kemeja">Kemeja</option>
@@ -89,7 +82,7 @@
             {{-- bahan utama --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Bahan Utama</label>
-                <select name="bahan_utama" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="bahan_utama" id="" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->bahan_utama }}" disabled selected>{{ $order->bahan_utama }}</option>
                     <option value="Combed 20">Combed 20</option>
                     <option value="Combed 24s">Combed 24s</option>
@@ -102,7 +95,8 @@
             {{-- bahan tambahan --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Bahan Tambahan</label>
-                <select name="bahan_tambahan" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="bahan_tambahan" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->bahan_tambahan }}" disabled selected>
                         {{ $order->bahan_tambahan ?? '-' }}
                     </option>
@@ -117,7 +111,8 @@
             {{-- jenis kancing --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Jenis Kancing</label>
-                <select name="jenis_kancing" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="jenis_kancing" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->jenis_kancing }}" disabled selected>{{ $order->jenis_kancing }}
                     </option>
                     <option value="Wangki">Wangki</option>
@@ -131,7 +126,8 @@
             {{-- penjahit --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Penjahit</label>
-                <select name="penjahit_id" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="penjahit_id" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->penjahit->name }}" disabled selected>{{ $order->penjahit->name }}
                     </option>
                     @if (count($penjahits) > 0)
@@ -149,7 +145,8 @@
             {{-- pemotong --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Pemotong</label>
-                <select name="pemotong_id" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="pemotong_id" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->pemotong->name }}" disabled selected>{{ $order->pemotong->name }}
                     </option>
                     @if (count($pemotongs) > 0)
@@ -179,7 +176,7 @@
                             <div class="flex flex-col gap-1 w-1/5">
                                 <label for="size" class="text-secondary text-[16px]">Size</label>
                                 <select name="items[{{ $index }}][size]" id="size"
-                                    class="text-secondary text-[16px] p-4 rounded-md">
+                                    class="select bg-white text-secondary text-[16px] rounded-md">
                                     <option value="{{ $item['size'] ?? '-' }}" selected>{{ $item['size'] ?? '-' }}
                                     </option>
                                     <option value="XXL">XXL</option>
@@ -225,7 +222,7 @@
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Status</label>
-                <select name="status" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="status" id="" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->status }}" disabled selected>{{ $order->status }}</option>
                     <option value="Antrian">Antrian</option>
                     <option value="Diproses">Diproses</option>

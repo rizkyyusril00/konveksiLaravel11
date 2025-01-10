@@ -28,7 +28,7 @@
             {{-- pekerjaan --}}
             <div class="flex flex-col gap-2 w-full">
                 <label for="" class="text-secondary text-[16px]">Pekerjaan</label>
-                <select name="pekerjaan" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="pekerjaan" id="" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih Pekerjaan</option>
                     <option value="Penjahit">Penjahit</option>
                     <option value="Pemotong">Pemotong</option>

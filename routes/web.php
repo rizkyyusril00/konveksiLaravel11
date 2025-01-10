@@ -9,6 +9,7 @@ use App\Http\Controllers\PakaianController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SupplierController;
+use Illuminate\Auth\Middleware\Authenticate;
 
 // auth
 // Route::get('/auth2', function () {
@@ -17,8 +18,8 @@ use App\Http\Controllers\SupplierController;
 // Route::get('/invoice', function () {
 //     return view('Invoice.invoice');
 // });
-Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
-Route::get('/po/{id}', [OrderController::class, 'po']);
+// Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
+// Route::get('/po/{id}', [OrderController::class, 'po']);
 
 
 // auth
@@ -27,6 +28,15 @@ Route::post('/auth', [AuthController::class, 'verify'])->name('AuthVerify');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
+// inovice
+Route::middleware('auth:user,admin')->group(function () {
+    Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
+});
+
+// po
+Route::middleware('auth:user,admin')->group(function () {
+    Route::get('/po/{id}', [OrderController::class, 'po']);
+});
 
 // Karyawan
 Route::middleware('auth:user,admin')->group(function () {

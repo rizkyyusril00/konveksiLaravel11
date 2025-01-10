@@ -128,8 +128,8 @@
                                 $totalHarga += $item['total_harga'] ?? 0;
                             } @endphp
                         {{ $totalHarga }},
-                        diskon: 1000,
-                        pajak: 10000,
+                        diskon: {{ $order->diskon }},
+                        pajak: {{ $order->pajak }},
                         getTotal() {
                             return this.subtotal - this.diskon + this.pajak;
                         }

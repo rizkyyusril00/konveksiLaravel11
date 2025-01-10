@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            // $table->string('customer');
             $table->unsignedBigInteger('customer_id');
             $table->string('admin');
             $table->date('tanggal_order');
@@ -26,6 +25,8 @@ return new class extends Migration
             $table->unsignedBigInteger('pemotong_id'); // Foreign key ke tabel karyawans
             $table->json('items')->nullable();
             $table->string('status');
+            $table->string('diskon')->nullable();
+            $table->string('pajak')->nullable();
             $table->string('note')->nullable();
             $table->string('image_order')->nullable();
             $table->timestamps();

@@ -18,9 +18,9 @@
             <h1 class="text-[24px] text-start text-secondary font-semibold">Tambah Order</h1>
             @csrf
             {{-- customer --}}
-            <div class="flex flex-col w-full gap-2">
+            <div class="flex flex-col w-full gap-2 pr-1 bg-primary">
                 <label for="" class="text-secondary text-[16px]">Customer</label>
-                <select name="customer_id" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="customer_id" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih Customer</option>
                     @if (count($customers) > 0)
                         @foreach ($customers as $customer)
@@ -79,7 +79,8 @@
             {{-- jenis pakaian --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Jenis Pakaian</label>
-                <select name="jenis_pakaian" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="jenis_pakaian" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih jenis pakaian</option>
                     <option value="Kemeja">Kemeja</option>
                     <option value="Kaos">Kaos</option>
@@ -92,7 +93,7 @@
             {{-- bahan utama --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Bahan Utama</label>
-                <select name="bahan_utama" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="bahan_utama" id="" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih Bahan Utama</option>
                     @php
                         $bahanUtama = [
@@ -132,7 +133,8 @@
             {{-- bahan tambahan --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Bahan Tambahan</label>
-                <select name="bahan_tambahan" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="bahan_tambahan" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih Bahan Tambahan</option>
                     @php
                         $bahanTambahan = ['Asahi', 'Parasut', 'Jaring', 'Polar', 'Dakron', 'Despo'];
@@ -150,7 +152,8 @@
             {{-- jenis kancing --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Jenis Kancing</label>
-                <select name="jenis_kancing" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="jenis_kancing" id=""
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih jenis Kancing</option>
                     @php
                         $jenisKancing = ['Wangki', 'PDH', 'Jas'];
@@ -167,7 +170,7 @@
             {{-- penjahit --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Penjahit</label>
-                <select name="penjahit_id" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="penjahit_id" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih Penjahit</option>
                     @if (count($penjahits) > 0)
                         @foreach ($penjahits as $penjahit)
@@ -184,7 +187,7 @@
             {{-- pemotong --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Pemotong</label>
-                <select name="pemotong_id" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="pemotong_id" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih Pemotong</option>
                     @if (count($pemotongs) > 0)
                         @foreach ($pemotongs as $pemotong)
@@ -219,7 +222,7 @@
                             <div class="flex flex-col gap-1 w-1/5">
                                 <label :for="'size' + index" class="text-secondary text-[16px]">Size</label>
                                 <select :name="`items[${index}][size]`" :id="'size' + index"
-                                    class="text-secondary text-[16px] p-4 rounded-md" x-model="item.size">
+                                    class="select bg-white text-secondary text-[16px] rounded-md" x-model="item.size">
                                     <option value="" disabled selected>Pilih Size</option>
                                     <option value="XXL">XXL</option>
                                     <option value="XL">XL</option>
@@ -270,10 +273,24 @@
                     </svg>
                 </div>
             </div>
+            {{-- diskon dan pajak --}}
+            <div class="flex items-center gap-4 w-full">
+                {{-- diskon --}}
+                <div class="flex flex-col gap-1 w-1/2">
+                    <label class="text-secondary text-[16px]">Diskon</label>
+                    <input type="number" name="diskon" class="text-secondary text-[16px] p-4 rounded-md"
+                        placeholder="Diskon...">
+                </div>
+                <div class="flex flex-col gap-1 w-1/2">
+                    <label class="text-secondary text-[16px]">Pajak</label>
+                    <input type="number" name="pajak" class="text-secondary text-[16px] p-4 rounded-md"
+                        placeholder="Pajak...">
+                </div>
+            </div>
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="" class="text-secondary text-[16px]">Status</label>
-                <select name="status" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                <select name="status" id="" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected>Pilih Status</option>
                     <option value="Antrian">Antrian</option>
                     <option value="Diproses">Diproses</option>
