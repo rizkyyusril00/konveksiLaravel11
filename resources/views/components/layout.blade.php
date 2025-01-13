@@ -125,50 +125,6 @@
                             </path>
                         </svg>
                     </a>
-                    {{-- logout --}}
-                    {{-- <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
-                    $watch('open', value => localStorage.setItem('modal-open', value))">
-                        <!-- Button to open modal -->
-                        <button @click="open = true" class="">
-                            <svg class="fill-secondary hover:fill-error transition-all duration-300 ease-in-out"
-                                xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill=""
-                                viewBox="0 0 256 256">
-                                <path
-                                    d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z">
-                                </path>
-                            </svg>
-                        </button>
-
-                        <!-- Modal -->
-                        <template x-if="open">
-                            <div x-transition:enter="transition transform ease-out duration-300"
-                                x-transition:enter-start="opacity-0 scale-50"
-                                x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition transform ease-in duration-300"
-                                x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-50"
-                                class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-[1000]"
-                                @click.self="open = false">
-
-                                <div class="bg-blue-400 p-6 rounded-lg shadow-lg w-fit">
-                                    <h3 class="text-lg font-bold">Delete Order Ini?</h3>
-                                    <p class="py-4">Apakah anda yakin akan hapus order dengan
-                                        nama customer
-                                        ?
-                                    </p>
-                                    <div class="flex items-center gap-2">
-                                        <button @click="open = false" class="btn btn-secondary w-auto">
-                                            Cancel
-                                        </button>
-                                        <a @click="open = false" href="/deleteOrder/"
-                                            class="btn btn-error text-white w-auto py-2">
-                                            Hapus
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
-                    </div> --}}
                 </div>
             </div>
         </div>
