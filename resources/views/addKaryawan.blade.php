@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-4 px-4 bg-primary">
+    <div class="w-full md:w-[75%] lg:w-[80%] pt-4 px-2 md:pl-12 md:pr-4 lg:px-4 h-screen bg-primary flex flex-col gap-4">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -13,7 +13,7 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('AddKaryawan') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+        <form action="{{ route('AddKaryawan') }}" method="POST" class="w-full flex flex-col gap-4 px-8 py-4">
             <h1 class="text-[24px] text-start text-secondary font-semibold">Tambah Karyawan</h1>
             @csrf
             {{-- name --}}
