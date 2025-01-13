@@ -17,11 +17,6 @@
 </head>
 
 <body>
-    {{-- <nav class="w-full fixed py-4 px-4 bg-primary border-b border-accent flex justify-between z-40">
-        <a href="/" class="w-24 h-14">
-            <img src="/img/logo.png" alt="logo_company" class="w-full h-full object-cover">
-        </a>
-    </nav> --}}
     {{-- main --}}
     <div class="flex">
         {{-- side nav --}}

@@ -32,7 +32,7 @@
     @endif
     <div class="flex items-center justify-center h-screen w-screen relative">
         <figure class="w-full h-screen absolute top-0">
-            <img src="/img/login.jpg" alt="" class="w-full h-full">
+            <img src="/img/login.jpg" alt="" class="w-full h-full object-cover">
         </figure>
         <div class="w-full h-screen absolute top-0 bg-[#222222] opacity-30 z-30"></div>
         <div class="flex flex-col gap-6 items-center p-6 rounded-[15px] bg-[#ffffff] border border-[#222222] z-40">
