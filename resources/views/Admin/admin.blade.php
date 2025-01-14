@@ -17,10 +17,22 @@
 
         {{-- header --}}
         <div class="flex flex-col">
-            {{-- logo --}}
-            <a href="/" class="w-14 h-14 mb-4 block md:hidden">
-                <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full object-cover">
-            </a>
+            <div class="flex items-center justify-between">
+                {{-- logo --}}
+                <a href="/" class="w-14 h-14 mb-4 block md:hidden">
+                    <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full object-cover">
+                </a>
+                {{-- logout --}}
+                <a href="{{ route('logout') }}" class="group tooltip tooltip-left tooltip-secondary block md:hidden"
+                    data-tip="LogOut">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:fill-error" width="26" height="26"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
             <div class="flex justify-between items-center">
                 <h1 class="text-[32px] text-secondary font-semibold">User</h1>
                 {{-- btn add --}}
@@ -114,7 +126,7 @@
                         <th class="w-[25%]">Name</th>
                         <th class="w-[25%]">Email</th>
                         <th class="w-[25%]">Role</th>
-                        <th class="w-[10%] rounded-tr-lg rounded-br-sm">Action</th>
+                        <th class="w-[10%] rounded-tr-lg rounded-br-sm sticky right-0 bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,7 +143,8 @@
                                         <span>Admin</span>
                                     @endif
                                 </td>
-                                <td class="w-[5%]">
+                                <td
+                                    class="w-[5%] sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="flex gap-3">
                                         @auth
                                             @if (auth()->user()->id !== $user->id)
@@ -193,7 +206,16 @@
                                                 </div>
                                             @else
                                                 <!-- Tampilkan pesan jika ID sama -->
-                                                <span class="text-error text-center text-[24px]">-</span>
+                                                <a href="/updateUser/{{ $user->id }}"
+                                                    class="flex items-center justify-center w-full h-full">
+                                                    <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
+                                                        xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                        fill="" viewBox="0 0 256 256">
+                                                        <path
+                                                            d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM136,75.31,152.69,92,68,176.69,51.31,160ZM48,208V179.31L76.69,208Zm48-3.31L79.32,188,164,103.31,180.69,120Zm96-96L147.32,64l24-24L216,84.69Z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
                                             @endif
                                         @endauth
                                     </div>

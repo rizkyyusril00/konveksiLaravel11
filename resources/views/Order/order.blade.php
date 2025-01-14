@@ -18,10 +18,22 @@
 
         {{-- header --}}
         <div class="flex flex-col">
-            {{-- logo --}}
-            <a href="/" class="w-14 h-14 mb-4 block md:hidden">
-                <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full object-cover">
-            </a>
+            <div class="flex items-center justify-between">
+                {{-- logo --}}
+                <a href="/" class="w-14 h-14 mb-4 block md:hidden">
+                    <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full object-cover">
+                </a>
+                {{-- logout --}}
+                <a href="{{ route('logout') }}" class="group tooltip tooltip-left tooltip-secondary block md:hidden"
+                    data-tip="LogOut">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:fill-error" width="26" height="26"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
             <div class="flex justify-between items-center">
                 <h1 class="text-[32px] text-secondary font-semibold">Order</h1>
                 {{-- btn add --}}
@@ -133,7 +145,7 @@
                 <thead class="bg-accent">
                     <tr class="text-[12px] text-secondary">
                         <th class="w-auto rounded-tl-lg rounded-bl-sm">No</th>
-                        <th class="w-[200px]">
+                        <th class="w-[90px] md:w-[200px]">
                             <a class="flex items-center gap-[2px]"
                                 href="{{ route('order', array_merge(request()->query(), ['orderBy' => 'customer_id', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
                                 <span>Customer</span>
@@ -206,7 +218,7 @@
                         <th class="min-w-[180px]">
                             Items</th>
                         <th class="min-w-[120px]">Total</th>
-                        <th class="w-auto rounded-tr-lg rounded-br-sm">Action</th>
+                        <th class="w-auto rounded-tr-lg rounded-br-sm sticky right-0 bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -214,7 +226,7 @@
                         @foreach ($orders as $order)
                             <tr class="text-[14px] text-secondary">
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="flex items-center gap-2 w-[250px]">
+                                <td class="flex items-center gap-2 w-[190px] md:w-[250px]">
                                     {{-- image --}}
                                     <figure
                                         class="w-20 h-12 rounded-[12px] flex items-center justify-center bg-slate-200">
@@ -289,11 +301,18 @@
                                                             class="text-secondary text-[16px]">Status</label>
                                                         <select name="status" id="status"
                                                             class="text-secondary text-[16px] p-4 rounded-md">
-                                                            <option value="{{ $order->status }}" disabled selected>
+                                                            <option value="{{ $order->status }}"
+                                                                class="text-[12px] md:text-[16px]" disabled selected>
                                                                 {{ $order->status }}</option>
-                                                            <option value="Antrian">Antrian</option>
-                                                            <option value="Diproses">Diproses</option>
-                                                            <option value="Selesai">Selesai</option>
+                                                            <option value="Antrian"
+                                                                class="text-[12px] md:text-[16px]">Antrian
+                                                            </option>
+                                                            <option value="Diproses"
+                                                                class="text-[12px] md:text-[16px]">Diproses
+                                                            </option>
+                                                            <option value="Selesai"
+                                                                class="text-[12px] md:text-[16px]">Selesai
+                                                            </option>
                                                         </select>
                                                         @error('status')
                                                             <span class="text-red-400">{{ $message }}</span>
@@ -332,7 +351,6 @@
                                                 {{ $item['harga_satuan'] ?? 'Harga Satuan Tidak Diketahui' }}</li>
                                         @endforeach
                                     </ol>
-
                                 </td>
                                 <td>RP
                                     @php
@@ -343,9 +361,10 @@
                                     @endphp
                                     {{ number_format($totalHarga, 0, ',', '.') }}
                                 </td>
-                                <td class="">
+                                <td
+                                    class="sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="flex gap-3">
-                                        <div class="relative" x-data="{ open: false }">
+                                        <div class="relative hidden md:block" x-data="{ open: false }">
                                             <svg @click="open = !open"
                                                 class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"

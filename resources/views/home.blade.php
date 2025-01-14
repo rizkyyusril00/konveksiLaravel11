@@ -18,10 +18,13 @@
 
         {{-- header --}}
         <div class="flex flex-col">
-            {{-- logo --}}
-            <a href="/" class="w-14 h-14 mb-4 block md:hidden">
-                <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full object-cover">
-            </a>
+            <div class="flex items-center justify-between">
+                {{-- logo --}}
+                <a href="/" class="w-14 h-14 mb-4 block md:hidden">
+                    <img src="/img/LOGO.png" alt="logo_company" class="w-full h-full object-cover">
+                </a>
+
+            </div>
             <div class="flex justify-between items-center">
                 <h1 class="text-[32px] text-secondary font-semibold">Karyawan</h1>
                 {{-- btn add --}}
@@ -136,7 +139,7 @@
                         <th>Upah/Potong</th>
                         <th>Total Order</th>
                         <th>Total Upah</th>
-                        <th class="rounded-tr-lg rounded-br-sm">Action</th>
+                        <th class="rounded-tr-lg rounded-br-sm sticky right-0 bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -149,7 +152,8 @@
                                 <td>RP {{ number_format($karyawan->upah, 0, ',', '.') }}</td>
                                 <td>{{ $karyawan->total_order }}</td>
                                 <td>Rp {{ number_format($karyawan->upah * $karyawan->total_order, 0, ',', '.') }}</td>
-                                <td>
+                                <td
+                                    class="w-[5%] sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="w-fit flex gap-3">
                                         <a href="/updateKaryawan/{{ $karyawan->id }}" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
@@ -160,7 +164,6 @@
                                                 </path>
                                             </svg>
                                         </a>
-
                                         <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
                                         $watch('open', value => localStorage.setItem('modal-open', value))">
                                             <!-- Button to open modal -->

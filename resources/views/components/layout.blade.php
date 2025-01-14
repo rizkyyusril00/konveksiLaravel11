@@ -16,7 +16,7 @@
     <title>Konveksi</title>
 </head>
 
-<body>
+<body class="bg-primary">
     {{-- main --}}
     <div class="block md:flex relative h-screen">
         {{-- side nav --}}
@@ -135,7 +135,7 @@
         {{ $slot }}
         {{-- mobile nav --}}
         <div
-            class="flex items-center justify-center gap-3 md:hidden absolute bottom-0 w-full bg-primary p-4 border-t-2 border-accent">
+            class="flex items-center justify-center gap-3 md:hidden bottom-0 w-full bg-primary p-4 border-t-2 border-accent absolute">
             {{-- order --}}
             <a href="/"
                 class="w-10 h-10 rounded-full flex items-center justify-center hover:mb-2 transition-all duration-300 ease-in-out {{ request()->is('/') ? 'bg-accent mb-2' : 'bg-primary mb-0' }}">
@@ -198,22 +198,12 @@
                     </svg>
                 </a>
             @endauth
-            {{-- action --}}
-            <div class="flex items-center gap-1 bg-accent rounded-md p-1">
-                {{-- img --}}
-                <figure class="w-8 h-8 rounded-full bg-secondary">
-                    <img src="/img/profile.jpg" alt="user"
-                        class="w-full h-full object-center object-cover rounded-full">
-                </figure>
-                <a href="{{ route('logout') }}" class="group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:fill-error" width="20"
-                        height="20" fill="#000000" viewBox="0 0 256 256">
-                        <path
-                            d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z">
-                        </path>
-                    </svg>
-                </a>
-            </div>
+            {{-- img --}}
+            <figure class="w-8 h-8 rounded-full bg-secondary tooltip tooltip-secondary"
+                data-tip="{{ auth()->user()->role == 'admin' ? 'Super Admin' : 'Admin' }}">
+                <img src="/img/profile.jpg" alt="user"
+                    class="w-full h-full object-center object-cover rounded-full">
+            </figure>
         </div>
     </div>
 </body>

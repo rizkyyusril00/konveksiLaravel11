@@ -1,5 +1,6 @@
 <x-layout>
-    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-4 px-4 bg-primary">
+    <div
+        class="w-full lg:w-[80%] pt-4 px-2 md:pl-14 md:pr-4 lg:px-4 h-full md:h-screen bg-primary flex flex-col gap-4 overflow-x-hidden overflow-y-scroll md:overflow-y-auto md:overflow-x-auto">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -14,19 +15,22 @@
             </div>
         @endif
         <form action="{{ route('EditOrder') }}" enctype="multipart/form-data" method="POST"
-            class="w-full flex flex-col gap-4 px-40 py-4">
+            class="w-full flex flex-col gap-4 px-2 pb-24 md:px-8 2xl:px-4 md:py-4">
             <h1 class="text-[24px] text-start text-secondary font-semibold">Edit Order</h1>
             @csrf
             <input type="hidden" name="order_id" value="{{ $order->id }}" id="">
             {{-- customer --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Customer</label>
-                <select name="customer_id" id="" class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->customer->name }}" disabled selected>{{ $order->customer->name }}
+                <label for="customer_id" class="text-secondary text-[16px]">Customer</label>
+                <select name="customer_id" id="customer_id"
+                    class="select bg-white text-secondary text-[16px] rounded-md">
+                    <option value="{{ $order->customer->name }}" disabled selected class="text-[12px] md:text-[16px]">
+                        {{ $order->customer->name }}
                     </option>
                     @if (count($customers) > 0)
                         @foreach ($customers as $customer)
-                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                            <option value="{{ $customer->id }}" class="text-[12px] md:text-[16px]">{{ $customer->name }}
+                            </option>
                         @endforeach
                     @else
                         <option value="" disabled>Tidak Ada Customer</option>
@@ -38,8 +42,8 @@
             </div>
             {{-- admin --}}
             <div class="hidden">
-                <label for="">Admin</label>
-                <input type="text" name="admin" value="{{ $order->admin }}" class="p-4 rounded-md"
+                <label for="admin">Admin</label>
+                <input id="admin" type="text" name="admin" value="{{ $order->admin }}" class="p-4 rounded-md"
                     placeholder="Add admin...">
                 @error('admin')
                     <span class="text-red-400">{{ $message }}</span>
@@ -47,33 +51,35 @@
             </div>
             {{-- tgl order --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Tanggal Order</label>
-                <input type="date" name="tanggal_order" value="{{ $order->getTanggalOrderForInput() }}"
-                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Order...">
+                <label for="tanggal_order" class="text-secondary text-[16px]">Tanggal Order</label>
+                <input id="tanggal_order" type="date" name="tanggal_order"
+                    value="{{ $order->getTanggalOrderForInput() }}" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Tanggal Order...">
                 @error('tanggal_order')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- tgl selesai --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Tanggal Selesai</label>
-                <input type="date" name="tanggal_selesai" value="{{ $order->getTanggalSelesaiForInput() }}"
-                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Selesai..."
-                    min="{{ old('tanggal_order') }}">
+                <label for="tanggal_selesai" class="text-secondary text-[16px]">Tanggal Selesai</label>
+                <input id="tanggal_selesai" type="date" name="tanggal_selesai"
+                    value="{{ $order->getTanggalSelesaiForInput() }}" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Tanggal Selesai..." min="{{ old('tanggal_order') }}">
                 @error('tanggal_selesai')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- jenis pakaian --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Jenis Pakaian</label>
-                <select name="jenis_pakaian" id=""
+                <label for="jenis_pakaian" class="text-secondary text-[16px]">Jenis Pakaian</label>
+                <select name="jenis_pakaian" id="jenis_pakaian"
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->jenis_pakaian }}" disabled selected>{{ $order->jenis_pakaian }}
+                    <option value="{{ $order->jenis_pakaian }}" disabled selected class="text-[12px] md:text-[16px]">
+                        {{ $order->jenis_pakaian }}
                     </option>
-                    <option value="Kemeja">Kemeja</option>
-                    <option value="Kaos">Kaos</option>
-                    <option value="Batik">Batik</option>
+                    <option value="Kemeja" class="text-[12px] md:text-[16px]">Kemeja</option>
+                    <option value="Kaos" class="text-[12px] md:text-[16px]">Kaos</option>
+                    <option value="Batik" class="text-[12px] md:text-[16px]">Batik</option>
                 </select>
                 @error('jenis_pakaian')
                     <span class="text-red-400">{{ $message }}</span>
@@ -81,12 +87,14 @@
             </div>
             {{-- bahan utama --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Bahan Utama</label>
-                <select name="bahan_utama" id="" class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->bahan_utama }}" disabled selected>{{ $order->bahan_utama }}</option>
-                    <option value="Combed 20">Combed 20</option>
-                    <option value="Combed 24s">Combed 24s</option>
-                    <option value="Combed 30s">Combed 30s</option>
+                <label for="bahan_utama" class="text-secondary text-[16px]">Bahan Utama</label>
+                <select name="bahan_utama" id="bahan_utama"
+                    class="select bg-white text-secondary text-[16px] rounded-md">
+                    <option value="{{ $order->bahan_utama }}" disabled selected class="text-[12px] md:text-[16px]">
+                        {{ $order->bahan_utama }}</option>
+                    <option value="Combed 20" class="text-[12px] md:text-[16px]">Combed 20</option>
+                    <option value="Combed 24s" class="text-[12px] md:text-[16px]">Combed 24s</option>
+                    <option value="Combed 30s" class="text-[12px] md:text-[16px]">Combed 30s</option>
                 </select>
                 @error('bahan_utama')
                     <span class="text-red-400">{{ $message }}</span>
@@ -94,15 +102,16 @@
             </div>
             {{-- bahan tambahan --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Bahan Tambahan</label>
-                <select name="bahan_tambahan" id=""
+                <label for="bahan_tambahan" class="text-secondary text-[16px]">Bahan Tambahan</label>
+                <select name="bahan_tambahan" id="bahan_tambahan"
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->bahan_tambahan }}" disabled selected>
+                    <option value="{{ $order->bahan_tambahan }}" disabled selected
+                        class="text-[12px] md:text-[16px]">
                         {{ $order->bahan_tambahan ?? '-' }}
                     </option>
-                    <option value="Asahi">Asahi</option>
-                    <option value="Parasut">Parasut</option>
-                    <option value="Jaring">Jaring</option>
+                    <option value="Asahi" class="text-[12px] md:text-[16px]">Asahi</option>
+                    <option value="Parasut" class="text-[12px] md:text-[16px]">Parasut</option>
+                    <option value="Jaring" class="text-[12px] md:text-[16px]">Jaring</option>
                 </select>
                 @error('bahan_tambahan')
                     <span class="text-red-400">{{ $message }}</span>
@@ -110,14 +119,15 @@
             </div>
             {{-- jenis kancing --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Jenis Kancing</label>
-                <select name="jenis_kancing" id=""
+                <label for="jenis_kancing" class="text-secondary text-[16px]">Jenis Kancing</label>
+                <select name="jenis_kancing" id="jenis_kancing"
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->jenis_kancing }}" disabled selected>{{ $order->jenis_kancing }}
+                    <option value="{{ $order->jenis_kancing }}" disabled selected class="text-[12px] md:text-[16px]">
+                        {{ $order->jenis_kancing }}
                     </option>
-                    <option value="Wangki">Wangki</option>
-                    <option value="PDH">PDH</option>
-                    <option value="Jas">Jas</option>
+                    <option value="Wangki" class="text-[12px] md:text-[16px]">Wangki</option>
+                    <option value="PDH" class="text-[12px] md:text-[16px]">PDH</option>
+                    <option value="Jas" class="text-[12px] md:text-[16px]">Jas</option>
                 </select>
                 @error('jenis_kancing')
                     <span class="text-red-400">{{ $message }}</span>
@@ -125,17 +135,19 @@
             </div>
             {{-- penjahit --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Penjahit</label>
-                <select name="penjahit_id" id=""
+                <label for="penjahit_id" class="text-secondary text-[16px]">Penjahit</label>
+                <select name="penjahit_id" id="penjahit_id"
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->penjahit->name }}" disabled selected>{{ $order->penjahit->name }}
+                    <option value="{{ $order->penjahit->name }}" disabled selected
+                        class="text-[12px] md:text-[16px]">{{ $order->penjahit->name }}
                     </option>
                     @if (count($penjahits) > 0)
                         @foreach ($penjahits as $penjahit)
-                            <option value="{{ $penjahit->id }}">{{ $penjahit->name }}</option>
+                            <option value="{{ $penjahit->id }}" class="text-[12px] md:text-[16px]">
+                                {{ $penjahit->name }}</option>
                         @endforeach
                     @else
-                        <option value="" disabled>Tidak Ada Penjahit</option>
+                        <option value="" disabled class="text-[12px] md:text-[16px]">Tidak Ada Penjahit</option>
                     @endif
                 </select>
                 @error('penjahit_id')
@@ -144,17 +156,19 @@
             </div>
             {{-- pemotong --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Pemotong</label>
-                <select name="pemotong_id" id=""
+                <label for="pemotong_id" class="text-secondary text-[16px]">Pemotong</label>
+                <select name="pemotong_id" id="pemotong_id"
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->pemotong->name }}" disabled selected>{{ $order->pemotong->name }}
+                    <option value="{{ $order->pemotong->name }}" disabled selected
+                        class="text-[12px] md:text-[16px]">{{ $order->pemotong->name }}
                     </option>
                     @if (count($pemotongs) > 0)
                         @foreach ($pemotongs as $pemotong)
-                            <option value="{{ $pemotong->id }}">{{ $pemotong->name }}</option>
+                            <option value="{{ $pemotong->id }}" class="text-[12px] md:text-[16px]">
+                                {{ $pemotong->name }}</option>
                         @endforeach
                     @else
-                        <option value="" disabled>Tidak Ada Pemotong</option>
+                        <option value="" disabled class="text-[12px] md:text-[16px]">Tidak Ada Pemotong</option>
                     @endif
                 </select>
                 @error('pemotong_id')
@@ -177,11 +191,12 @@
                                 <label for="size" class="text-secondary text-[16px]">Size</label>
                                 <select name="items[{{ $index }}][size]" id="size"
                                     class="select bg-white text-secondary text-[16px] rounded-md">
-                                    <option value="{{ $item['size'] ?? '-' }}" selected>{{ $item['size'] ?? '-' }}
+                                    <option value="{{ $item['size'] ?? '-' }}" selected
+                                        class="text-[12px] md:text-[16px]">{{ $item['size'] ?? '-' }}
                                     </option>
-                                    <option value="XXL">XXL</option>
-                                    <option value="XL">XL</option>
-                                    <option value="L">L</option>
+                                    <option value="XXL" class="text-[12px] md:text-[16px]">XXL</option>
+                                    <option value="XL" class="text-[12px] md:text-[16px]">XL</option>
+                                    <option value="L" class="text-[12px] md:text-[16px]">L</option>
                                 </select>
                                 @error('size')
                                     <span class="text-red-400">{{ $message }}</span>
@@ -210,7 +225,7 @@
                         </div>
                         <div class=" gap-2 w-full hidden">
                             <label for="total_harga">Total Harga</label>
-                            <input type="text" name="items[{{ $index }}][total_harga]" id=""
+                            <input type="text" name="items[{{ $index }}][total_harga]" id="total_harga"
                                 class="p-4 rounded-md" readonly x-bind:value="total_harga">
                             @error('total_harga')
                                 <span class="text-red-400">{{ $message }}</span>
@@ -221,12 +236,13 @@
             @endforeach
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Status</label>
-                <select name="status" id="" class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->status }}" disabled selected>{{ $order->status }}</option>
-                    <option value="Antrian">Antrian</option>
-                    <option value="Diproses">Diproses</option>
-                    <option value="Selesai">Selesai</option>
+                <label for="status" class="text-secondary text-[16px]">Status</label>
+                <select name="status" id="status" class="select bg-white text-secondary text-[16px] rounded-md">
+                    <option value="{{ $order->status }}" disabled selected class="text-[12px] md:text-[16px]">
+                        {{ $order->status }}</option>
+                    <option value="Antrian" class="text-[12px] md:text-[16px]">Antrian</option>
+                    <option value="Diproses" class="text-[12px] md:text-[16px]">Diproses</option>
+                    <option value="Selesai" class="text-[12px] md:text-[16px]">Selesai</option>
                 </select>
                 @error('status')
                     <span class="text-red-400">{{ $message }}</span>
@@ -234,8 +250,8 @@
             </div>
             {{-- note --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="" class="text-secondary text-[16px]">Catatan</label>
-                <textarea name="note" class="textarea textarea-bordered text-secondary text-[16px] p-4 rounded-md"
+                <label for="note" class="text-secondary text-[16px]">Catatan</label>
+                <textarea id="note" name="note" class="textarea textarea-bordered text-secondary text-[16px] p-4 rounded-md"
                     placeholder="Masukan catatan anda...">{{ $order->note }}</textarea>
                 @error('note')
                     <span class="text-red-400">{{ $message }}</span>
@@ -244,7 +260,7 @@
             {{-- upload gambar --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="image_order">Upload Gambar</label>
-                <input type="file" name="image_order"
+                <input id="image_order" type="file" name="image_order"
                     class="file-input file-input-bordered file-input-secondary file-input-md w-full max-w-xs">
                 @if ($order->image_order == null)
                     <div class="flex gap-2">
@@ -257,7 +273,7 @@
                     </div>
                 @else
                     <div class="flex gap-2">
-                        <figure class="w-24 h-24 rounded-md">
+                        <figure class="w-32 h-36w-32 rounded-md">
                             <img src="{{ asset('storage/' . $order->image_order) }}" alt="Current Image"
                                 class="w-full h-full object-cover rounded-md">
                         </figure>

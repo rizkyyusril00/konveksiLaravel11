@@ -1,5 +1,6 @@
 <x-layout>
-    <div class="w-full md:w-[75%] lg:w-[80%] pt-4 px-2 md:pl-12 md:pr-4 lg:px-4 h-screen bg-primary flex flex-col gap-4">
+    <div
+        class="w-full lg:w-[80%] pt-4 px-2 md:pl-14 md:pr-4 lg:px-4 h-full md:h-screen bg-primary flex flex-col gap-4 overflow-x-hidden overflow-y-scroll md:overflow-y-auto md:overflow-x-auto">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -13,25 +14,26 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('AddKaryawan') }}" method="POST" class="w-full flex flex-col gap-4 px-8 py-4">
+        <form action="{{ route('AddKaryawan') }}" method="POST"
+            class="w-full flex flex-col gap-4 px-2 pb-24 md:px-8 2xl:px-4 md:py-4">
             <h1 class="text-[24px] text-start text-secondary font-semibold">Tambah Karyawan</h1>
             @csrf
             {{-- name --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Nama</label>
-                <input type="text" name="name" class="text-secondary text-[16px] p-4 rounded-md"
-                    placeholder="Nama Karyawan...">
+                <label for="name" class="text-secondary text-[16px]">Nama</label>
+                <input autocomplete="on" id="name" type="text" name="name"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Nama Karyawan...">
                 @error('name')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- pekerjaan --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Pekerjaan</label>
-                <select name="pekerjaan" id="" class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="" disabled selected>Pilih Pekerjaan</option>
-                    <option value="Penjahit">Penjahit</option>
-                    <option value="Pemotong">Pemotong</option>
+                <label for="pekerjaan" class="text-secondary text-[16px]">Pekerjaan</label>
+                <select name="pekerjaan" id="pekerjaan" class="select bg-white text-secondary text-[16px] rounded-md">
+                    <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Pekerjaan</option>
+                    <option value="Penjahit" class="text-[12px] md:text-[16px]">Penjahit</option>
+                    <option value="Pemotong" class="text-[12px] md:text-[16px]">Pemotong</option>
                 </select>
                 @error('pekerjaan')
                     <span class="text-red-400">{{ $message }}</span>
@@ -39,8 +41,8 @@
             </div>
             {{-- upah --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Upah</label>
-                <input type="text" name="upah" class="text-secondary text-[16px] p-4 rounded-md"
+                <label for="upah" class="text-secondary text-[16px]">Upah</label>
+                <input id="upah" type="text" name="upah" class="text-secondary text-[16px] p-4 rounded-md"
                     placeholder="Upah Karyawan...">
                 @error('upah')
                     <span class="text-red-400">{{ $message }}</span>

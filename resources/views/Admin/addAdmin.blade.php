@@ -1,5 +1,6 @@
 <x-layout>
-    <div class="w-full md:w-[75%] lg:w-[80%] pt-4 px-2 md:pl-12 md:pr-4 lg:px-4 h-screen bg-primary flex flex-col gap-4">
+    <div
+        class="w-full lg:w-[80%] pt-4 px-2 md:pl-14 md:pr-4 lg:px-4 h-full md:h-screen bg-primary flex flex-col gap-4 overflow-x-hidden overflow-y-scroll md:overflow-y-auto md:overflow-x-auto">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -13,31 +14,32 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('AddUser') }}" method="POST" class="w-full flex flex-col gap-4 px-8 py-4">
+        <form action="{{ route('AddUser') }}" method="POST"
+            class="w-full flex flex-col gap-4 px-2 pb-24 md:px-8 2xl:px-4 md:py-4">
             <h1 class="text-[24px] text-start text-secondary font-semibold">Tambah User</h1>
             @csrf
             {{-- nama --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Nama</label>
-                <input type="text" name="name" class="text-secondary text-[16px] p-4 rounded-md"
-                    placeholder="Add Name...">
+                <label for="name" class="text-secondary text-[16px]">Nama</label>
+                <input autocomplete="on" id="name" type="text" name="name"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Name...">
                 @error('name')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- email --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Email</label>
-                <input type="email" name="email" class="text-secondary text-[16px] p-4 rounded-md"
-                    placeholder="Add Email...">
+                <label for="email" class="text-secondary text-[16px]">Email</label>
+                <input autocomplete="on" id="email" type="email" name="email"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Email...">
                 @error('email')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- password --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Password</label>
-                <input type="password" name="password" class="text-secondary text-[16px] p-4 rounded-md"
+                <label for="password" class="text-secondary text-[16px]">Password</label>
+                <input id="password" type="password" name="password" class="text-secondary text-[16px] p-4 rounded-md"
                     placeholder="Add password...">
                 @error('password')
                     <span class="text-red-400">{{ $message }}</span>
@@ -45,11 +47,11 @@
             </div>
             {{-- role --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Role</label>
-                <select name="role" id="" class="text-secondary text-[16px] p-4 rounded-md">
-                    <option value="" disabled selected>Pilih Role</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
+                <label for="role" class="text-secondary text-[16px]">Role</label>
+                <select id="role" name="role" id="" class="text-secondary text-[16px] p-4 rounded-md">
+                    <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Role</option>
+                    <option value="admin" class="text-[12px] md:text-[16px]">Super Admin</option>
+                    <option value="user" class="text-[12px] md:text-[16px]">Admin</option>
                 </select>
                 @error('role')
                     <span class="text-red-400">{{ $message }}</span>

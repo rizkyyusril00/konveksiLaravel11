@@ -1,5 +1,6 @@
 <x-layout>
-    <div class="flex flex-col items-center justify-center w-full h-full gap-4 pt-4 px-4 bg-primary">
+    <div
+        class="w-full lg:w-[80%] pt-4 px-2 md:pl-14 md:pr-4 lg:px-4 h-full md:h-screen bg-primary flex flex-col gap-4 overflow-x-hidden overflow-y-scroll md:overflow-y-auto md:overflow-x-auto">
         @if (Session::has('fail'))
             <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
                 x-transition:enter="transition ease-out duration-300 transform"
@@ -13,14 +14,15 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('EditSupplier') }}" method="POST" class="w-full flex flex-col gap-4 px-40 py-4">
+        <form action="{{ route('EditSupplier') }}" method="POST"
+            class="w-full flex flex-col gap-4 px-2 pb-24 md:px-8 2xl:px-4 md:py-4">
             <h1 class="text-[24px] text-start text-secondary font-semibold">Edit Supplier</h1>
             @csrf
             <input type="hidden" name="supplier_id" value="{{ $supplier->id }}" id="">
             {{-- name --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Nama Supplier</label>
-                <input type="text" name="name" value="{{ $supplier->name }}"
+                <label for="name" class="text-secondary text-[16px]">Nama Supplier</label>
+                <input autocomplete="on" id="name" type="text" name="name" value="{{ $supplier->name }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Supplier Name...">
                 @error('name')
                     <span class="text-red-400">{{ $message }}</span>
@@ -28,8 +30,8 @@
             </div>
             {{-- no hp --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">No HP</label>
-                <input type="text" name="no_hp" value="{{ $supplier->no_hp }}"
+                <label for="no_hp" class="text-secondary text-[16px]">No HP</label>
+                <input id="no_hp" type="text" name="no_hp" value="{{ $supplier->no_hp }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add No HP...">
                 @error('no_hp')
                     <span class="text-red-400">{{ $message }}</span>
@@ -37,8 +39,8 @@
             </div>
             {{-- alamat --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Alamat</label>
-                <input type="text" name="alamat" value="{{ $supplier->alamat }}"
+                <label for="alamat" class="text-secondary text-[16px]">Alamat</label>
+                <input id="alamat" type="text" name="alamat" value="{{ $supplier->alamat }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Alamat...">
                 @error('alamat')
                     <span class="text-red-400">{{ $message }}</span>
@@ -46,8 +48,8 @@
             </div>
             {{-- email --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Email</label>
-                <input type="email" name="email" value="{{ $supplier->email }}"
+                <label for="email" class="text-secondary text-[16px]">Email</label>
+                <input autocomplete="on" id="email" type="email" name="email" value="{{ $supplier->email }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Add Email...">
                 @error('email')
                     <span class="text-red-400">{{ $message }}</span>
@@ -55,8 +57,9 @@
             </div>
             {{-- bahan utama --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Bahan Utama</label>
-                <select name="bahan_utama" id="" class="select bg-white text-secondary text-[16px] rounded-md">
+                <label for="bahan_utama" class="text-secondary text-[16px]">Bahan Utama</label>
+                <select name="bahan_utama" id="bahan_utama"
+                    class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $supplier->bahan_utama }}" disabled selected>{{ $supplier->bahan_utama }}
                     </option>
                     @php
@@ -95,8 +98,8 @@
             </div>
             {{-- bahan tambahan --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Bahan Tambahan</label>
-                <select name="bahan_tambahan" id=""
+                <label for="bahan_tambahan" class="text-secondary text-[16px]">Bahan Tambahan</label>
+                <select name="bahan_tambahan" id="bahan_tambahan"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $supplier->bahan_tambahan }}" disabled selected>
                         {{ $supplier->bahan_tambahan ?? '-' }}
@@ -115,8 +118,8 @@
             </div>
             {{-- jenis kancing --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Jenis Kancing</label>
-                <select name="jenis_kancing" id=""
+                <label for="jenis_kancing" class="text-secondary text-[16px]">Jenis Kancing</label>
+                <select name="jenis_kancing" id="jenis_kancing"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $supplier->jenis_kancing }}" disabled selected>{{ $supplier->jenis_kancing }}
                     </option>
@@ -134,8 +137,8 @@
             </div>
             {{-- jenis sleting --}}
             <div class="flex flex-col gap-2 w-full">
-                <label for="" class="text-secondary text-[16px]">Jenis Sleting</label>
-                <select name="jenis_sleting" id=""
+                <label for="jenis_sleting" class="text-secondary text-[16px]">Jenis Sleting</label>
+                <select name="jenis_sleting" id="jenis_sleting"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $supplier->jenis_sleting }}" disabled selected>{{ $supplier->jenis_sleting }}
                     </option>
