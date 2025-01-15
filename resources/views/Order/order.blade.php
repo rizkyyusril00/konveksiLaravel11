@@ -67,9 +67,8 @@
                     </button>
                 </div>
 
-                <select name="filter"
-                    class="select h-10 min-h-10 select-bordered select-secondary w-[90px] text-[14px]">
-                    <option value="" selected disabled>Filter</option>
+                <select name="filter" class="select h-10 min-h-10 select-bordered select-secondary w-fit text-[14px]">
+                    <option value="" selected disabled>Status</option>
                     @foreach ($filterOptions as $option)
                         <option value="{{ $option }}" {{ request('filter') == $option ? 'selected' : '' }}>
                             {{ $option }}

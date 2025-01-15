@@ -23,9 +23,22 @@ class Karyawan extends Model
     }
 
     // Method untuk menghitung total order
-    public function totalOrder()
+    public function totalOrder($bulan = null, $tahun = null)
     {
-        return $this->ordersAsPenjahit()->count() + $this->ordersAsPemotong()->count();
+        $penjahitOrders = $this->ordersAsPenjahit();
+        $pemotongOrders = $this->ordersAsPemotong();
+
+        if ($bulan) {
+            $penjahitOrders->whereMonth('tanggal_order', $bulan);
+            $pemotongOrders->whereMonth('tanggal_order', $bulan);
+        }
+
+        if ($tahun) {
+            $penjahitOrders->whereYear('tanggal_order', $tahun);
+            $pemotongOrders->whereYear('tanggal_order', $tahun);
+        }
+
+        return $penjahitOrders->count() + $pemotongOrders->count();
     }
 
     // Update total order setelah ada perubahan

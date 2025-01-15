@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class KaryawanController extends Controller
 {
@@ -11,11 +12,18 @@ class KaryawanController extends Controller
     // Load all karyawan with search and filter
     public function loadAllKaryawan(Request $request)
     {
-        // Get search and filter parameters
+        // Ambil parameter filter dan bulan dari request
         $search = $request->query('search');
         $filter = $request->query('filter');
+        $bulan = $request->query('bulan');
+        $tahun = $request->query('tahun');
 
-        // Query karyawans with search and filter
+        // Validasi bulan dan tahun
+        if (($bulan && !$tahun) || (!$bulan && $tahun)) {
+            return redirect()->back()->with('error', 'Bulan dan Tahun harus diisi keduanya.');
+        }
+
+        // Query karyawan dengan pencarian dan filter pekerjaan
         $query = Karyawan::query();
 
         if ($search) {
@@ -26,14 +34,22 @@ class KaryawanController extends Controller
             $query->where('pekerjaan', $filter);
         }
 
-        // Paginate the results and append query parameters
+        // Ambil karyawan yang sudah difilter dengan pagination
         $karyawans = $query->paginate(10);
-        $karyawans->appends(['search' => $search, 'filter' => $filter]);
 
-        // Pass filter options to view (for dropdown)
+        // Hitung total order untuk setiap karyawan dengan filter bulan dan tahun jika ada
+        foreach ($karyawans as $karyawan) {
+            $karyawan->total_order = $karyawan->totalOrder($bulan, $tahun);
+        }
+
+        // Menambahkan parameter pencarian, filter bulan dan tahun ke pagination link
+        $karyawans->appends(['search' => $search, 'filter' => $filter, 'bulan' => $bulan, 'tahun' => $tahun]);
+
+        // Pass data ke view
         $filterOptions = Karyawan::select('pekerjaan')->distinct()->pluck('pekerjaan');
+        $years = Order::selectRaw('YEAR(tanggal_order) as tahun')->distinct()->pluck('tahun');
 
-        return view('home', compact('karyawans', 'filterOptions', 'search', 'filter'));
+        return view('home', compact('karyawans', 'filterOptions', 'search', 'filter', 'bulan', 'tahun', 'years'));
     }
 
     public function loadAllKaryawanForm()
@@ -67,7 +83,6 @@ class KaryawanController extends Controller
             return redirect('/add/karyawan')->with('error', $e->getMessage());
         }
     }
-
 
     public function EditKaryawan(Request $request)
     {
