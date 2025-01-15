@@ -15,7 +15,16 @@
             </div>
         @endif
         <form action="{{ route('EditOrder') }}" enctype="multipart/form-data" method="POST"
-            class="w-full flex flex-col gap-4 px-2 pb-24 md:px-8 2xl:px-4 md:py-4">
+            class="w-full flex flex-col gap-4 p-3 md:px-8 2xl:px-4 md:py-4">
+            <a href="/" class="flex md:hidden items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="fill-secondary" width="16" height="16"
+                    fill="#000000" viewBox="0 0 256 256">
+                    <path
+                        d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z">
+                    </path>
+                </svg>
+                <span class="text-[14px] text-secondary">Kembali</span>
+            </a>
             <h1 class="text-[24px] text-start text-secondary font-semibold">Edit Order</h1>
             @csrf
             <input type="hidden" name="order_id" value="{{ $order->id }}" id="">
@@ -185,9 +194,9 @@
                             return this.jumlah_potong * this.harga_satuan;
                         }
                     }" class="flex flex-col gap-2">
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1 md:gap-4">
                             {{-- size --}}
-                            <div class="flex flex-col gap-1 w-1/5">
+                            <div class="flex flex-col gap-1 w-[25%] md:w-1/5">
                                 <label for="size" class="text-secondary text-[16px]">Size</label>
                                 <select name="items[{{ $index }}][size]" id="size"
                                     class="select bg-white text-secondary text-[16px] rounded-md">
@@ -203,20 +212,20 @@
                                 @enderror
                             </div>
                             {{-- quantity --}}
-                            <div class="flex flex-col gap-1 w-2/5">
+                            <div class="flex flex-col gap-1 w-[35%] md:w-2/5">
                                 <label for="jumlah_potong" class="text-secondary text-[16px]">Quantity</label>
                                 <input type="number" name="items[{{ $index }}][quantity]" id="jumlah_potong"
-                                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Jumlah Potong..."
-                                    x-model.number="jumlah_potong">
+                                    class="text-secondary text-[16px] input bg-white rounded-md"
+                                    placeholder="Jumlah Potong..." x-model.number="jumlah_potong">
                                 @error('jumlah_potong')
                                     <span class="text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>
                             {{-- harga satuan --}}
-                            <div class="flex flex-col gap-2 w-2/5">
+                            <div class="flex flex-col gap-2 w-[36%] md:w-2/5">
                                 <label for="harga_satuan" class="text-secondary text-[16px]">Harga Satuan</label>
                                 <input type="number" name="items[{{ $index }}][harga_satuan]"
-                                    id="harga_satuan" class="text-secondary text-[16px] p-4 rounded-md"
+                                    id="harga_satuan" class="text-secondary text-[16px] input bg-white rounded-md"
                                     placeholder="Harga Satuan..." x-model.number="harga_satuan">
                                 @error('harga_satuan')
                                     <span class="text-red-400">{{ $message }}</span>

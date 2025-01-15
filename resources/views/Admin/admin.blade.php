@@ -205,7 +205,7 @@
                                                     </template>
                                                 </div>
                                             @else
-                                                <!-- Tampilkan pesan jika ID sama -->
+                                                <!-- Tampilkan action jika ID sama -->
                                                 <a href="/updateUser/{{ $user->id }}"
                                                     class="flex items-center justify-center w-full h-full">
                                                     <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"

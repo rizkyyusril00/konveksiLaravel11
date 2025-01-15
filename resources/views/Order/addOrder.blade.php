@@ -15,7 +15,16 @@
             </div>
         @endif
         <form action="{{ route('AddOrder') }}" enctype="multipart/form-data" method="POST"
-            class="w-full flex flex-col gap-4 px-2 pb-24 md:px-8 2xl:px-4 md:py-4">
+            class="w-full flex flex-col gap-4 p-3 md:px-8 2xl:px-4 md:py-4">
+            <a href="/" class="flex md:hidden items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="fill-secondary" width="16" height="16"
+                    fill="#000000" viewBox="0 0 256 256">
+                    <path
+                        d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z">
+                    </path>
+                </svg>
+                <span class="text-[14px] text-secondary">Kembali</span>
+            </a>
             <h1 class="text-[24px] text-start text-secondary font-semibold">Tambah Order</h1>
             @csrf
             {{-- customer --}}
@@ -236,7 +245,7 @@
                     <div class="flex flex-col gap-2">
                         <div class="flex items-center gap-1 md:gap-4">
                             <!-- Size -->
-                            <div class="flex flex-col gap-1 w-[21%] md:w-1/5">
+                            <div class="flex flex-col gap-1 w-[25%] md:w-1/5">
                                 <label :for="'size' + index" class="text-secondary text-[16px]">Size</label>
                                 <select :name="`items[${index}][size]`" :id="'size' + index"
                                     class="select bg-white text-secondary text-[16px] rounded-md" x-model="item.size">
@@ -248,18 +257,19 @@
                                 </select>
                             </div>
                             <!-- Quantity -->
-                            <div class="flex flex-col gap-1 w-[38%] md:w-2/5">
+                            <div class="flex flex-col gap-1 w-[35%] md:w-2/5">
                                 <label :for="'quantity' + index" class="text-secondary text-[16px]">Quantity</label>
                                 <input type="number" :name="`items[${index}][quantity]`" :id="'quantity' + index"
-                                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Quantity..."
-                                    x-model.number="item.quantity">
+                                    class="text-secondary text-[16px] input bg-white rounded-md"
+                                    placeholder="Quantity..." x-model.number="item.quantity">
                             </div>
                             <!-- Harga Satuan -->
-                            <div class="flex flex-col gap-1 w-[38%] md:w-2/5">
+                            <div class="flex flex-col gap-1 w-[36%] md:w-2/5">
                                 <label :for="'harga_satuan' + index" class="text-secondary text-[16px]">Harga
                                     Satuan</label>
                                 <input type="number" :name="`items[${index}][harga_satuan]`"
-                                    :id="'harga_satuan' + index" class="text-secondary text-[16px] p-4 rounded-md"
+                                    :id="'harga_satuan' + index"
+                                    class="text-secondary text-[16px] input bg-white rounded-md"
                                     placeholder="Harga Satuan..." x-model.number="item.harga_satuan">
                             </div>
                         </div>
@@ -359,7 +369,7 @@
             </div>
             {{-- submit --}}
             <div class="flex items-center gap-3">
-                <a href="/order" class="btn btn-outline btn-secondary">Kembali</a>
+                <a href="/" class="btn btn-outline btn-secondary">Kembali</a>
                 <button type="submit" class="btn btn-secondary w-auto">Tambah</button>
             </div>
         </form>
