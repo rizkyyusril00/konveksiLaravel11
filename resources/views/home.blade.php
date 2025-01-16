@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="w-full lg:w-[80%] pt-4 px-2 md:pl-52 md:pr-4 lg:px-4 h-screen bg-primary flex flex-col gap-4">
+    <div class="w-full lg:w-[80%] pt-4 px-3 md:pl-52 md:pr-4 lg:px-4 h-screen bg-primary flex flex-col gap-4">
 
         {{-- toast --}}
         @if (Session::has('success'))
