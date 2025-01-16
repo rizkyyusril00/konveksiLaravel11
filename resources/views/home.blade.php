@@ -355,7 +355,8 @@
         </div>
 
         {{-- pagination --}}
-        {{ $karyawans->appends(request()->query())->links() }}
-
+        <div class="mb-3 md:mb-10">
+            {{ $karyawans->appends(request()->query())->links() }}
+        </div>
     </div>
 </x-layout>

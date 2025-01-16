@@ -224,7 +224,8 @@
         </div>
 
         {{-- pagination --}}
-        {{ $suppliers->appends(request()->query())->links() }}
-
+        <div class="mb-3 md:mb-10">
+            {{ $suppliers->appends(request()->query())->links() }}
+        </div>
     </div>
 </x-layout>

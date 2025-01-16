@@ -138,7 +138,7 @@
         </form>
 
         {{-- tabel --}}
-        <div class="overflow-x-auto mb-3 md:mb-14">
+        <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <!-- head -->
                 <thead class="bg-accent">
@@ -299,7 +299,7 @@
                                                         <label for="status"
                                                             class="text-secondary text-[16px]">Status</label>
                                                         <select name="status" id="status"
-                                                            class="text-secondary text-[16px] p-4 rounded-md">
+                                                            class="select text-secondary text-[16px] rounded-md">
                                                             <option value="{{ $order->status }}"
                                                                 class="text-[12px] md:text-[16px]" disabled selected>
                                                                 {{ $order->status }}</option>
@@ -456,8 +456,10 @@
                 </tbody>
             </table>
         </div>
-        {{-- pagination --}}
-        {{ $orders->appends(request()->query())->links() }}
 
+        {{-- pagination --}}
+        <div class="mb-3 md:mb-10">
+            {{ $orders->appends(request()->query())->links() }}
+        </div>
     </div>
 </x-layout>
