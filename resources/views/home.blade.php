@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="w-full md:w-[75%] lg:w-[80%] pt-4 px-2 md:pl-12 md:pr-4 lg:px-4 h-screen bg-primary flex flex-col gap-4">
+    <div class="w-full lg:w-[80%] pt-4 px-2 md:pl-52 md:pr-4 lg:px-4 h-screen bg-primary flex flex-col gap-4">
 
         {{-- toast --}}
         @if (Session::has('success'))
@@ -83,7 +83,7 @@
                             </button>
                         </div>
                         <select name="filter"
-                            class="select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                            class="hidden lg:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
                             <option value="" disabled selected>Pekerjaan</option>
                             @foreach ($filterOptions as $option)
                                 <option value="{{ $option }}"
@@ -92,7 +92,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <div class="flex items-center gap-2">
+                        <div class="hidden lg:flex items-center gap-2">
                             <select name="bulan"
                                 class="select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
                                 <option value="" disabled selected>Bulan</option>
@@ -140,6 +140,37 @@
                 </div>
                 {{-- bulan&tahun --}}
                 <div class="flex flex-col gap-0">
+                    <div class="lg:hidden flex items-center gap-2">
+                        <select name="filter"
+                            class="lg:hidden block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                            <option value="" disabled selected>Pekerjaan</option>
+                            @foreach ($filterOptions as $option)
+                                <option value="{{ $option }}"
+                                    {{ request('filter') == $option ? 'selected' : '' }}>
+                                    {{ $option }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <select name="bulan"
+                            class="lg:hidden flex select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                            <option value="" disabled selected>Bulan</option>
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
+                                    {{ \Carbon\Carbon::create()->month($i)->format('F') }}
+                                </option>
+                            @endfor
+                        </select>
+                        <select name="tahun"
+                            class="lg:hidden flex select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                            <option value="" disabled selected>Tahun</option>
+                            @foreach ($years as $year)
+                                <option value="{{ $year }}"
+                                    {{ request('tahun') == $year ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <span class="text-[12px] text-secondary">
                         @if (request('bulan') && request('tahun'))
                             Filter pada bulan:
