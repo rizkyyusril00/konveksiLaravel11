@@ -132,7 +132,7 @@
                 <select name="jenis_kancing" id="jenis_kancing"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="{{ $order->jenis_kancing }}" disabled selected class="text-[12px] md:text-[16px]">
-                        {{ $order->jenis_kancing }}
+                        {{ $order->jenis_kancing ?? '-' }}
                     </option>
                     <option value="Wangki" class="text-[12px] md:text-[16px]">Wangki</option>
                     <option value="PDH" class="text-[12px] md:text-[16px]">PDH</option>
@@ -206,6 +206,8 @@
                                     <option value="XXL" class="text-[12px] md:text-[16px]">XXL</option>
                                     <option value="XL" class="text-[12px] md:text-[16px]">XL</option>
                                     <option value="L" class="text-[12px] md:text-[16px]">L</option>
+                                    <option value="M" class="text-[12px] md:text-[16px]">M</option>
+                                    <option value="S" class="text-[12px] md:text-[16px]">S</option>
                                 </select>
                                 @error('size')
                                     <span class="text-red-400">{{ $message }}</span>

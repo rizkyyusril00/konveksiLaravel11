@@ -98,7 +98,7 @@
                     <div class="flex flex-col w-2/3 border border-secondary">
                         <div class="flex flex-col p-1">
                             <span class="text-[14px] text-secondary mb-1">Note :</span>
-                            <p class="text-[14px] text-secondary">{{ $order->note }}</p>
+                            <p class="text-[14px] text-secondary">{{ $order->note ?? '-' }}</p>
                         </div>
                     </div>
                 </div>

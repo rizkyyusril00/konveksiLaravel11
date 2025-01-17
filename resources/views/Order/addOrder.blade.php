@@ -29,7 +29,15 @@
             @csrf
             {{-- customer --}}
             <div class="flex flex-col w-full gap-2 pr-1 bg-primary">
-                <label for="customer_id" class="text-secondary text-[16px]">Customer</label>
+                <div class="flex items-center">
+                    <label for="customer_id" class="text-secondary text-[16px]">Customer</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <select id="customer_id" name="customer_id"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Customer</option>
@@ -71,7 +79,15 @@
             </div>
             {{-- tgl order --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="tanggal_order" class="text-secondary text-[16px]">Tanggal Order</label>
+                <div class="flex items-center">
+                    <label for="tanggal_order" class="text-secondary text-[16px]">Tanggal Order</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <input id="tanggal_order" type="date" name="tanggal_order" value="{{ old('tanggal_order') }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Order...">
                 @error('tanggal_order')
@@ -80,7 +96,15 @@
             </div>
             {{-- tgl selesai --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="tanggal_selesai" class="text-secondary text-[16px]">Tanggal Selesai</label>
+                <div class="flex items-center">
+                    <label for="tanggal_selesai" class="text-secondary text-[16px]">Tanggal Selesai</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <input id="tanggal_selesai" type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Selesai..."
                     min="{{ old('tanggal_order') }}">
@@ -90,7 +114,15 @@
             </div>
             {{-- jenis pakaian --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="jenis_pakaian" class="text-secondary text-[16px]">Jenis Pakaian</label>
+                <div class="flex items-center">
+                    <label for="jenis_pakaian" class="text-secondary text-[16px]">Jenis Pakaian</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <select id="jenis_pakaian" name="jenis_pakaian" id=""
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih jenis pakaian
@@ -105,7 +137,15 @@
             </div>
             {{-- bahan utama --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="bahan_utama" class="text-secondary text-[16px]">Bahan Utama</label>
+                <div class="flex items-center">
+                    <label for="bahan_utama" class="text-secondary text-[16px]">Bahan Utama</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <select id="bahan_utama" name="bahan_utama" id=""
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Bahan Utama
@@ -189,7 +229,15 @@
             </div>
             {{-- penjahit --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="penjahit_id" class="text-secondary text-[16px]">Penjahit</label>
+                <div class="flex items-center">
+                    <label for="penjahit_id" class="text-secondary text-[16px]">Penjahit</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <select id="penjahit_id" name="penjahit_id"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Penjahit
@@ -209,7 +257,15 @@
             </div>
             {{-- pemotong --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="pemotong_id" class="text-secondary text-[16px]">Pemotong</label>
+                <div class="flex items-center">
+                    <label for="pemotong_id" class="text-secondary text-[16px]">Pemotong</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <select id="pemotong_id" name="pemotong_id"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Pemotong
@@ -233,7 +289,7 @@
                     { size: '', quantity: null, harga_satuan: null }
                 ],
                 toggleItem() {
-                    if (this.items.length < 3) {
+                    if (this.items.length < 5) {
                         this.items.push({ size: '', quantity: null, harga_satuan: null });
                     } else {
                         this.items = [{ size: '', quantity: null, harga_satuan: null }];
@@ -246,27 +302,55 @@
                         <div class="flex items-center gap-1 md:gap-4">
                             <!-- Size -->
                             <div class="flex flex-col gap-1 w-[25%] md:w-1/5">
-                                <label :for="'size' + index" class="text-secondary text-[16px]">Size</label>
+                                <div class="flex items-center">
+                                    <label :for="'size' + index" class="text-secondary text-[16px]">Size</label>
+                                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8"
+                                        height="8" fill="#000000" viewBox="0 0 256 256">
+                                        <path
+                                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                                        </path>
+                                    </svg>
+                                </div>
                                 <select :name="`items[${index}][size]`" :id="'size' + index"
-                                    class="select bg-white text-secondary text-[16px] rounded-md" x-model="item.size">
+                                    class="select bg-white text-secondary text-[16px] rounded-md" x-model="item.size"
+                                    required>
                                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih
                                         Size</option>
                                     <option value="XXL" class="text-[12px] md:text-[16px]">XXL</option>
                                     <option value="XL" class="text-[12px] md:text-[16px]">XL</option>
                                     <option value="L" class="text-[12px] md:text-[16px]">L</option>
+                                    <option value="M" class="text-[12px] md:text-[16px]">M</option>
+                                    <option value="S" class="text-[12px] md:text-[16px]">S</option>
                                 </select>
                             </div>
                             <!-- Quantity -->
                             <div class="flex flex-col gap-1 w-[35%] md:w-2/5">
-                                <label :for="'quantity' + index" class="text-secondary text-[16px]">Quantity</label>
+                                <div class="flex items-center">
+                                    <label :for="'quantity' + index"
+                                        class="text-secondary text-[16px]">Quantity</label>
+                                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8"
+                                        height="8" fill="#000000" viewBox="0 0 256 256">
+                                        <path
+                                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                                        </path>
+                                    </svg>
+                                </div>
                                 <input type="number" :name="`items[${index}][quantity]`" :id="'quantity' + index"
                                     class="text-secondary text-[16px] input bg-white rounded-md"
                                     placeholder="Quantity..." x-model.number="item.quantity">
                             </div>
                             <!-- Harga Satuan -->
                             <div class="flex flex-col gap-1 w-[36%] md:w-2/5">
-                                <label :for="'harga_satuan' + index" class="text-secondary text-[16px]">Harga
-                                    Satuan</label>
+                                <div class="flex items-center">
+                                    <label :for="'harga_satuan' + index" class="text-secondary text-[16px]">Harga
+                                        Satuan</label>
+                                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8"
+                                        height="8" fill="#000000" viewBox="0 0 256 256">
+                                        <path
+                                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                                        </path>
+                                    </svg>
+                                </div>
                                 <input type="number" :name="`items[${index}][harga_satuan]`"
                                     :id="'harga_satuan' + index"
                                     class="text-secondary text-[16px] input bg-white rounded-md"
@@ -274,7 +358,7 @@
                             </div>
                         </div>
                         <!-- Total Harga -->
-                        <div class="w-full hidden">
+                        <div class="w-full">
                             <label :for="'total_harga' + index" class="text-[#222222] text-[16px]">Total Harga</label>
                             <input type="number" :name="`items[${index}][total_harga]`" :id="'total_harga' + index"
                                 class="p-4 rounded-md" placeholder="Total Harga..."
@@ -285,9 +369,9 @@
 
                 <!-- Add/Reset Button -->
                 <div class="cursor-pointer w-fit group flex items-center gap-1" @click="toggleItem">
-                    <span x-show="items.length < 3" class="text-info text-[14px]">Tambah Quantity</span>
-                    <span x-show="items.length >= 3" class="text-error text-[14px]">Reset</span>
-                    <svg x-show="items.length < 3"
+                    <span x-show="items.length < 5" class="text-info text-[14px]">Tambah Quantity</span>
+                    <span x-show="items.length >= 5" class="text-error text-[14px]">Reset</span>
+                    <svg x-show="items.length < 5"
                         class="fill-info group-hover:rotate-180 transition-all duration-300 ease-in-out"
                         xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#000000"
                         viewBox="0 0 256 256">
@@ -295,7 +379,7 @@
                             d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
                         </path>
                     </svg>
-                    <svg x-show="items.length >= 3" class="fill-error" xmlns="http://www.w3.org/2000/svg"
+                    <svg x-show="items.length >= 5" class="fill-error" xmlns="http://www.w3.org/2000/svg"
                         width="14" height="14" fill="#000000" viewBox="0 0 256 256">
                         <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"></path>
                     </svg>
@@ -317,7 +401,15 @@
             </div>
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="status" class="text-secondary text-[16px]">Status</label>
+                <div class="flex items-center">
+                    <label for="status" class="text-secondary text-[16px]">Status</label>
+                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                        </path>
+                    </svg>
+                </div>
                 <select name="status" id="status" class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Status</option>
                     <option value="Antrian" class="text-[12px] md:text-[16px]">Antrian</option>

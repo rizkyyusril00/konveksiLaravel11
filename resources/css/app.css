@@ -19,3 +19,7 @@ tr:nth-child(even) {
         oklch(var(--a) / var(--tw-bg-opacity, 1))
     ) !important;
 }
+
+.modal_delete {
+    z-index: 999 !important;
+}

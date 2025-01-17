@@ -87,8 +87,8 @@
                             <td>
                                 <ol class="list-disc">
                                     <li>{{ $order->bahan_utama }}</li>
-                                    <li>{{ $order->bahan_tambahan }}</li>
-                                    <li>{{ $order->jenis_kancing }}</li>
+                                    <li>{{ $order->bahan_tambahan ?? '-' }}</li>
+                                    <li>{{ $order->jenis_kancing ?? '-' }}</li>
                                 </ol>
                             </td>
                             <td>{{ $order->jenis_pakaian }}</td>
@@ -128,8 +128,8 @@
                                 $totalHarga += $item['total_harga'] ?? 0;
                             } @endphp
                         {{ $totalHarga }},
-                        diskon: {{ $order->diskon }},
-                        pajak: {{ $order->pajak }},
+                        diskon: {{ $order->diskon ?? 0 }},
+                        pajak: {{ $order->pajak ?? 0 }},
                         getTotal() {
                             return this.subtotal - this.diskon + this.pajak;
                         }

@@ -256,24 +256,18 @@
                                         <button @click="openStatus = true" class="flex items-center gap-1 group mr-1">
                                             <div
                                                 class="{{ $order->status === 'Antrian' ? 'bg-blue-300' : ($order->status === 'Selesai' ? 'bg-green-300' : 'bg-orange-300') }}  p-1 flex justify-center items-center gap-[6px] rounded-md bg-opacity-20">
-                                                <span
-                                                    class="{{ $order->status === 'Antrian' ? 'bg-blue-600' : ($order->status === 'Selesai' ? 'bg-green-600' : 'bg-orange-600') }} w-1 h-1 mt-[2px] rounded-full">
-                                                </span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                    class="{{ $order->status === 'Antrian' ? 'fill-blue-600' : ($order->status === 'Selesai' ? 'fill-green-600' : 'fill-orange-600') }}"
+                                                    fill="#000000" viewBox="0 0 256 256">
+                                                    <path
+                                                        d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                                    </path>
+                                                </svg>
                                                 <span
                                                     class="{{ $order->status === 'Antrian' ? 'text-blue-600' : ($order->status === 'Selesai' ? 'text-green-600' : 'text-orange-600') }} text-[14px]">
                                                     {{ $order->status }}
                                                 </span>
                                             </div>
-                                            <span
-                                                class="-ml-10 opacity-0 group-hover:ml-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
-                                                <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
-                                                    xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    fill="" viewBox="0 0 256 256">
-                                                    <path
-                                                        d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM136,75.31,152.69,92,68,176.69,51.31,160ZM48,208V179.31L76.69,208Zm48-3.31L79.32,188,164,103.31,180.69,120Zm96-96L147.32,64l24-24L216,84.69Z">
-                                                    </path>
-                                                </svg>
-                                            </span>
                                         </button>
 
                                         <!-- Modal -->
@@ -336,18 +330,18 @@
                                 <td>{{ $order->jenis_pakaian }}</td>
                                 <td>{{ $order->bahan_utama }}</td>
                                 <td>{{ $order->bahan_tambahan ?? '-' }}</td>
-                                <td>{{ $order->jenis_kancing }}</td>
+                                <td>{{ $order->jenis_kancing ?? '-' }}</td>
                                 <td>{{ $order->penjahit->name }}</td>
                                 <td>{{ $order->pemotong->name }}</td>
                                 <td>
                                     <!-- Toggle to show items list -->
                                     <ol
-                                        class="list-disc item h-auto max-h-16 {{ count($order->items) >= 3 ? 'overflow-y-scroll' : '' }}">
+                                        class="item h-auto max-h-16 {{ count($order->items) >= 4 ? 'overflow-y-scroll list-disc' : 'list-disc' }}">
                                         @foreach ($order->items as $item)
-                                            <li>{{ $item['size'] ?? 'Size Tidak Diketahui' }}
-                                                ({{ $item['quantity'] ?? 'Quantity tidak diketahui' }})
-                                                / Rp.
-                                                {{ $item['harga_satuan'] ?? 'Harga Satuan Tidak Diketahui' }}</li>
+                                            <li>{{ $item['size'] ?? '-' }}
+                                                ({{ $item['quantity'] ?? '-' }})
+                                                /
+                                                {{ $item['harga_satuan'] ?? '-' }}</li>
                                         @endforeach
                                     </ol>
                                 </td>
@@ -360,11 +354,11 @@
                                     @endphp
                                     {{ number_format($totalHarga, 0, ',', '.') }}
                                 </td>
-                                <td
-                                    class="sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
+                                <td x-data="{ open: false }" :class="{ '': open, 'sticky': !open }"
+                                    class="sticky right-0 -z-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="flex gap-3">
-                                        <div class="relative hidden md:block" x-data="{ open: false }">
-                                            <svg @click="open = !open"
+                                        <div class="relative hidden md:block" x-data="{ box: false }">
+                                            <svg @click="box = !box"
                                                 class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 fill="" viewBox="0 0 256 256">
@@ -374,7 +368,7 @@
                                             </svg>
 
                                             {{-- box pop up --}}
-                                            <div x-show="open" @click.outside="open = false" x-transition
+                                            <div x-show="box" @click.outside="box = false" x-transition
                                                 class="absolute -top-16 -right-5 w-fit py-2 px-5 bg-white border border-gray-300 rounded shadow-lg z-10">
                                                 <ol class="list-disc">
                                                     <li>
@@ -397,7 +391,7 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
+                                        <div x-init="open = localStorage.getItem('modal-open') === 'true';
                                         $watch('open', value => localStorage.setItem('modal-open', value))">
                                             <!-- Button to open modal -->
                                             <button @click="open = true" class="">
@@ -418,7 +412,7 @@
                                                     x-transition:leave="transition transform ease-in duration-300"
                                                     x-transition:leave-start="opacity-100 scale-100"
                                                     x-transition:leave-end="opacity-0 scale-50"
-                                                    class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50 px-2 md:px-0"
+                                                    class="modal_delete fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50 px-2 md:px-0 isolation-auto"
                                                     @click.self="open = false">
 
                                                     <div class="bg-white p-6 rounded-lg shadow-lg w-fit">
