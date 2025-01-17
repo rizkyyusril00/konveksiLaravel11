@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('jenis_pakaian');
             $table->string('bahan_utama');
             $table->string('bahan_tambahan')->nullable();
-            $table->string('jenis_kancing');
+            $table->string('jenis_kancing')->nullable();
             $table->unsignedBigInteger('penjahit_id'); // Foreign key ke tabel karyawans
             $table->unsignedBigInteger('pemotong_id'); // Foreign key ke tabel karyawans
             $table->json('items')->nullable();

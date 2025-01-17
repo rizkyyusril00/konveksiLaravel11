@@ -37,8 +37,6 @@ class OrderController extends Controller
 
         $filterOptions = Order::select('status')->distinct()->pluck('status');
 
-
-
         // Custom sorting for 'tanggal_selesai' to prioritize closest to today
         if ($orderBy === 'tanggal_selesai') {
             $query->orderByRaw("ABS(DATEDIFF(tanggal_selesai, CURDATE())) $direction");
@@ -77,7 +75,6 @@ class OrderController extends Controller
             'jenis_pakaian.required' => 'Jenis Pakaian Tidak Boleh Kosong',
             'bahan_utama.required' => 'Bahan Utama Tidak Boleh Kosong',
             'bahan_tambahan.required' => 'Bahan Tambahan Tidak Boleh Kosong',
-            'jenis_kancing.required' => 'Jenis Kancing Tidak Boleh Kosong',
             'penjahit_id.required' => 'Penjahit Tidak Boleh Kosong',
             'pemotong_id.required' => 'Pemotong Tidak Boleh Kosong',
             'items.required' => 'Item Tidak Boleh Kosong',
@@ -96,7 +93,7 @@ class OrderController extends Controller
             'jenis_pakaian' => 'required|string',
             'bahan_utama' => 'required|string',
             'bahan_tambahan' => 'nullable|string',
-            'jenis_kancing' => 'required|string',
+            'jenis_kancing' => 'nulllable|string',
             'penjahit_id' => 'required|exists:karyawans,id',
             'pemotong_id' => 'required|exists:karyawans,id',
             'items' => 'required|array',
