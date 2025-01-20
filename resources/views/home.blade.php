@@ -65,7 +65,7 @@
         </div>
 
         {{-- action --}}
-        <div class="hidden md:flex items-center justify-between gap-2">
+        <div class="hidden lg:flex items-center justify-between gap-2">
             <form method="GET" action="/karyawan" class="flex flex-col gap-2 w-full">
                 <!-- Filter Pencarian -->
                 <div class="flex justify-between">
@@ -136,27 +136,6 @@
                         <span class="text-[12px] text-primary">Tambah Karyawan</span>
                     </a>
                 </div>
-                {{-- tab --}}
-                <div class="md:flex lg:hidden items-center gap-2">
-                    <select name="bulan"
-                        class="lg:hidden md:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
-                        <option value="" disabled selected>Bulan</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
-                                {{ \Carbon\Carbon::create()->month($i)->format('F') }}
-                            </option>
-                        @endfor
-                    </select>
-                    <select name="tahun"
-                        class="lg:hidden md:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
-                        <option value="" disabled selected>Tahun</option>
-                        @foreach ($years as $year)
-                            <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
-                                {{ $year }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
                 <!-- Informasi Filter -->
                 <div class="flex flex-col gap-0 mt-2">
                     <span class="text-[12px] text-secondary">
@@ -172,7 +151,7 @@
 
 
         {{-- action mobile --}}
-        <form x-data="{ showSelects: false }" method="GET" action="/karyawan" class="md:hidden flex flex-col gap-2">
+        <form x-data="{ showSelects: false }" method="GET" action="/karyawan" class="lg:hidden flex flex-col gap-2">
             <div class="flex items-center gap-2">
                 {{-- search --}}
                 <div class="relative">
