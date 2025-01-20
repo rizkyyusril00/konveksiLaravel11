@@ -93,13 +93,13 @@ class OrderController extends Controller
             'jenis_pakaian' => 'required|string',
             'bahan_utama' => 'required|string',
             'bahan_tambahan' => 'nullable|string',
-            'jenis_kancing' => 'nulllable|string',
+            'kancing' => 'nullable|string',
             'penjahit_id' => 'required|exists:karyawans,id',
             'pemotong_id' => 'required|exists:karyawans,id',
             'items' => 'required|array',
             'status' => 'required|string',
-            'diskon' => 'nullable|numeric',
-            'pajak' => 'nullable|numeric',
+            'diskon' => 'nullable|string',
+            'pajak' => 'nullable|string',
             'note' => 'nullable|string|max:225',
             'image_order' => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
         ], $message);
@@ -113,7 +113,7 @@ class OrderController extends Controller
             $order->jenis_pakaian = $request->jenis_pakaian;
             $order->bahan_utama = $request->bahan_utama;
             $order->bahan_tambahan = $request->bahan_tambahan ?: null;
-            $order->jenis_kancing = $request->jenis_kancing;
+            $order->kancing = $request->kancing ?: null;
             $order->penjahit_id = $request->penjahit_id;
             $order->pemotong_id = $request->pemotong_id;
             $order->items = $request->items;
@@ -149,7 +149,7 @@ class OrderController extends Controller
             'jenis_pakaian' => 'sometimes|required|string',
             'bahan_utama' => 'sometimes|required|string',
             'bahan_tambahan' => 'sometimes|nullable|string',
-            'jenis_kancing' => 'sometimes|required|string',
+            'kancing' => 'sometimes|nullable|string',
             'penjahit_id' => 'sometimes|required|exists:karyawans,id',
             'pemotong_id' => 'sometimes|required|exists:karyawans,id',
             'items' => 'sometimes|required|array',
