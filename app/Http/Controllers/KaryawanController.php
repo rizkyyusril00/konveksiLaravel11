@@ -42,15 +42,17 @@ class KaryawanController extends Controller
             $karyawan->total_order = $karyawan->totalOrder($bulan, $tahun);
         }
 
-        // Menambahkan parameter pencarian, filter bulan dan tahun ke pagination link
-        $karyawans->appends(['search' => $search, 'filter' => $filter, 'bulan' => $bulan, 'tahun' => $tahun]);
+        // Tambahkan parameter ke pagination link
+        $karyawans->appends($request->only(['search', 'filter', 'bulan', 'tahun']));
 
-        // Pass data ke view
+        // Filter pekerjaan dan tahun dari database
         $filterOptions = Karyawan::select('pekerjaan')->distinct()->pluck('pekerjaan');
         $years = Order::selectRaw('YEAR(tanggal_order) as tahun')->distinct()->pluck('tahun');
 
+        // Return ke view
         return view('home', compact('karyawans', 'filterOptions', 'search', 'filter', 'bulan', 'tahun', 'years'));
     }
+
 
     public function loadAllKaryawanForm()
     {

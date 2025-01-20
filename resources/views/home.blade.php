@@ -51,7 +51,7 @@
                 <h1 class="text-[32px] text-secondary font-semibold">Karyawan</h1>
                 {{-- btn add --}}
                 <a href="{{ route('AddKaryawan') }}"
-                    class="btn h-10 min-h-10 btn-secondary w-fit md:hidden flex items-center gap-2 group">
+                    class="btn h-10 min-h-10 btn-secondary w-fit lg:hidden flex items-center gap-2 group">
                     <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                         viewBox="0 0 256 256">
@@ -67,6 +67,7 @@
         {{-- action --}}
         <div class="hidden md:flex items-center justify-between gap-2">
             <form method="GET" action="/karyawan" class="flex flex-col gap-2 w-full">
+                <!-- Filter Pencarian -->
                 <div class="flex justify-between">
                     <div class="flex items-center gap-2">
                         <div class="relative">
@@ -83,7 +84,7 @@
                             </button>
                         </div>
                         <select name="filter"
-                            class="hidden lg:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                            class="select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
                             <option value="" disabled selected>Pekerjaan</option>
                             @foreach ($filterOptions as $option)
                                 <option value="{{ $option }}"
@@ -92,27 +93,24 @@
                                 </option>
                             @endforeach
                         </select>
-                        <div class="hidden lg:flex items-center gap-2">
-                            <select name="bulan"
-                                class="select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
-                                <option value="" disabled selected>Bulan</option>
-                                @for ($i = 1; $i <= 12; $i++)
-                                    <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
-                                        {{ \Carbon\Carbon::create()->month($i)->format('F') }}
-                                    </option>
-                                @endfor
-                            </select>
-                            <select name="tahun"
-                                class="select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
-                                <option value="" disabled selected>Tahun</option>
-                                @foreach ($years as $year)
-                                    <option value="{{ $year }}"
-                                        {{ request('tahun') == $year ? 'selected' : '' }}>
-                                        {{ $year }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <select name="bulan"
+                            class="md:hidden lg:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                            <option value="" disabled selected>Bulan</option>
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
+                                    {{ \Carbon\Carbon::create()->month($i)->format('F') }}
+                                </option>
+                            @endfor
+                        </select>
+                        <select name="tahun"
+                            class="md:hidden lg:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                            <option value="" disabled selected>Tahun</option>
+                            @foreach ($years as $year)
+                                <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
+                            @endforeach
+                        </select>
                         <button type="submit"
                             class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Cari</button>
                         <a href="/karyawan" class="flex items-center justify-center bg-secondary w-8 h-8 rounded-full">
@@ -127,7 +125,7 @@
                     </div>
                     {{-- btn add --}}
                     <a href="{{ route('AddKaryawan') }}"
-                        class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
+                        class="btn h-10 min-h-10 btn-secondary w-fit md:hidden lg:flex items-center gap-2 group">
                         <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
                             xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                             viewBox="0 0 256 256">
@@ -138,39 +136,29 @@
                         <span class="text-[12px] text-primary">Tambah Karyawan</span>
                     </a>
                 </div>
-                {{-- bulan&tahun --}}
-                <div class="flex flex-col gap-0">
-                    <div class="lg:hidden flex items-center gap-2">
-                        <select name="filter"
-                            class="lg:hidden block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
-                            <option value="" disabled selected>Pekerjaan</option>
-                            @foreach ($filterOptions as $option)
-                                <option value="{{ $option }}"
-                                    {{ request('filter') == $option ? 'selected' : '' }}>
-                                    {{ $option }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <select name="bulan"
-                            class="lg:hidden flex select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
-                            <option value="" disabled selected>Bulan</option>
-                            @for ($i = 1; $i <= 12; $i++)
-                                <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
-                                    {{ \Carbon\Carbon::create()->month($i)->format('F') }}
-                                </option>
-                            @endfor
-                        </select>
-                        <select name="tahun"
-                            class="lg:hidden flex select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
-                            <option value="" disabled selected>Tahun</option>
-                            @foreach ($years as $year)
-                                <option value="{{ $year }}"
-                                    {{ request('tahun') == $year ? 'selected' : '' }}>
-                                    {{ $year }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                {{-- tab --}}
+                <div class="md:flex lg:hidden items-center gap-2">
+                    <select name="bulan"
+                        class="lg:hidden md:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                        <option value="" disabled selected>Bulan</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($i)->format('F') }}
+                            </option>
+                        @endfor
+                    </select>
+                    <select name="tahun"
+                        class="lg:hidden md:block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                        <option value="" disabled selected>Tahun</option>
+                        @foreach ($years as $year)
+                            <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <!-- Informasi Filter -->
+                <div class="flex flex-col gap-0 mt-2">
                     <span class="text-[12px] text-secondary">
                         @if (request('bulan') && request('tahun'))
                             Filter pada bulan:
@@ -181,6 +169,7 @@
                 </div>
             </form>
         </div>
+
 
         {{-- action mobile --}}
         <form x-data="{ showSelects: false }" method="GET" action="/karyawan" class="md:hidden flex flex-col gap-2">
