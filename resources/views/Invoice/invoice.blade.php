@@ -88,7 +88,7 @@
                                 <ol class="list-disc">
                                     <li>{{ $order->bahan_utama }}</li>
                                     <li>{{ $order->bahan_tambahan ?? '-' }}</li>
-                                    <li>{{ $order->jenis_kancing ?? '-' }}</li>
+                                    <li>{{ $order->kancing ?? '-' }}</li>
                                 </ol>
                             </td>
                             <td>{{ $order->jenis_pakaian }}</td>

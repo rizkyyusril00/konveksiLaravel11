@@ -52,10 +52,20 @@
                 @enderror
             </div>
             {{-- upah --}}
-            <div class="flex flex-col gap-2 w-full">
+            <div class="flex flex-col gap-2 w-full" x-data="{
+                upah: '{{ $karyawan->upah ?? old('upah') }}',
+                formatRupiah(value) {
+                    const number = value.replace(/\D/g, '');
+                    return 'Rp. ' + number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                },
+                removeRupiah(value) {
+                    return value.replace(/\D/g, '');
+                }
+            }">
                 <label for="upah" class="text-secondary text-[16px]">Upah</label>
-                <input id="upah" type="text" name="upah" value="{{ $karyawan->upah }}"
-                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Upah Karyawan...">
+                <input id="upah" type="text" name="upah" class="text-secondary text-[16px] p-4 rounded-md"
+                    placeholder="Upah Karyawan..." x-model="upah" x-on:input="upah = formatRupiah($event.target.value)"
+                    x-on:blur="upah = removeRupiah(upah)">
                 @error('upah')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror

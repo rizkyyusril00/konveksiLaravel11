@@ -128,17 +128,16 @@
             </div>
             {{-- jenis kancing --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="jenis_kancing" class="text-secondary text-[16px]">Jenis Kancing</label>
-                <select name="jenis_kancing" id="jenis_kancing"
-                    class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->jenis_kancing }}" disabled selected class="text-[12px] md:text-[16px]">
-                        {{ $order->jenis_kancing ?? '-' }}
+                <label for="kancing" class="text-secondary text-[16px]">Jenis Kancing</label>
+                <select name="kancing" id="kancing" class="select bg-white text-secondary text-[16px] rounded-md">
+                    <option value="{{ $order->kancing }}" disabled selected class="text-[12px] md:text-[16px]">
+                        {{ $order->kancing ?? '-' }}
                     </option>
                     <option value="Wangki" class="text-[12px] md:text-[16px]">Wangki</option>
                     <option value="PDH" class="text-[12px] md:text-[16px]">PDH</option>
                     <option value="Jas" class="text-[12px] md:text-[16px]">Jas</option>
                 </select>
-                @error('jenis_kancing')
+                @error('kancing')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
@@ -188,14 +187,21 @@
             @foreach ($order->items as $index => $item)
                 <div class="flex flex-col gap-2">
                     <div x-data="{
-                        jumlah_potong: {{ $order->items[$index]['quantity'] ?? $index }},
-                        harga_satuan: {{ $order->items[$index]['harga_satuan'] ?? 0 }},
+                        jumlah_potong: {{ $item['quantity'] ?? 0 }},
+                        harga_satuan: '{{ $item['harga_satuan'] ?? 0 }}',
                         get total_harga() {
-                            return this.jumlah_potong * this.harga_satuan;
+                            return this.jumlah_potong * this.removeRupiah(this.harga_satuan);
+                        },
+                        formatRupiah(value) {
+                            const number = value.replace(/\D/g, '');
+                            return 'Rp. ' + number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                        },
+                        removeRupiah(value) {
+                            return value.replace(/\D/g, '');
                         }
                     }" class="flex flex-col gap-2">
                         <div class="flex items-center gap-1 md:gap-4">
-                            {{-- size --}}
+                            {{-- Size --}}
                             <div class="flex flex-col gap-1 w-[25%] md:w-1/5">
                                 <label for="size" class="text-secondary text-[16px]">Size</label>
                                 <select name="items[{{ $index }}][size]" id="size"
@@ -213,7 +219,8 @@
                                     <span class="text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>
-                            {{-- quantity --}}
+
+                            {{-- Quantity --}}
                             <div class="flex flex-col gap-1 w-[35%] md:w-2/5">
                                 <label for="jumlah_potong" class="text-secondary text-[16px]">Quantity</label>
                                 <input type="number" name="items[{{ $index }}][quantity]" id="jumlah_potong"
@@ -223,21 +230,26 @@
                                     <span class="text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>
-                            {{-- harga satuan --}}
+
+                            {{-- Harga Satuan --}}
                             <div class="flex flex-col gap-2 w-[36%] md:w-2/5">
                                 <label for="harga_satuan" class="text-secondary text-[16px]">Harga Satuan</label>
-                                <input type="number" name="items[{{ $index }}][harga_satuan]"
+                                <input type="text" name="items[{{ $index }}][harga_satuan]"
                                     id="harga_satuan" class="text-secondary text-[16px] input bg-white rounded-md"
-                                    placeholder="Harga Satuan..." x-model.number="harga_satuan">
+                                    placeholder="Harga Satuan..." x-model="harga_satuan"
+                                    x-on:input="harga_satuan = formatRupiah($event.target.value)"
+                                    x-on:blur="harga_satuan = removeRupiah(harga_satuan)" />
                                 @error('harga_satuan')
                                     <span class="text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        <div class=" gap-2 w-full hidden">
+
+                        {{-- Total Harga --}}
+                        <div class="w-full hidden">
                             <label for="total_harga">Total Harga</label>
                             <input type="text" name="items[{{ $index }}][total_harga]" id="total_harga"
-                                class="p-4 rounded-md" readonly x-bind:value="total_harga">
+                                class="p-4 rounded-md" placeholder="Total Harga..." :value="total_harga" readonly>
                             @error('total_harga')
                                 <span class="text-red-400">{{ $message }}</span>
                             @enderror
@@ -245,6 +257,42 @@
                     </div>
                 </div>
             @endforeach
+            {{-- diskon dan pajak --}}
+            <div class="flex items-center gap-1 md:gap-4 w-full" x-data="{
+                diskon: '{{ $order->diskon ?? old('diskon') }}',
+                pajak: '{{ $order->pajak ?? old('pajak') }}',
+                formatRupiah(value) {
+                    const number = value.replace(/\D/g, '');
+                    return 'Rp. ' + number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                },
+                removeRupiah(value) {
+                    return value.replace(/\D/g, '');
+                }
+            }">
+                {{-- Diskon --}}
+                <div class="flex flex-col gap-2 w-[48%] md:w-1/2">
+                    <label for="diskon" class="text-secondary text-[16px]">Diskon</label>
+                    <input id="diskon" type="text" name="diskon"
+                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Diskon..." x-model="diskon"
+                        x-on:input="diskon = formatRupiah($event.target.value)"
+                        x-on:blur="diskon = removeRupiah(diskon)" />
+                    @error('diskon')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- Pajak --}}
+                <div class="flex flex-col gap-2 w-[48%] md:w-1/2">
+                    <label for="pajak" class="text-secondary text-[16px]">Pajak</label>
+                    <input id="pajak" type="text" name="pajak"
+                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Pajak..." x-model="pajak"
+                        x-on:input="pajak = formatRupiah($event.target.value)"
+                        x-on:blur="pajak = removeRupiah(pajak)" />
+                    @error('pajak')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="status" class="text-secondary text-[16px]">Status</label>

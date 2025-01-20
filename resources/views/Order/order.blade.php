@@ -330,7 +330,7 @@
                                 <td>{{ $order->jenis_pakaian }}</td>
                                 <td>{{ $order->bahan_utama }}</td>
                                 <td>{{ $order->bahan_tambahan ?? '-' }}</td>
-                                <td>{{ $order->jenis_kancing ?? '-' }}</td>
+                                <td>{{ $order->kancing ?? '-' }}</td>
                                 <td>{{ $order->penjahit->name }}</td>
                                 <td>{{ $order->pemotong->name }}</td>
                                 <td>
@@ -340,8 +340,8 @@
                                         @foreach ($order->items as $item)
                                             <li>{{ $item['size'] ?? '-' }}
                                                 ({{ $item['quantity'] ?? '-' }})
-                                                /
-                                                {{ $item['harga_satuan'] ?? '-' }}</li>
+                                                / Rp
+                                                {{ number_format($item['harga_satuan'], 0, ',', '.') ?? '-' }}</li>
                                         @endforeach
                                     </ol>
                                 </td>
