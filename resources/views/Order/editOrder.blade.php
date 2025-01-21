@@ -97,47 +97,42 @@
             {{-- bahan utama --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="bahan_utama" class="text-secondary text-[16px]">Bahan Utama</label>
-                <select name="bahan_utama" id="bahan_utama"
+                <select id="bahan_utama_id" name="bahan_utama_id"
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->bahan_utama }}" disabled selected class="text-[12px] md:text-[16px]">
-                        {{ $order->bahan_utama }}</option>
-                    <option value="Combed 20" class="text-[12px] md:text-[16px]">Combed 20</option>
-                    <option value="Combed 24s" class="text-[12px] md:text-[16px]">Combed 24s</option>
-                    <option value="Combed 30s" class="text-[12px] md:text-[16px]">Combed 30s</option>
+                    <option value="{{ $order->bahan_utama->name }}" disabled selected
+                        class="text-[12px] md:text-[16px]">{{ $order->bahan_utama->name }}
+                    </option>
+                    @if (count($bahan_utama) > 0)
+                        @foreach ($bahan_utama as $bahan)
+                            <option value="{{ $bahan->id }}" class="text-[12px] md:text-[16px]">
+                                {{ $bahan->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Bahan Utama</option>
+                    @endif
                 </select>
-                @error('bahan_utama')
+                @error('bahan_utama_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- bahan tambahan --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="bahan_tambahan" class="text-secondary text-[16px]">Bahan Tambahan</label>
-                <select name="bahan_tambahan" id="bahan_tambahan"
+                <select id="bahan_tambahan_id" name="bahan_tambahan_id" id=""
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->bahan_tambahan }}" disabled selected
-                        class="text-[12px] md:text-[16px]">
-                        {{ $order->bahan_tambahan ?? '-' }}
+                    <option value="{{ $order->bahan_tambahan->name }}" disabled selected
+                        class="text-[12px] md:text-[16px]">{{ $order->bahan_tambahan->name }}
                     </option>
-                    <option value="Asahi" class="text-[12px] md:text-[16px]">Asahi</option>
-                    <option value="Parasut" class="text-[12px] md:text-[16px]">Parasut</option>
-                    <option value="Jaring" class="text-[12px] md:text-[16px]">Jaring</option>
+                    @if (count($bahan_tambahan) > 0)
+                        @foreach ($bahan_tambahan as $bahan)
+                            <option value="{{ $bahan->id }}" class="text-[12px] md:text-[16px]">
+                                {{ $bahan->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Bahan Tambahan</option>
+                    @endif
                 </select>
-                @error('bahan_tambahan')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-            </div>
-            {{-- jenis kancing --}}
-            <div class="flex flex-col w-full gap-2">
-                <label for="kancing" class="text-secondary text-[16px]">Jenis Kancing</label>
-                <select name="kancing" id="kancing" class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->kancing }}" disabled selected class="text-[12px] md:text-[16px]">
-                        {{ $order->kancing ?? '-' }}
-                    </option>
-                    <option value="Wangki" class="text-[12px] md:text-[16px]">Wangki</option>
-                    <option value="PDH" class="text-[12px] md:text-[16px]">PDH</option>
-                    <option value="Jas" class="text-[12px] md:text-[16px]">Jas</option>
-                </select>
-                @error('kancing')
+                @error('bahan_tambahan_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>

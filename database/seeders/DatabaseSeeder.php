@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
+use App\Models\Item;
 use App\Models\Karyawan;
 use App\Models\Supplier;
 use App\Models\User;
@@ -87,6 +88,28 @@ class DatabaseSeeder extends Seeder
             'name' => 'Mupti',
             'no_hp' => '081234567000',
             'email' => 'Mupti@example.com',
+        ]);
+
+        // Menambahkan data item
+        Item::create([
+            'tipe' => 'Bahan Utama',
+            'name' => 'Combed 30',
+            'sisa' => '12kg',
+        ]);
+        Item::create([
+            'tipe' => 'Bahan Utama',
+            'name' => 'Combed 21',
+            'sisa' => '14kg',
+        ]);
+        Item::create([
+            'tipe' => 'Bahan Tambahan',
+            'name' => 'Parasut',
+            'sisa' => '12m',
+        ]);
+        Item::create([
+            'tipe' => 'Bahan Tambahan',
+            'name' => 'Jaring',
+            'sisa' => '11m',
         ]);
     }
 }

@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'customer',
+        'customer_id',
         'admin',
         'tanggal_order',
         'tanggal_selesai',
         'jenis_pakaian',
-        'jenis_pakaian',
-        'bahan_tambahan',
-        'jenis_kancing',
+        'bahan_utama_id',
+        'bahan_tambahan_id',
         'penjahit_id',
         'pemotong_id',
         'items',
@@ -37,9 +36,19 @@ class Order extends Model
         return $this->belongsTo(Karyawan::class, 'pemotong_id');
     }
 
+    // Relasi ke tabel customer
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+    // Relasi ke tabel item
+    public function bahan_utama()
+    {
+        return $this->belongsTo(Item::class);
+    }
+    public function bahan_tambahan()
+    {
+        return $this->belongsTo(Item::class);
     }
 
     // Event model

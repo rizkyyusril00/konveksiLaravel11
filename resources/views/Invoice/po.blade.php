@@ -63,7 +63,7 @@
 
             </div>
             {{-- img order --}}
-            <figure class="w-[360px] h-56 rounded-[12px] flex items-center justify-center bg-red-200">
+            <figure class="w-[360px] h-[200px] rounded-[12px] flex items-center justify-center bg-red-200">
                 @if ($order->image_order == null)
                     <span class="text-center text-secondary">No img</span>
                 @else
@@ -83,13 +83,13 @@
                             <ul>
                                 @foreach ($order->items as $item)
                                     <li class="flex justify-between">
-                                        <span class="text-[12px] text-secondary">{{ $item['size'] }}</span>
-                                        <span class="text-[12px] text-secondary">{{ $item['quantity'] }}</span>
+                                        <span class="text-[11px] text-secondary">{{ $item['size'] }}</span>
+                                        <span class="text-[11px] text-secondary">{{ $item['quantity'] }}</span>
                                     </li>
                                 @endforeach
-                                <li class="pt-2 flex justify-between font-bold text-[#e62737]">
-                                    <span class="text-[14px]">TOTAL</span>
-                                    <span class="text-[14px]">{{ $totalQuantity }} Pcs</span>
+                                <li class="pt-1 flex justify-between font-bold text-[#e62737]">
+                                    <span class="text-[13px]">TOTAL</span>
+                                    <span class="text-[13px]">{{ $totalQuantity }} Pcs</span>
                                 </li>
                             </ul>
                         </div>
@@ -110,7 +110,7 @@
                                 <td class="border border-secondary p-1 text-center text-[14px] text-secondary">Raw
                                     Material</td>
                                 <td class="border border-secondary p-1 text-center text-[14px] text-secondary">
-                                    {{ $order->bahan_utama }}</td>
+                                    {{ $order->bahan_utama->name }}</td>
                             </tr>
                             <tr>
                                 <td class="border border-secondary p-1 text-center text-[14px] text-secondary">Cutting

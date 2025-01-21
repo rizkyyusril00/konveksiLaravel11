@@ -138,7 +138,7 @@
             {{-- bahan utama --}}
             <div class="flex flex-col w-full gap-2">
                 <div class="flex items-center">
-                    <label for="bahan_utama" class="text-secondary text-[16px]">Bahan Utama</label>
+                    <label for="bahan_utama_id" class="text-secondary text-[16px]">Bahan Utama</label>
                     <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
                         fill="#000000" viewBox="0 0 256 256">
                         <path
@@ -146,85 +146,40 @@
                         </path>
                     </svg>
                 </div>
-                <select id="bahan_utama" name="bahan_utama" id=""
+                <select id="bahan_utama_id" name="bahan_utama_id"
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Bahan Utama
                     </option>
-                    @php
-                        $bahanUtama = [
-                            'Combed 20',
-                            'Combed 24s',
-                            'Combed 30s',
-                            'Heavy cotton',
-                            'Lacoste 20s',
-                            'Lacoste 24s',
-                            'Diadora',
-                            'Adidas',
-                            'American drill',
-                            'Pasada',
-                            'Ribstock',
-                            'Canvas',
-                            'Parasut',
-                            'Fleece Cotton',
-                            'Fleece PE',
-                            'Fleece CVC',
-                            'Baby Terry',
-                            'Milano',
-                            'Brazil',
-                            'Waffle',
-                            'Embose',
-                        ];
-                    @endphp
-
-                    @foreach ($bahanUtama as $bahan)
-                        <option value="{{ $bahan }}" class="text-[12px] md:text-[16px]">{{ $bahan }}
-                        </option>
-                    @endforeach
+                    @if (count($bahan_utama) > 0)
+                        @foreach ($bahan_utama as $bahan)
+                            <option value="{{ $bahan->id }}" class="text-[12px] md:text-[16px]">
+                                {{ $bahan->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Bahan Utama</option>
+                    @endif
                 </select>
-
-                @error('bahan_utama')
+                @error('bahan_utama_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             {{-- bahan tambahan --}}
             <div class="flex flex-col w-full gap-2">
-                <label for="bahan_tambahan" class="text-secondary text-[16px]">Bahan Tambahan</label>
-                <select id="bahan_tambahan" name="bahan_tambahan" id=""
+                <label for="bahan_tambahan_id" class="text-secondary text-[16px]">Bahan Tambahan</label>
+                <select id="bahan_tambahan_id" name="bahan_tambahan_id" id=""
                     class="select bg-white text-secondary text-[16px] rounded-md">
                     <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Bahan Tambahan
                     </option>
-                    @php
-                        $bahanTambahan = ['Asahi', 'Parasut', 'Jaring', 'Polar', 'Dakron', 'Despo'];
-                    @endphp
-
-                    @foreach ($bahanTambahan as $bahan)
-                        <option value="{{ $bahan }}" class="text-[12px] md:text-[16px]">{{ $bahan }}
-                        </option>
-                    @endforeach
+                    @if (count($bahan_tambahan) > 0)
+                        @foreach ($bahan_tambahan as $bahan)
+                            <option value="{{ $bahan->id }}" class="text-[12px] md:text-[16px]">
+                                {{ $bahan->name }}</option>
+                        @endforeach
+                    @else
+                        <option value="" disabled>Tidak Ada Bahan Tambahan</option>
+                    @endif
                 </select>
-
-                @error('bahan_tambahan')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-            </div>
-            {{-- jenis kancing --}}
-            <div class="flex flex-col w-full gap-2">
-                <label for="kancing" class="text-secondary text-[16px]">Kancing</label>
-                <select id="kancing" name="kancing" id=""
-                    class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="" disabled selected class="text-[12px] md:text-[16px]">Pilih Kancing
-                    </option>
-                    @php
-                        $kancing = ['Wangki', 'PDH', 'Jas'];
-                    @endphp
-
-                    @foreach ($kancing as $item)
-                        <option value="{{ $item }}" class="text-[12px] md:text-[16px]">{{ $item }}
-                        </option>
-                    @endforeach
-                </select>
-
-                @error('kancing')
+                @error('bahan_tambahan_id')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
@@ -409,7 +364,6 @@
                     @enderror
                 </div>
             </div>
-
             {{-- status --}}
             <div class="flex flex-col w-full gap-2">
                 <div class="flex items-center">

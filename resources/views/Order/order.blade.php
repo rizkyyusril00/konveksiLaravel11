@@ -179,7 +179,6 @@
                         <th class="w-auto">Jenis Pakaian</th>
                         <th class="w-auto">Bahan Utama</th>
                         <th class="w-auto">Bahan Tambahan</th>
-                        <th class="w-auto">Jenis Kancing</th>
                         <th class="w-auto">Penjahit</th>
                         <th class="w-auto">Pemotong</th>
                         <th class="min-w-[180px]">
@@ -296,9 +295,8 @@
                                 <td>{{ $order->tanggal_order }}</td>
                                 <td>{{ $order->tanggal_selesai }}</td>
                                 <td>{{ $order->jenis_pakaian }}</td>
-                                <td>{{ $order->bahan_utama }}</td>
-                                <td>{{ $order->bahan_tambahan ?? '-' }}</td>
-                                <td>{{ $order->kancing ?? '-' }}</td>
+                                <td>{{ $order->bahan_utama->name }}</td>
+                                <td>{{ $order->bahan_tambahan->name ?? '-' }}</td>
                                 <td>{{ $order->penjahit->name }}</td>
                                 <td>{{ $order->pemotong->name }}</td>
                                 <td>

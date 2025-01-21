@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PakaianController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -76,6 +77,16 @@ Route::middleware('auth:user,admin')->group(function () {
     Route::get('/updateSupplier/{id}', [SupplierController::class, 'loadEditForm']);
     Route::post('/updateSupplier/user', [SupplierController::class, 'EditSupplier'])->name('EditSupplier');
     Route::get('/deleteSupplier/{id}', [SupplierController::class, 'deleteSupplier']);
+});
+
+// item
+Route::middleware('auth:user,admin')->group(function () {
+    Route::get('/item', [ItemController::class, 'loadAllItem'])->name('item');
+    Route::get('/add/item', [ItemController::class, 'loadAllItemForm']);
+    Route::post('add/item', [ItemController::class, 'AddItem'])->name('AddItem');
+    Route::get('/updateItem/{id}', [ItemController::class, 'loadEditForm']);
+    Route::post('/updateItem/user', [ItemController::class, 'EditItem'])->name('EditItem');
+    Route::get('/deleteItem/{id}', [ItemController::class, 'deleteItem']);
 });
 
 // customer

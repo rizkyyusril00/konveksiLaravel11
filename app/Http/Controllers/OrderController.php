@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Customer;
+use App\Models\Item;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -62,7 +63,10 @@ class OrderController extends Controller
         $pemotongs = Karyawan::where('pekerjaan', 'Pemotong')->get();
         // ambil data customer
         $customers = Customer::all();
-        return view('Order.addOrder', compact('penjahits', 'pemotongs', 'customers'));
+        // Ambil data bahan utama dan bahan tambahan
+        $bahan_utama = Item::where('tipe', 'Bahan Utama')->get();
+        $bahan_tambahan = Item::where('tipe', 'Bahan Tambahan')->get();
+        return view('Order.addOrder', compact('bahan_utama', 'bahan_tambahan', 'customers', 'penjahits', 'pemotongs'));
     }
     public function AddOrder(Request $request)
     {
@@ -73,8 +77,7 @@ class OrderController extends Controller
             'tanggal_order.required' => 'Tanggal Order Tidak Boleh Kosong',
             'tanggal_selesai.required' => 'Tanggal Selesai Tidak Boleh Kosong',
             'jenis_pakaian.required' => 'Jenis Pakaian Tidak Boleh Kosong',
-            'bahan_utama.required' => 'Bahan Utama Tidak Boleh Kosong',
-            'bahan_tambahan.required' => 'Bahan Tambahan Tidak Boleh Kosong',
+            'bahan_utama_id.required' => 'Bahan Utama Tidak Boleh Kosong',
             'penjahit_id.required' => 'Penjahit Tidak Boleh Kosong',
             'pemotong_id.required' => 'Pemotong Tidak Boleh Kosong',
             'items.required' => 'Item Tidak Boleh Kosong',
@@ -91,9 +94,8 @@ class OrderController extends Controller
             'tanggal_order' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_order',
             'jenis_pakaian' => 'required|string',
-            'bahan_utama' => 'required|string',
-            'bahan_tambahan' => 'nullable|string',
-            'kancing' => 'nullable|string',
+            'bahan_utama_id' => 'required|exists:items,id',
+            'bahan_tambahan_id' => 'nullable|exists:items,id',
             'penjahit_id' => 'required|exists:karyawans,id',
             'pemotong_id' => 'required|exists:karyawans,id',
             'items' => 'required|array',
@@ -105,15 +107,15 @@ class OrderController extends Controller
         ], $message);
 
         try {
-            $order = new Order();
+            // $order = new Order();
+            $order = new Order($request->all());
             $order->customer_id = $request->customer_id;
             $order->admin = $request->admin;
             $order->tanggal_order = $request->tanggal_order;
             $order->tanggal_selesai = $request->tanggal_selesai;
             $order->jenis_pakaian = $request->jenis_pakaian;
-            $order->bahan_utama = $request->bahan_utama;
-            $order->bahan_tambahan = $request->bahan_tambahan ?: null;
-            $order->kancing = $request->kancing ?: null;
+            $order->bahan_utama_id = $request->bahan_utama_id;
+            $order->bahan_tambahan_id = $request->bahan_tambahan_id ?: null;
             $order->penjahit_id = $request->penjahit_id;
             $order->pemotong_id = $request->pemotong_id;
             $order->items = $request->items;
@@ -203,9 +205,12 @@ class OrderController extends Controller
 
         // ambil data customer
         $customers = Customer::all();
+        // Ambil data bahan utama dan bahan tambahan
+        $bahan_utama = Item::where('tipe', 'Bahan Utama')->get();
+        $bahan_tambahan = Item::where('tipe', 'Bahan Tambahan')->get();
         // dd($order->size, $order->jumlah_potong); // Cek data size dan jumlah_potong
 
-        return view('Order.editOrder', compact('order', 'penjahits', 'pemotongs', 'customers'));
+        return view('Order.editOrder', compact('order', 'penjahits', 'pemotongs', 'customers', 'bahan_utama', 'bahan_tambahan'));
     }
 
     public function invoice($id)

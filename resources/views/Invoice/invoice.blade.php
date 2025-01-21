@@ -86,9 +86,8 @@
                             <td>{{ $order->penjahit->name }}</td>
                             <td>
                                 <ol class="list-disc">
-                                    <li>{{ $order->bahan_utama }}</li>
-                                    <li>{{ $order->bahan_tambahan ?? '-' }}</li>
-                                    <li>{{ $order->kancing ?? '-' }}</li>
+                                    <li>{{ $order->bahan_utama->name }}</li>
+                                    <li>{{ $order->bahan_tambahan->name ?? '-' }}</li>
                                 </ol>
                             </td>
                             <td>{{ $order->jenis_pakaian }}</td>

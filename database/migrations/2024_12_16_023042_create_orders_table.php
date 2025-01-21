@@ -18,9 +18,8 @@ return new class extends Migration
             $table->date('tanggal_order');
             $table->date('tanggal_selesai');
             $table->string('jenis_pakaian');
-            $table->string('bahan_utama');
-            $table->string('bahan_tambahan')->nullable();
-            $table->string('kancing')->nullable();
+            $table->unsignedBigInteger('bahan_utama_id');
+            $table->unsignedBigInteger('bahan_tambahan_id')->nullable();
             $table->unsignedBigInteger('penjahit_id'); // Foreign key ke tabel karyawans
             $table->unsignedBigInteger('pemotong_id'); // Foreign key ke tabel karyawans
             $table->json('items')->nullable();
@@ -32,6 +31,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Tambahkan foreign key constraint
+            $table->foreign('bahan_utama_id')->references('id')->on('items')->onDelete('cascade');
+            $table->foreign('bahan_tambahan_id')->references('id')->on('items')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('penjahit_id')->references('id')->on('karyawans')->onDelete('cascade');
             $table->foreign('pemotong_id')->references('id')->on('karyawans')->onDelete('cascade');
