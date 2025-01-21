@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Karyawan;
+use App\Models\Pembelian;
 use App\Models\Supplier;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -88,6 +89,30 @@ class DatabaseSeeder extends Seeder
             'name' => 'Mupti',
             'no_hp' => '081234567000',
             'email' => 'Mupti@example.com',
+        ]);
+
+        // Menambahkan data pembelian
+        Pembelian::create([
+            'invoice' => 'INV0001',
+            'name_supplier' => 'Supplier X',
+            'name' => 'Combed 31',
+            'tanggal_pembelian' => now(), // Gunakan tanggal saat ini
+            'tanggal_tempo' => now()->addDays(30), // Contoh tanggal tempo 30 hari setelah tanggal pembelian
+            'jumlah' => 10,
+            'bayar' => 5000,
+            'hutang' => null, // Kirimkan null jika tidak ada hutang
+            'status' => 'Lunas',
+        ]);
+        Pembelian::create([
+            'invoice' => 'INV0002',
+            'name_supplier' => 'Supplier A',
+            'name' => 'Combed 81',
+            'tanggal_pembelian' => now(), // Gunakan tanggal saat ini
+            'tanggal_tempo' => now()->addDays(30), // Contoh tanggal tempo 30 hari setelah tanggal pembelian
+            'jumlah' => '10',
+            'bayar' => '5000',
+            'hutang' => '5000',
+            'status' => 'Lunas',
         ]);
 
         // Menambahkan data item

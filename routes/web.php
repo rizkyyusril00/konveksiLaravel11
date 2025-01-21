@@ -9,6 +9,7 @@ use App\Http\Controllers\PakaianController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Auth\Middleware\Authenticate;
 
@@ -77,6 +78,16 @@ Route::middleware('auth:user,admin')->group(function () {
     Route::get('/updateSupplier/{id}', [SupplierController::class, 'loadEditForm']);
     Route::post('/updateSupplier/user', [SupplierController::class, 'EditSupplier'])->name('EditSupplier');
     Route::get('/deleteSupplier/{id}', [SupplierController::class, 'deleteSupplier']);
+});
+
+// pemebelian
+Route::middleware('auth:user,admin')->group(function () {
+    Route::get('/pembelian', [PembelianController::class, 'loadAllPembelian'])->name('pembelian');
+    Route::get('/add/pembelian', [PembelianController::class, 'loadAllPembelianForm']);
+    Route::post('add/pembelian', [PembelianController::class, 'AddPembelian'])->name('AddPembelian');
+    Route::get('/updatePembelian/{id}', [PembelianController::class, 'loadEditForm']);
+    Route::post('/updatePembelian/user', [PembelianController::class, 'EditPembelian'])->name('EditPembelian');
+    Route::get('/deletePembelian/{id}', [PembelianController::class, 'deletePembelian']);
 });
 
 // item

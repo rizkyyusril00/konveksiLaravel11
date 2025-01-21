@@ -50,7 +50,7 @@ class CustomerController extends Controller
             'name' => 'required|string',
             'no_hp' => 'required|string',
             'email' => 'required|email|unique:customers,email', // Add the unique validation for email
-        ]);
+        ], $message);
 
         // Add customer
         try {
