@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 <div class="relative w-[250px]">
-                    <div class="flex flex-col gap-1 w-[250px] absolute bottom-0" x-data="{
+                    <div class="flex flex-col gap-1 w-[250px] absolute top-0" x-data="{
                         subtotal: @php $totalHarga = 0;
                             foreach ($order->items as $item) {
                                 $totalHarga += $item['total_harga'] ?? 0;

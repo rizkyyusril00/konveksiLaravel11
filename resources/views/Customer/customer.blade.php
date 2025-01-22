@@ -91,11 +91,12 @@
                 <!-- head -->
                 <thead class="bg-accent w-full">
                     <tr class="text-[12px] text-secondary">
-                        <th class="w-[10%] rounded-tl-lg rounded-bl-sm">No</th>
-                        <th class="w-[26%] ">Nama</th>
-                        <th class="w-[26%] ">No. Hp</th>
-                        <th class="w-[26%] ">Email</th>
-                        <th class="w-[10%] rounded-tr-lg rounded-br-sm sticky right-0 bg-accent">Action</th>
+                        <th class="min-w-[10%] rounded-tl-lg rounded-bl-sm">No</th>
+                        <th class="min-w-[26%]">Nama</th>
+                        <th class="min-w-[26%]">No. Hp</th>
+                        <th class="min-w-[26%]">Email</th>
+                        <th class="min-w-[5%]">Total Order</th>
+                        <th class="min-w-[5%] ounded-tr-lg rounded-br-sm sticky right-0 bg-accent">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,25 +107,14 @@
                                 <td>{{ ucwords($customer->name) }}</td>
                                 <td>{{ $customer->no_hp }}</td>
                                 <td>{{ $customer->email }}</td>
+                                <td>
+                                    <a href="/?search={{ $customer->name }}" class="text-info font-semibold">
+                                        {{ $customer->orders_count }}
+                                    </a>
+                                </td>
                                 <td x-data="{ open: false }" :class="{ '': open, 'sticky': !open }"
                                     class="sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="w-fit flex gap-3">
-                                        <div class="relative">
-                                            <div
-                                                class="absolute -top-2 -right-2 rounded-full w-4 h-4 bg-secondary text-primary text-[8px] flex items-center justify-center">
-                                                <span>{{ $customer->orders_count }}
-                                                </span>
-                                            </div>
-                                            <a href="/?search={{ $customer->name }}" class="">
-                                                <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
-                                                    xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                    fill="" viewBox="0 0 256 256">
-                                                    <path
-                                                        d="M104,216a16,16,0,1,1-16-16A16,16,0,0,1,104,216Zm88-16a16,16,0,1,0,16,16A16,16,0,0,0,192,200ZM239.71,74.14l-25.64,92.28A24.06,24.06,0,0,1,191,184H92.16A24.06,24.06,0,0,1,69,166.42L33.92,40H16a8,8,0,0,1,0-16H40a8,8,0,0,1,7.71,5.86L57.19,64H232a8,8,0,0,1,7.71,10.14ZM221.47,80H61.64l22.81,82.14A8,8,0,0,0,92.16,168H191a8,8,0,0,0,7.71-5.86Z">
-                                                    </path>
-                                                </svg>
-                                            </a>
-                                        </div>
                                         <a href="/updateCustomer/{{ $customer->id }}" class="">
                                             <svg class="fill-secondary hover:fill-info transition-all duration-300 ease-in-out"
                                                 xmlns="http://www.w3.org/2000/svg" width="18" height="18"
