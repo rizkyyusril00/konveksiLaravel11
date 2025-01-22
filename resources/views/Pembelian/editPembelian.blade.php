@@ -62,8 +62,8 @@
             <div class="flex flex-col w-full gap-2">
                 <label for="tanggal_pembelian" class="text-secondary text-[16px]">Tanggal Pembelian</label>
                 <input id="tanggal_pembelian" type="date" name="tanggal_pembelian"
-                    value="{{ $pembelian->tanggal_pembelian }}" class="text-secondary text-[16px] p-4 rounded-md"
-                    placeholder="Tanggal Pembelian...">
+                    value="{{ $pembelian->getTanggalPembelianForInput() }}"
+                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Pembelian...">
                 @error('tanggal_pembelian')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
@@ -71,7 +71,8 @@
             {{-- tgl tempo --}}
             <div class="flex flex-col w-full gap-2">
                 <label for="tanggal_tempo" class="text-secondary text-[16px]">Tanggal Tempo</label>
-                <input id="tanggal_tempo" type="date" name="tanggal_tempo" value="{{ $pembelian->tanggal_tempo }}"
+                <input id="tanggal_tempo" type="date" name="tanggal_tempo"
+                    value="{{ $pembelian->getTanggalTempoForInput() }}"
                     class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Tempo..."
                     min="{{ old('tanggal_pembelian') }}">
                 @error('tanggal_tempo')
