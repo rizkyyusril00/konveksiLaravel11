@@ -119,7 +119,7 @@
                                 <td>{{ $supplier->bahan_tambahan ?? '-' }}</td>
                                 <td>{{ $supplier->jenis_kancing }}</td>
                                 <td>{{ $supplier->jenis_sleting }}</td>
-                                <td
+                                <td x-data="{ open: false }" :class="{ '': open, 'sticky': !open }"
                                     class="sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="w-fit flex gap-3">
                                         <a href="/updateSupplier/{{ $supplier->id }}" class="">
@@ -132,7 +132,7 @@
                                             </svg>
                                         </a>
 
-                                        <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
+                                        <div x-init="open = localStorage.getItem('modal-open') === 'true';
                                         $watch('open', value => localStorage.setItem('modal-open', value))">
                                             <!-- Button to open modal -->
                                             <button @click="open = true">
