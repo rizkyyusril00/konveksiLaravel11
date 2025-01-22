@@ -63,13 +63,13 @@
 
             </div>
             {{-- img order --}}
-            <figure class="w-[360px] h-[200px] rounded-[12px] flex items-center justify-center bg-red-200">
+            <figure class="w-[360px] h-[200px] rounded-[12px] flex items-center justify-center">
                 @if ($order->image_order == null)
                     <span class="text-center text-secondary">No img</span>
                 @else
                     <img src="{{ asset('storage/' . $order->image_order) }}"
                         alt="{{ $order->image_customer }} {{ asset('storage/' . $order->image_order) }}"
-                        class="w-full h-full object-cover rounded-[8px]">
+                        class="rounded-[8px]">
                 @endif
             </figure>
             {{-- footer --}}
