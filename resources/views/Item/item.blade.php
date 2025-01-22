@@ -125,7 +125,7 @@
                                 <td>{{ $item->tipe }}</td>
                                 <td>{{ ucwords($item->name) }}</td>
                                 <td>{{ $item->sisa }}</td>
-                                <td
+                                <td x-data="{ open: false }" :class="{ '': open, 'sticky': !open }"
                                     class="sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="w-fit flex gap-3">
                                         <a href="/updateItem/{{ $item->id }}" class="">
@@ -138,7 +138,7 @@
                                             </svg>
                                         </a>
 
-                                        <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
+                                        <div x-init="open = localStorage.getItem('modal-open') === 'true';
                                         $watch('open', value => localStorage.setItem('modal-open', value))">
                                             <!-- Button to open modal -->
                                             <button @click="open = true">

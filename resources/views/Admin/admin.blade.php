@@ -111,7 +111,7 @@
                                         <span>Admin</span>
                                     @endif
                                 </td>
-                                <td
+                                <td x-data="{ open: false }" :class="{ '': open, 'sticky': !open }"
                                     class="w-[5%] sticky right-0 {{ $loop->iteration % 2 === 0 ? 'bg-accent' : 'bg-primary' }}">
                                     <div class="flex gap-3">
                                         @auth
@@ -126,7 +126,7 @@
                                                     </svg>
                                                 </a>
 
-                                                <div x-data="{ open: false }" x-init="open = localStorage.getItem('modal-open') === 'true';
+                                                <div x-init="open = localStorage.getItem('modal-open') === 'true';
                                                 $watch('open', value => localStorage.setItem('modal-open', value))">
                                                     <!-- Button to open modal -->
                                                     <button @click="open = true" class="">
