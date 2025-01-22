@@ -120,8 +120,8 @@
                 <label for="bahan_tambahan" class="text-secondary text-[16px]">Bahan Tambahan</label>
                 <select id="bahan_tambahan_id" name="bahan_tambahan_id" id=""
                     class="select bg-white text-secondary text-[16px] rounded-md">
-                    <option value="{{ $order->bahan_tambahan->name }}" disabled selected
-                        class="text-[12px] md:text-[16px]">{{ $order->bahan_tambahan->name }}
+                    <option value="{{ $order->bahan_tambahan->name ?? null }}" disabled selected
+                        class="text-[12px] md:text-[16px]">{{ $order->bahan_tambahan->name ?? '-' }}
                     </option>
                     @if (count($bahan_tambahan) > 0)
                         @foreach ($bahan_tambahan as $bahan)
@@ -341,7 +341,7 @@
             {{-- submit --}}
             <div class="flex items-center gap-3">
                 <a href="/" class="btn btn-outline btn-secondary">Kembali</a>
-                <button type="submit" class="btn btn-secondary">Edit</button>
+                <button type="submit" class="btn btn-secondary">Simpan</button>
             </div>
         </form>
     </div>

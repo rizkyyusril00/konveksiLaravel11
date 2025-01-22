@@ -26,7 +26,7 @@
                 @enderror
             </div>
             {{-- submit --}}
-            <button type="submit" class="btn btn-success w-[100px]">Edit</button>
+            <button type="submit" class="btn btn-success w-[100px]">Simpan</button>
         </form>
     </div>
 </x-layout>

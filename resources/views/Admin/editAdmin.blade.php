@@ -48,7 +48,12 @@
                 <label for="">Role</label>
                 <select name="role" id="" class="p-4 rounded-md">
                     <option value="{{ $user->role }}" disabled selected class="text-[12px] md:text-[16px]">
-                        {{ $user->role }}</option>
+                        @if ($user->role == 'admin')
+                            Super Admin
+                        @else
+                            Admin
+                        @endif
+                    </option>
                     <option value="admin" class="text-[12px] md:text-[16px]">Super Admin</option>
                     <option value="user" class="text-[12px] md:text-[16px]">Admin</option>
                 </select>
@@ -58,7 +63,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <a href="/user" class="btn btn-outline btn-secondary">Kembali</a>
-                <button type="submit" class="btn btn-secondary">Edit</button>
+                <button type="submit" class="btn btn-secondary">simpan</button>
             </div>
         </form>
 

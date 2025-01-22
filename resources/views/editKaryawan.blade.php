@@ -73,7 +73,7 @@
             {{-- submit --}}
             <div class="flex items-center gap-3">
                 <a href="/karyawan" class="btn btn-outline btn-secondary">Kembali</a>
-                <button type="submit" class="btn btn-secondary">Edit</button>
+                <button type="submit" class="btn btn-secondary">Simpan</button>
             </div>
         </form>
     </div>

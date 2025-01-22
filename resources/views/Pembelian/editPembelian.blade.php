@@ -125,8 +125,8 @@
                 @enderror
             </div>
             <div class="flex items-center gap-3">
-                <a href="/status" class="btn btn-outline btn-secondary">Kembali</a>
-                <button type="submit" class="btn btn-secondary">Edit</button>
+                <a href="/pembelian" class="btn btn-outline btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-secondary">Simpan</button>
             </div>
         </form>
     </div>
