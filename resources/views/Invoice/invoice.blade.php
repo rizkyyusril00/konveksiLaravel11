@@ -127,33 +127,42 @@
                                 $totalHarga += $item['total_harga'] ?? 0;
                             } @endphp
                         {{ $totalHarga }},
-                        diskon: {{ $order->diskon ?? 0 }},
-                        pajak: {{ $order->pajak ?? 0 }},
+                        diskonPersen: {{ $order->diskon ?? 0 }}, // diskon dalam persen
+                        pajakPersen: {{ $order->pajak ?? 0 }}, // pajak dalam persen
+                        getDiskon() {
+                            return this.subtotal * (this.diskonPersen / 100);
+                        },
+                        getPajak() {
+                            const subtotalSetelahDiskon = this.subtotal - this.getDiskon();
+                            return subtotalSetelahDiskon * (this.pajakPersen / 100);
+                        },
                         getTotal() {
-                            return this.subtotal - this.diskon + this.pajak;
+                            return this.subtotal - this.getDiskon() + this.getPajak();
                         }
                     }">
                         {{-- subtotal --}}
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Subtotal: </span>
-                            <span class="w-1/2 text-right" x-text="'RP ' + subtotal.toLocaleString('id-ID')"></span>
+                            <span class="w-1/2 text-right" x-text="'Rp ' + subtotal.toLocaleString('id-ID')"></span>
                         </div>
                         {{-- diskon --}}
                         <div class="flex justify-between items-center gap-1">
-                            <span class="text-right w-1/2">Diskon: </span>
-                            <span class="w-1/2 text-right" x-text="'Rp. ' + diskon.toLocaleString('id-ID')"></span>
+                            <span class="text-right w-1/2">Diskon ({{ $order->diskon ?? 0 }}%): </span>
+                            <span class="w-1/2 text-right" x-text="'Rp ' + getDiskon().toLocaleString('id-ID')"></span>
                         </div>
                         {{-- pajak --}}
                         <div class="flex justify-between items-center gap-1">
-                            <span class="text-right w-1/2">Pajak: </span>
-                            <span class="w-1/2 text-right" x-text="'Rp. ' + pajak.toLocaleString('id-ID')"></span>
+                            <span class="text-right w-1/2">Pajak ({{ $order->pajak ?? 0 }}%): </span>
+                            <span class="w-1/2 text-right" x-text="'Rp ' + getPajak().toLocaleString('id-ID')"></span>
                         </div>
                         {{-- total --}}
                         <div class="flex justify-between items-center gap-1">
                             <span class="text-right w-1/2">Total: </span>
-                            <span class="w-1/2 text-right" x-text="'Rp. ' + getTotal().toLocaleString('id-ID')"></span>
+                            <span class="w-1/2 text-right" x-text="'Rp ' + getTotal().toLocaleString('id-ID')"></span>
                         </div>
                     </div>
+
+
                     <div class="flex flex-col gap-1 w-[300px] invisible bg-yellow-400">
                         <div class="flex justify-between items-center gap-3">
                             <span class="text-right w-1/2">Subtotal: </span>
