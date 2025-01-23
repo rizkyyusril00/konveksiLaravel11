@@ -61,7 +61,7 @@
                     </svg>
                     <span>Supplier</span>
                 </a>
-                {{-- invoice --}}
+                {{-- pembelian --}}
                 <a href="/pembelian"
                     class="flex items-center gap-2 p-2 hover:bg-accent transition-all duration-300 ease-in-out hover:pl-3 rounded-md {{ request()->is('pembelian') ? 'pl-3 bg-accent text-secondary' : 'pl-0 bg-primary' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
@@ -175,16 +175,6 @@
                         </path>
                     </svg>
                 </a>
-                {{-- supplier --}}
-                <a href="/supplier"
-                    class="w-10 h-10 rounded-full flex items-center justify-center hover:mb-2 transition-all duration-300 ease-in-out {{ request()->is('supplier') ? 'bg-accent mb-2' : 'bg-primary mb-0' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
-                        viewBox="0 0 256 256">
-                        <path
-                            d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z">
-                        </path>
-                    </svg>
-                </a>
                 {{-- customer --}}
                 <a href="/customer"
                     class="w-10 h-10 rounded-full flex items-center justify-center hover:mb-2 transition-all duration-300 ease-in-out {{ request()->is('customer') ? 'bg-accent mb-2' : 'bg-primary mb-0' }}">
@@ -227,6 +217,50 @@
                         </svg>
                     </a>
                 @endauth
+                {{-- Hamburger --}}
+                <div x-data="{ box: false }" class="relative"
+                    class="w-10 h-10 rounded-full flex items-center justify-center hover:mb-2 transition-all duration-300 ease-in-out {{ request()->is('supplier') ? 'bg-accent mb-2' : 'bg-primary mb-0' }}">
+                    <svg @click="box = !box" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        fill="#000000" viewBox="0 0 256 256">
+                        <path
+                            d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z">
+                        </path>
+                    </svg>
+                    {{-- box pop up --}}
+                    <div x-show="box" @click.outside="box = false" x-transition
+                        class="p-1 w-fit h-fit absolute -top-[165px] z-20 bg-accent rounded-md border border-secondary flex flex-col gap-0">
+                        {{-- supplier --}}
+                        <a href="/supplier"
+                            class="w-10 h-10 rounded-full flex items-center justify-center hover:mb-2 transition-all duration-300 ease-in-out {{ request()->is('supplier') ? 'bg-accent mb-2' : 'bg-primary mb-0' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z">
+                                </path>
+                            </svg>
+                        </a>
+                        {{-- item --}}
+                        <a href="/item"
+                            class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-in-out {{ request()->is('item') ? 'bg-accent' : 'bg-primary' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M247.59,61.22,195.83,33A8,8,0,0,0,192,32H160a8,8,0,0,0-8,8,24,24,0,0,1-48,0,8,8,0,0,0-8-8H64a8,8,0,0,0-3.84,1L8.41,61.22A15.76,15.76,0,0,0,1.82,82.48l19.27,36.81A16.37,16.37,0,0,0,35.67,128H56v80a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V128h20.34a16.37,16.37,0,0,0,14.58-8.71l19.27-36.81A15.76,15.76,0,0,0,247.59,61.22ZM35.67,112a.62.62,0,0,1-.41-.13L16.09,75.26,56,53.48V112ZM184,208H72V48h16.8a40,40,0,0,0,78.38,0H184Zm36.75-96.14a.55.55,0,0,1-.41.14H200V53.48l39.92,21.78Z">
+                                </path>
+                            </svg>
+                        </a>
+                        {{-- Pembelian --}}
+                        <a href="/pembelian"
+                            class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-in-out {{ request()->is('item') ? 'bg-accent' : 'bg-primary' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M28,128a8,8,0,0,1,0-16H56a8,8,0,0,0,0-16H40a24,24,0,0,1,0-48,8,8,0,0,1,16,0h8a8,8,0,0,1,0,16H40a8,8,0,0,0,0,16H56a24,24,0,0,1,0,48,8,8,0,0,1-16,0ZM232,56V192a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V152a8,8,0,0,1,16,0v40H160V160H80a8,8,0,0,1,0-16h80V112H104a8,8,0,0,1,0-16H216V64H96a8,8,0,0,1,0-16H224A8,8,0,0,1,232,56Zm-56,88h40V112H176Zm40,48V160H176v32Z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
                 {{-- img --}}
                 <figure class="w-8 h-8 rounded-full bg-secondary tooltip tooltip-secondary"
                     data-tip="{{ auth()->user()->role == 'admin' ? 'Super Admin' : 'Admin' }}">

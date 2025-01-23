@@ -108,7 +108,8 @@
                                 <td>{{ $customer->no_hp }}</td>
                                 <td>{{ $customer->email }}</td>
                                 <td>
-                                    <a href="/?search={{ $customer->name }}" class="text-info font-semibold">
+                                    <a href="/?search={{ $customer->name }}"
+                                        class="text-info font-semibold hover:underline">
                                         {{ $customer->orders_count }}
                                     </a>
                                 </td>
