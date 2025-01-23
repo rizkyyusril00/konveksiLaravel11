@@ -86,7 +86,7 @@
         </form>
 
         {{-- tabel --}}
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto overflow-y-auto max-h-[50%] md:max-h-fit">
             <table class="table table-zebra">
                 <!-- head -->
                 <thead class="bg-accent w-full">
