@@ -329,24 +329,12 @@
                 </div>
             </div>
             {{-- diskon dan pajak --}}
-            <div class="flex items-center gap-1 md:gap-4 w-full" x-data="{
-                diskon: '{{ old('diskon') }}',
-                pajak: '{{ old('pajak') }}',
-                formatRupiah(value) {
-                    const number = value.replace(/\D/g, '');
-                    return 'Rp. ' + number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-                },
-                removeRupiah(value) {
-                    return value.replace(/\D/g, '');
-                }
-            }">
+            <div class="flex items-center gap-1 md:gap-4 w-full">
                 {{-- Diskon --}}
                 <div class="flex flex-col gap-2 w-[48%] md:w-1/2">
-                    <label for="diskon" class="text-secondary text-[16px]">Diskon</label>
-                    <input id="diskon" type="text" name="diskon"
-                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Diskon..." x-model="diskon"
-                        x-on:input="diskon = formatRupiah($event.target.value)"
-                        x-on:blur="diskon = removeRupiah(diskon)" />
+                    <label for="diskon" class="text-secondary text-[16px]">Diskon (%)</label>
+                    <input id="diskon" type="number" name="diskon"
+                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Diskon..." />
                     @error('diskon')
                         <span class="text-red-400">{{ $message }}</span>
                     @enderror
@@ -354,11 +342,9 @@
 
                 {{-- Pajak --}}
                 <div class="flex flex-col gap-2 w-[48%] md:w-1/2">
-                    <label for="pajak" class="text-secondary text-[16px]">Pajak</label>
-                    <input id="pajak" type="text" name="pajak"
-                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Pajak..." x-model="pajak"
-                        x-on:input="pajak = formatRupiah($event.target.value)"
-                        x-on:blur="pajak = removeRupiah(pajak)" />
+                    <label for="pajak" class="text-secondary text-[16px]">Pajak (%)</label>
+                    <input id="pajak" type="number" name="pajak"
+                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Pajak..." />
                     @error('pajak')
                         <span class="text-red-400">{{ $message }}</span>
                     @enderror
