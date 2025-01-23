@@ -16,16 +16,32 @@
             </div>
         @endif
 
+        @if (Session::has('error'))
+            <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 3000)" x-show="open"
+                x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-300 transform"
+                x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
+                class="toast toast-top toast-center z-40">
+                <div class="alert alert-error">
+                    <span class="text-primary">{{ Session::get('error') }}</span>
+                    <span @click="open = false" class="cursor-pointer text-primary">x</span>
+                </div>
+            </div>
+        @endif
+
         {{-- header --}}
         <x-header title="Pembelian" addRoute="AddPembelian" />
 
         {{-- action  --}}
-        <div class="hidden md:flex items-center justify-between gap-2">
+        <div class="hidden lg:flex items-center justify-between gap-2">
             <form method="GET" action="/pembelian" class="flex items-center gap-2">
+                <!-- Search Input -->
                 <div class="relative">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Nama Barang..."
                         class="input input-bordered input-secondary pr-10 w-40 h-10 min-h-10 text-[14px]" />
                     <button type="submit" class="absolute top-3 right-4">
+                        <!-- Search Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
                             viewBox="0 0 256 256">
                             <path
@@ -34,6 +50,31 @@
                         </svg>
                     </button>
                 </div>
+
+                <!-- Dropdown for Month -->
+                <select name="bulan"
+                    class="block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                    <option value="" {{ request('bulan') == '' ? 'selected' : '' }} selected disabled>Bulan
+                    </option>
+                    @for ($i = 1; $i <= 12; $i++)
+                        <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
+                            {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                        </option>
+                    @endfor
+                </select>
+
+                <!-- Dropdown for Year -->
+                <select name="tahun"
+                    class="block select select-bordered select-secondary w-fit h-10 min-h-10 text-[14px]">
+                    <option value="" {{ request('tahun') == '' ? 'selected' : '' }} selected disabled>Tahun
+                    </option>
+                    @foreach ($years as $tahun)
+                        <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                            {{ $tahun }}</option>
+                    @endforeach
+                </select>
+
+                <!-- Submit Button -->
                 <button type="submit" class="btn h-10 min-h-10 btn-outline btn-secondary text-[14px]">Cari</button>
                 <a href="/pembelian" class="flex items-center justify-center bg-secondary w-8 h-8 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -45,6 +86,7 @@
                     </svg>
                 </a>
             </form>
+
             {{-- btn add --}}
             <a href="/add/pembelian" class="btn h-10 min-h-10 btn-secondary w-fit flex items-center gap-2 group">
                 <svg class="group-hover:rotate-180 transition-all duration-300 ease-in-out fill-primary"
@@ -59,32 +101,69 @@
         </div>
 
         {{-- action mobile --}}
-        <div class="md:hidden flex flex-col gap-2">
-            <form method="GET" action="/pembelian" class="flex items-center gap-2">
-                {{-- search --}}
-                <div class="relative">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama..."
-                        class="input input-bordered input-sm input-secondary pr-10 w-36 text-[14px]" />
-                    <button type="submit" class="absolute top-2 right-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
-                            viewBox="0 0 256 256">
+        <div x-data="{ showSelects: false }" class="lg:hidden flex flex-col gap-2">
+            <form method="GET" action="/pembelian" class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                    {{-- search --}}
+                    <div class="relative">
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama..."
+                            class="input input-bordered input-sm input-secondary pr-10 w-36 text-[14px]" />
+                        <button type="submit" class="absolute top-2 right-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-outline btn-secondary text-[14px]">Cari</button>
+                    <a href="/pembelian"
+                        class="flex items-center justify-center bg-secondary w-[30px] h-[30px] rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18"
+                            height="18" fill="#ffffff" viewBox="0 0 256 256">
                             <path
-                                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                                d="M235.5,216.81c-22.56-11-35.5-34.58-35.5-64.8V134.73a15.94,15.94,0,0,0-10.09-14.87L165,110a8,8,0,0,1-4.48-10.34l21.32-53a28,28,0,0,0-16.1-37,28.14,28.14,0,0,0-35.82,16,.61.61,0,0,0,0,.12L108.9,79a8,8,0,0,1-10.37,4.49L73.11,73.14A15.89,15.89,0,0,0,55.74,76.8C34.68,98.45,24,123.75,24,152a111.45,111.45,0,0,0,31.18,77.53A8,8,0,0,0,61,232H232a8,8,0,0,0,3.5-15.19ZM67.14,88l25.41,10.3a24,24,0,0,0,31.23-13.45l21-53c2.56-6.11,9.47-9.27,15.43-7a12,12,0,0,1,6.88,15.92L145.69,93.76a24,24,0,0,0,13.43,31.14L184,134.73V152c0,.33,0,.66,0,1L55.77,101.71A108.84,108.84,0,0,1,67.14,88Zm48,128a87.53,87.53,0,0,1-24.34-42,8,8,0,0,0-15.49,4,105.16,105.16,0,0,0,18.36,38H64.44A95.54,95.54,0,0,1,40,152a85.9,85.9,0,0,1,7.73-36.29l137.8,55.12c3,18,10.56,33.48,21.89,45.16Z">
                             </path>
                         </svg>
-                    </button>
+                    </a>
+                    {{-- toggle select --}}
+                    <div @click="showSelects = !showSelects"
+                        class="flex items-center justify-center bg-secondary w-[30px] h-[30px] rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18"
+                            height="18" fill="#ffffff" viewBox="0 0 256 256">
+                            <path
+                                d="M64,105V40a8,8,0,0,0-16,0v65a32,32,0,0,0,0,62v49a8,8,0,0,0,16,0V167a32,32,0,0,0,0-62Zm-8,47a16,16,0,1,1,16-16A16,16,0,0,1,56,152Zm80-95V40a8,8,0,0,0-16,0V57a32,32,0,0,0,0,62v97a8,8,0,0,0,16,0V119a32,32,0,0,0,0-62Zm-8,47a16,16,0,1,1,16-16A16,16,0,0,1,128,104Zm104,64a32.06,32.06,0,0,0-24-31V40a8,8,0,0,0-16,0v97a32,32,0,0,0,0,62v17a8,8,0,0,0,16,0V199A32.06,32.06,0,0,0,232,168Zm-32,16a16,16,0,1,1,16-16A16,16,0,0,1,200,184Z">
+                            </path>
+                        </svg>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-sm btn-outline btn-secondary text-[14px]">Cari</button>
-                <a href="/pembelian"
-                    class="flex items-center justify-center bg-secondary w-[30px] h-[30px] rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="hover:scale-[1.03] transition-all duration-300 ease-in-out" width="18" height="18"
-                        fill="#ffffff" viewBox="0 0 256 256">
-                        <path
-                            d="M235.5,216.81c-22.56-11-35.5-34.58-35.5-64.8V134.73a15.94,15.94,0,0,0-10.09-14.87L165,110a8,8,0,0,1-4.48-10.34l21.32-53a28,28,0,0,0-16.1-37,28.14,28.14,0,0,0-35.82,16,.61.61,0,0,0,0,.12L108.9,79a8,8,0,0,1-10.37,4.49L73.11,73.14A15.89,15.89,0,0,0,55.74,76.8C34.68,98.45,24,123.75,24,152a111.45,111.45,0,0,0,31.18,77.53A8,8,0,0,0,61,232H232a8,8,0,0,0,3.5-15.19ZM67.14,88l25.41,10.3a24,24,0,0,0,31.23-13.45l21-53c2.56-6.11,9.47-9.27,15.43-7a12,12,0,0,1,6.88,15.92L145.69,93.76a24,24,0,0,0,13.43,31.14L184,134.73V152c0,.33,0,.66,0,1L55.77,101.71A108.84,108.84,0,0,1,67.14,88Zm48,128a87.53,87.53,0,0,1-24.34-42,8,8,0,0,0-15.49,4,105.16,105.16,0,0,0,18.36,38H64.44A95.54,95.54,0,0,1,40,152a85.9,85.9,0,0,1,7.73-36.29l137.8,55.12c3,18,10.56,33.48,21.89,45.16Z">
-                        </path>
-                    </svg>
-                </a>
+                <div x-show="showSelects" x-transition class="flex items-center gap-2">
+                    <!-- Dropdown for Month -->
+                    <select name="bulan"
+                        class="select select-bordered select-secondary select-sm w-fit text-[14px]">
+                        <option value="" {{ request('bulan') == '' ? 'selected' : '' }} selected disabled>Bulan
+                        </option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                            </option>
+                        @endfor
+                    </select>
+                    <!-- Dropdown for Year -->
+                    <select name="tahun"
+                        class="select select-bordered select-secondary select-sm w-fit text-[14px]">
+                        <option value="" {{ request('tahun') == '' ? 'selected' : '' }} selected disabled>Tahun
+                        </option>
+                        @foreach ($years as $tahun)
+                            <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                                {{ $tahun }}</option>
+                        @endforeach
+                    </select>
+
+                </div>
             </form>
         </div>
 

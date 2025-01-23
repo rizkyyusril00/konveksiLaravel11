@@ -11,22 +11,41 @@ class PembelianController extends Controller
     // Load all pemeblian with search and filter
     public function loadAllPembelian(Request $request)
     {
-        // Get search and filter parameters
+        // Ambil parameter filter dari request
         $search = $request->query('search');
+        $bulan = $request->query('bulan');
+        $tahun = $request->query('tahun');
 
-        // Query Pakaian with search and filter
+        // Validasi bulan dan tahun
+        if (($bulan && !$tahun) || (!$bulan && $tahun)) {
+            return redirect()->back()->with('error', 'Bulan dan Tahun harus diisi keduanya.');
+        }
+
+        // Query pembelian dengan pencarian dan filter bulan & tahun
         $query = Pembelian::query();
 
         if ($search) {
             $query->where('name', 'LIKE', "%{$search}%");
         }
 
+        if ($bulan && $tahun) {
+            $query->whereMonth('tanggal_pembelian', $bulan)
+                ->whereYear('tanggal_pembelian', $tahun);
+        }
 
-        // Paginate the results and append query parameters
+        // Ambil pembelian yang sudah difilter dengan pagination
         $pembelians = $query->paginate(10);
 
-        return view('Pembelian.pembelian', compact('pembelians', 'search'));
+        // Tambahkan parameter ke pagination link
+        $pembelians->appends($request->only(['search', 'bulan', 'tahun']));
+
+        // Ambil daftar tahun dari database untuk dropdown
+        $years = Pembelian::selectRaw('YEAR(tanggal_pembelian) as tahun')->distinct()->pluck('tahun');
+
+        // Return ke view
+        return view('Pembelian.pembelian', compact('pembelians', 'search', 'bulan', 'tahun', 'years'));
     }
+
 
     public function loadAllPembelianForm()
     {
