@@ -58,25 +58,29 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            {{-- tgl order --}}
-            <div class="flex flex-col w-full gap-2">
-                <label for="tanggal_order" class="text-secondary text-[16px]">Tanggal Order</label>
-                <input id="tanggal_order" type="date" name="tanggal_order"
-                    value="{{ $order->getTanggalOrderForInput() }}" class="text-secondary text-[16px] p-4 rounded-md"
-                    placeholder="Tanggal Order...">
-                @error('tanggal_order')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-            </div>
-            {{-- tgl selesai --}}
-            <div class="flex flex-col w-full gap-2">
-                <label for="tanggal_selesai" class="text-secondary text-[16px]">Tanggal Selesai</label>
-                <input id="tanggal_selesai" type="date" name="tanggal_selesai"
-                    value="{{ $order->getTanggalSelesaiForInput() }}" class="text-secondary text-[16px] p-4 rounded-md"
-                    placeholder="Tanggal Selesai..." min="{{ old('tanggal_order') }}">
-                @error('tanggal_selesai')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
+            {{-- tgl order & tgl selesai --}}
+            <div class="flex items-center gap-1 md:gap-4 w-full">
+                {{-- tgl order --}}
+                <div class="flex flex-col w-1/2 gap-2">
+                    <label for="tanggal_order" class="text-secondary text-[16px]">Tanggal Order</label>
+                    <input id="tanggal_order" type="date" name="tanggal_order"
+                        value="{{ $order->getTanggalOrderForInput() }}"
+                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Order...">
+                    @error('tanggal_order')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </div>
+                {{-- tgl selesai --}}
+                <div class="flex flex-col w-1/2 gap-2">
+                    <label for="tanggal_selesai" class="text-secondary text-[16px]">Tanggal Selesai</label>
+                    <input id="tanggal_selesai" type="date" name="tanggal_selesai"
+                        value="{{ $order->getTanggalSelesaiForInput() }}"
+                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Selesai..."
+                        min="{{ old('tanggal_order') }}">
+                    @error('tanggal_selesai')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
             {{-- jenis pakaian --}}
             <div class="flex flex-col w-full gap-2">

@@ -77,40 +77,43 @@
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            {{-- tgl order --}}
-            <div class="flex flex-col w-full gap-2">
-                <div class="flex items-center">
-                    <label for="tanggal_order" class="text-secondary text-[16px]">Tanggal Order</label>
-                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
-                        fill="#000000" viewBox="0 0 256 256">
-                        <path
-                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
-                        </path>
-                    </svg>
+            {{-- tgl order & tgl selesai --}}
+            <div class="flex items-center gap-1 md:gap-4 w-full">
+                {{-- tgl order --}}
+                <div class="flex flex-col w-1/2 gap-2">
+                    <div class="flex items-center">
+                        <label for="tanggal_order" class="text-secondary text-[16px]">Tanggal Order</label>
+                        <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                            fill="#000000" viewBox="0 0 256 256">
+                            <path
+                                d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <input id="tanggal_order" type="date" name="tanggal_order" value="{{ old('tanggal_order') }}"
+                        class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Order...">
+                    @error('tanggal_order')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
-                <input id="tanggal_order" type="date" name="tanggal_order" value="{{ old('tanggal_order') }}"
-                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Order...">
-                @error('tanggal_order')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
-            </div>
-            {{-- tgl selesai --}}
-            <div class="flex flex-col w-full gap-2">
-                <div class="flex items-center">
-                    <label for="tanggal_selesai" class="text-secondary text-[16px]">Tanggal Selesai</label>
-                    <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
-                        fill="#000000" viewBox="0 0 256 256">
-                        <path
-                            d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
-                        </path>
-                    </svg>
+                {{-- tgl selesai --}}
+                <div class="flex flex-col w-1/2 gap-2">
+                    <div class="flex items-center">
+                        <label for="tanggal_selesai" class="text-secondary text-[16px]">Tanggal Selesai</label>
+                        <svg class="fill-error mb-2" xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                            fill="#000000" viewBox="0 0 256 256">
+                            <path
+                                d="M214.86,180.12a8,8,0,0,1-11,2.74L136,142.13V216a8,8,0,0,1-16,0V142.13L52.12,182.86a8,8,0,1,1-8.23-13.72L112.45,128,43.89,86.86a8,8,0,1,1,8.23-13.72L120,113.87V40a8,8,0,0,1,16,0v73.87l67.88-40.73a8,8,0,1,1,8.23,13.72L143.55,128l68.56,41.14A8,8,0,0,1,214.86,180.12Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <input id="tanggal_selesai" type="date" name="tanggal_selesai"
+                        value="{{ old('tanggal_selesai') }}" class="text-secondary text-[16px] p-4 rounded-md"
+                        placeholder="Tanggal Selesai..." min="{{ old('tanggal_order') }}">
+                    @error('tanggal_selesai')
+                        <span class="text-red-400">{{ $message }}</span>
+                    @enderror
                 </div>
-                <input id="tanggal_selesai" type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}"
-                    class="text-secondary text-[16px] p-4 rounded-md" placeholder="Tanggal Selesai..."
-                    min="{{ old('tanggal_order') }}">
-                @error('tanggal_selesai')
-                    <span class="text-red-400">{{ $message }}</span>
-                @enderror
             </div>
             {{-- jenis pakaian --}}
             <div class="flex flex-col w-full gap-2">
